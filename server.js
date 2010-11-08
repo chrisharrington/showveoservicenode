@@ -21,29 +21,29 @@ var Server = {
 		parameters.movieservice.initialize("c26c67ed161834067f4d91430df1024e");
 
 		parameters.http.createServer(function(request, response) {
-			try {
+//			try {
 				if (request.url.indexOf("favicon.ico") > -1)
 					return;
 
 				switch (deriveDirector(request.url)) {
 					case "joiner": handleJoiner(parameters.filejoiner, request.url, response); break;
-					case "upload": console.log("upload"); break;
+					case "upload": handleUpload(parameters.filesaver, request, response); break;
 					case "movie": handleMovie(parameters.movieservice, request, response); break;
 					default: handleStaticFile(parameters.fileretriever, request.url, response); break;
 				}
-			}
-			catch (error) {
-				if (error && error.code) {
-					response.writeHead(error.code, { "Content-Type": "text/plain" });
-					response.end(error.message);
-					console.log(error.code + ": " + error.mesage);
-				}
-				else {
-					response.writeHead(500, { "Content-Type": "text/plain" });
-					response.end("An internal server error has occurred.");
-					console.log(error);
-				}
-			}
+//			}
+//			catch (error) {
+//				if (error && error.code) {
+//					response.writeHead(error.code, { "Content-Type": "text/plain" });
+//					response.end(error.message);
+//					console.log(error.code + ": " + error.mesage);
+//				}
+//				else {
+//					response.writeHead(500, { "Content-Type": "text/plain" });
+//					response.end("An internal server error has occurred.");
+//					throw error;
+//				}
+//			}
 		}).listen(parameters.port, "127.0.0.1");
 
 		console.log("Server listening on " + parameters.port + ".");
@@ -75,8 +75,6 @@ var Server = {
 		//	response:				The response object.
 		//
 		var handleJoiner = function(filejoiner, url, response) {
-			console.log("joiner:  " + url);
-
 			var parts = url.replace("/joiner/", "").split("/");
 			if (parts.length == 0)
 				throw { code: 500, message: "Unable to parse url." }
@@ -99,8 +97,6 @@ var Server = {
 		//	response:				The response object.
 		//
 		var handleStaticFile = function(fileretriever, url, response) {
-			console.log("static:  " + url);
-
 			var path = _root + url;
 			fileretriever.getFile(path, function(file, type) {
 				response.writeHead(200, { "Content-Type": type });
@@ -118,21 +114,15 @@ var Server = {
 		//	response:				The response object.
 		//
 		var handleMovie = function(movieservice, request, response) {
-			try {
-				var url = request.url.replace("/movie/", "");
-				var parts = url.split("/");
-				if (parts.length < 1)
-					throw { code: 500, message: "No function specified for the movie service." };
+			var url = request.url.replace("/movie/", "");
+			var parts = url.split("/");
+			if (parts.length < 1)
+				throw { code: 500, message: "No function specified for the movie service." };
 
-				switch (parts[0]) {
-					case "search": handleMovieSearch(movieservice, request, response); break;
-					case "info": handleMovieInfo(movieservice, request, response); break;
-					default: throw { code: 500, message: "No function specified for the movie service." };
-				}
-			}
-			catch (error) {
-				response.writeHead(error.code, { "Content-Type": "text/plain" });
-				response.end(error.message);
+			switch (parts[0]) {
+				case "search": handleMovieSearch(movieservice, request, response); break;
+				case "info": handleMovieInfo(movieservice, request, response); break;
+				default: throw { code: 500, message: "No function specified for the movie service." };
 			}
 		}
 
@@ -143,8 +133,6 @@ var Server = {
 		//	response:				The response object.
 		//
 		var handleMovieSearch = function(movieservice, request, response) {
-			console.log("movie search:  " + request.url);
-
 			movieservice.search(request.url.replace("/movie/search/", ""), function(movies) {
 				response.writeHead(200, { "Content-Type": "application/json" });
 				response.end(movies);
@@ -158,11 +146,56 @@ var Server = {
 		//	response:				The response object.
 		//
 		var handleMovieInfo = function(movieservice, request, response) {
-			console.log("movie info:  " + request.url);
-
 			movieservice.info(request.url.replace("/movie/info/", ""), function(info) {
 				response.writeHead(200, { "Content-Type": "application/json" });
 				response.end(info);
+			});
+		}
+
+		//
+		//	Handles a request used to upload a file.
+		//	filesaver:				The file saver application to invoke.
+		//	request:				The request object.
+		//	response:				The response object.
+		//
+		var handleUpload = function(filesaver, request, response) {
+			var parts = request.url.split("/");
+
+			if (parts[1] != "upload")
+				throw { code: 500, message: "Request was routed incorrectly - " + request.url };
+			if (parts.length < 3)
+				throw { code: 500, message: "Upload request has missing command - " + request.url };
+
+			switch (parts[2]) {
+				case "movie": handleUploadMovie(filesaver, request, response); break;
+				default: throw { code: 500, message: "Upload request had invalid command - " + request.url };
+			}
+		}
+
+		//
+		//	Handles the upload of a movie.
+		//	filesaver:				The file saver application to invoke.
+		//	request:				The request object.
+		//	response:				The response object.
+		//
+		var handleUploadMovie = function(filesaver, request, response) {
+			var parts = request.url.split("/");
+			if (parts.length < 4)
+				throw { code: 500, message: "Movie upload request is missing movie ID - " + request.url };
+
+			var movieID = parseInt(parts[3]);
+			if (isNaN(movieID))
+				throw { code: 500, message: "Movie upload request has malformed movie ID - " + request.url };
+
+			var data = "";
+			request.setEncoding("binary");
+			request.on("data", function(chunk) {
+				console.log("chunk received");
+			});
+			request.on("end", function() {
+				console.log("data received");
+				response.writeHead(200, { "Content-Type": "text/plain" });
+				response.end();
 			});
 		}
 
@@ -173,5 +206,6 @@ var Server = {
 	root: "/home/chrisharrington/Code/showveo",
 	filejoiner: require("./filejoiner"),
 	fileretriever: require("./fileretriever"),
-	movieservice: require("./movieservice")
+	movieservice: require("./movieservice"),
+	filesaver: {}
 });

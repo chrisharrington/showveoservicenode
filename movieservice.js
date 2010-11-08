@@ -51,9 +51,10 @@ var MovieService = function() {
 			response.on("end", function() {
 				var movies = new Array();
 				data = eval(data);
-				for (var i = 0; i < data.length; i++)
-					movies.push(wrap(data[i]));
-				callback(JSON.stringify(movies));	
+				if (typeof(data[0]) != "string")
+					for (var i = 0; i < data.length; i++)
+						movies.push(wrap(data[i]));
+				callback(JSON.stringify(movies));
 			});
 		});
 	}
@@ -96,10 +97,8 @@ var MovieService = function() {
 		if (!movie.posters)
 			return "";
 
-		for (var i = 0; i < movie.posters.length; i++) {
-			console.log("poster url - " + movie.posters[i].image.url);
+		for (var i = 0; i < movie.posters.length; i++)
 			return movie.posters[i].image.url;
-		}
 
 		return "";
 	}
