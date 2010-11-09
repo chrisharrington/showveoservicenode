@@ -112,10 +112,10 @@ exports.join = function(parameters) {
 				readFile(files[counter++], readFileCallback);
 			else
 				callback(data);
-		}
+		};
 
 		readFile(files[counter++], readFileCallback);
-	}
+	};
 
 	//
 	//	Reads the contents of a file.
@@ -126,7 +126,7 @@ exports.join = function(parameters) {
 		_fs.readFile(path, "UTF8", function(a, data) {
 			callback(data);
 		});
-	}
+	};
 
 	//------------------------------------------------------------------------------------------------------------------
 
@@ -139,4 +139,4 @@ exports.join = function(parameters) {
 			parameters.callback(data);
 		});
 	});
-}
+};

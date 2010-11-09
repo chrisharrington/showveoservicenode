@@ -23,7 +23,7 @@ var FileSaver = function() {
 	//
 	exports.initialize = function() {
 		_fs = require("fs");
-	}
+	};
 
 	//
 	//	Saves a movie file.
@@ -33,4 +33,4 @@ var FileSaver = function() {
 	exports.saveMovie = function(movie, file) {
 		console.log("save movie!!1");
 	}
-}
+};

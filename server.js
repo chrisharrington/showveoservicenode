@@ -10,44 +10,33 @@ var Server = {
 		//	The included file system library.
 		var _fs;
 
+		//	The included multipart form parser library.
+		var _formidable;
+
 		//	The root path for all applications.
 		var _root;
 
 		//------------------------------------------------------------------------------------------------------------------
 
 		_fs = parameters.fs;
+		_formidable = parameters.formidable;
 		_root = parameters.root;
 
 		parameters.movieservice.initialize("c26c67ed161834067f4d91430df1024e");
 
 		parameters.http.createServer(function(request, response) {
-//			try {
-				if (request.url.indexOf("favicon.ico") > -1)
-					return;
+			if (request.url.indexOf("favicon.ico") > -1)
+				return;
 
-				switch (deriveDirector(request.url)) {
-					case "joiner": handleJoiner(parameters.filejoiner, request.url, response); break;
-					case "upload": handleUpload(parameters.filesaver, request, response); break;
-					case "movie": handleMovie(parameters.movieservice, request, response); break;
-					default: handleStaticFile(parameters.fileretriever, request.url, response); break;
-				}
-//			}
-//			catch (error) {
-//				if (error && error.code) {
-//					response.writeHead(error.code, { "Content-Type": "text/plain" });
-//					response.end(error.message);
-//					console.log(error.code + ": " + error.mesage);
-//				}
-//				else {
-//					response.writeHead(500, { "Content-Type": "text/plain" });
-//					response.end("An internal server error has occurred.");
-//					throw error;
-//				}
-//			}
+			switch (deriveDirector(request.url)) {
+				case "joiner": handleJoiner(parameters.filejoiner, request.url, response); break;
+				case "upload": handleUpload(parameters.filesaver, request, response); break;
+				case "movie": handleMovie(parameters.movieservice, request, response); break;
+				default: handleStaticFile(parameters.fileretriever, request.url, response); break;
+			}
 		}).listen(parameters.port, "127.0.0.1");
 
 		console.log("Server listening on " + parameters.port + ".");
-
 
 		//------------------------------------------------------------------------------------------------------------------
 		/* Private Methods */
@@ -64,9 +53,7 @@ var Server = {
 
 			if (parts[0] == "" && parts.length > 1)
 				return parts[1];
-
-			return;
-		}
+		};
 
 		//
 		//	Handles a request to the joiner application.
@@ -88,7 +75,7 @@ var Server = {
 					response.end(data);
 				}
 			});
-		}
+		};
 
 		//
 		//	Handles a request for a static file.
@@ -105,7 +92,7 @@ var Server = {
 				response.writeHead(404, { "Content-Type": "text/plain" });
 				response.end(error);
 			});
-		}
+		};
 
 		//
 		//	Handles a request for movie information.
@@ -124,7 +111,7 @@ var Server = {
 				case "info": handleMovieInfo(movieservice, request, response); break;
 				default: throw { code: 500, message: "No function specified for the movie service." };
 			}
-		}
+		};
 
 		//
 		//	Handles a movie search request.
@@ -137,7 +124,7 @@ var Server = {
 				response.writeHead(200, { "Content-Type": "application/json" });
 				response.end(movies);
 			});
-		}
+		};
 
 		//
 		//	Handles a request for detailed movie information.
@@ -150,7 +137,7 @@ var Server = {
 				response.writeHead(200, { "Content-Type": "application/json" });
 				response.end(info);
 			});
-		}
+		};
 
 		//
 		//	Handles a request used to upload a file.
@@ -170,7 +157,7 @@ var Server = {
 				case "movie": handleUploadMovie(filesaver, request, response); break;
 				default: throw { code: 500, message: "Upload request had invalid command - " + request.url };
 			}
-		}
+		};
 
 		//
 		//	Handles the upload of a movie.
@@ -187,21 +174,32 @@ var Server = {
 			if (isNaN(movieID))
 				throw { code: 500, message: "Movie upload request has malformed movie ID - " + request.url };
 
-			var data = "";
-			request.setEncoding("binary");
-			request.on("data", function(chunk) {
-				console.log("chunk received");
+			var form = new _formidable.IncomingForm();
+			form.on("file", function() {
+				console.log("file received");
 			});
-			request.on("end", function() {
-				console.log("data received");
-				response.writeHead(200, { "Content-Type": "text/plain" });
+			form.parse(request, function(err, fields, files) {
+				response.writeHead(200, {"Content-Type": "text/plain"});
 				response.end();
+				console.log(files);
 			});
-		}
+
+//			var data = "";
+//			request.setEncoding("binary");
+//			request.on("data", function(chunk) {
+//				console.log(chunk);
+//			});
+//			request.on("end", function() {
+//				//console.log(data);
+//				response.writeHead(200, { "Content-Type": "text/plain" });
+//				response.end();
+//			});
+		};
 
 	}
 }.initialize({
 	http: require("http"),
+	formidable: require("formidable"),
 	port: 3000,
 	root: "/home/chrisharrington/Code/showveo",
 	filejoiner: require("./filejoiner"),
