@@ -16,11 +16,15 @@ var Server = {
 		//	The root path for all applications.
 		var _root;
 
+		//	The root uploads directory.
+		var _uploads;
+
 		//------------------------------------------------------------------------------------------------------------------
 
 		_fs = parameters.fs;
 		_formidable = parameters.formidable;
 		_root = parameters.root;
+		_uploads = parameters.uploads;
 
 		parameters.movieservice.initialize("c26c67ed161834067f4d91430df1024e");
 
@@ -175,25 +179,12 @@ var Server = {
 				throw { code: 500, message: "Movie upload request has malformed movie ID - " + request.url };
 
 			var form = new _formidable.IncomingForm();
-			form.on("file", function() {
-				console.log("file received");
-			});
-			form.parse(request, function(err, fields, files) {
+			form.uploadDir = _uploads + "/movies";
+			form.parse(request, function(err, fields, file) {
 				response.writeHead(200, {"Content-Type": "text/plain"});
 				response.end();
-				console.log(files);
+				console.log(file.Filedata);
 			});
-
-//			var data = "";
-//			request.setEncoding("binary");
-//			request.on("data", function(chunk) {
-//				console.log(chunk);
-//			});
-//			request.on("end", function() {
-//				//console.log(data);
-//				response.writeHead(200, { "Content-Type": "text/plain" });
-//				response.end();
-//			});
 		};
 
 	}
@@ -202,8 +193,10 @@ var Server = {
 	formidable: require("formidable"),
 	port: 3000,
 	root: "/home/chrisharrington/Code/showveo",
+	uploads: "/home/chrisharrington/Code/showveoservice/uploads",
 	filejoiner: require("./filejoiner"),
 	fileretriever: require("./fileretriever"),
 	movieservice: require("./movieservice"),
 	filesaver: {}
 });
+
