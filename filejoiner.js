@@ -99,7 +99,6 @@ exports.join = function(parameters) {
 	//
 	var join = function(files, callback) {
 		var data = "";
-		var readFiles = new Array();
 
 		if (!files || files.length == 0) {
 			callback("");
@@ -109,12 +108,10 @@ exports.join = function(parameters) {
 		var counter = 0;
 		var readFileCallback = function(contents) {
 			data += contents;
-			readFiles.push(contents);
 			if (counter < files.length)
 				readFile(files[counter++], readFileCallback);
 			else
-				callback(readFiles);
-				//callback(data);
+				callback(data);
 		};
 
 		readFile(files[counter++], readFileCallback);

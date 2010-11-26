@@ -76,9 +76,9 @@ var Server = {
 				extension: parts[0],
 				callback: function(data) {
 					response.writeHead(200, { "Content-Type": "text/plain" });
-					for (var i = 0; i < data.length; i++)
-						response.write(data[i]);
-					response.end();
+//					for (var i = 0; i < data.length; i++)
+//						response.write(data[i]);
+					response.end(data);
 				}
 			});
 		};
