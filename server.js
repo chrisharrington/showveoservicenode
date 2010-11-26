@@ -70,13 +70,15 @@ var Server = {
 			if (parts.length == 0)
 				throw { code: 500, message: "Unable to parse url." }
 
-			filejoiner.join({
+			filejoiner.join({ 
 				root: _root,
 				path: parts.slice(1, parts.length).join("/"),
 				extension: parts[0],
 				callback: function(data) {
 					response.writeHead(200, { "Content-Type": "text/plain" });
-					response.end(data);
+					for (var i = 0; i < data.length; i++)
+						response.write(data[i]);
+					response.end();
 				}
 			});
 		};

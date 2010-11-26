@@ -1,30 +1,13 @@
-var sqlite = require("./sqlite/sqlite");
+var filejoiner = require("./filejoiner");
 
-
-var db = new sqlite.Database();
-db.open("sqlite/blah.db", function(error) {
-	if (error)
-		throw error;
-
-//	db.execute("create table boo(id integer primary key asc, name string)", function(error, rows) {
-//		console.log(error);
-//	});
-//	db.execute("insert into boo (name) values (?)", ["the_name"], function(error, rows) {
-//		if (error)
-//			throw error;
-//
-//		db.execute("select * from boo", function(error, rows) {
-//			if (error)
-//				throw error;
-//
-//			console.log(rows);
-//		});
-//	});
-
-	db.execute("delete from boo", function(error) {
-		if (error)
-			throw error;
-
-		console.log("deleted");
-	});
+filejoiner.join({
+	root: "/home/chrisharrington/Code/showveo",
+	path: "/",
+	extension: "js",
+	callback: function(data) {
+		while (data.length > 0) {
+			data = data.substring(0, 1000);
+			
+		}
+	}
 });
