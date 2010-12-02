@@ -76,8 +76,6 @@ var Server = {
 				extension: parts[0],
 				callback: function(data) {
 					response.writeHead(200, { "Content-Type": "text/plain" });
-//					for (var i = 0; i < data.length; i++)
-//						response.write(data[i]);
 					response.end(data);
 				}
 			});
@@ -90,6 +88,9 @@ var Server = {
 		//	response:				The response object.
 		//
 		var handleStaticFile = function(fileretriever, url, response) {
+			if (url == "/")
+				url = "/index.html";
+
 			var path = _root + url;
 			fileretriever.getFile(path, function(file, type) {
 				response.writeHead(200, { "Content-Type": type });
