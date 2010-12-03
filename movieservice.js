@@ -27,7 +27,7 @@ var MovieService = function() {
 		_key = key;
 		_host = "api.themoviedb.org";
 		_http = require("http");
-	}
+	};
 
 	//
 	//	Searches for movie information.
@@ -57,7 +57,7 @@ var MovieService = function() {
 				callback(JSON.stringify(movies));
 			});
 		});
-	}
+	};
 
 	//
 	//	Retrieves detailed information about a movie.
@@ -83,7 +83,7 @@ var MovieService = function() {
 				callback(JSON.stringify(wrap(data)));
 			});
 		});
-	}
+	};
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Private Methods */
@@ -94,14 +94,10 @@ var MovieService = function() {
 	//	Returns:			The most appropriate poster's url.
 	//
 	var derivePosterUrl = function(movie) {
-		if (!movie.posters)
+		if (!movie.posters || movie.posters.length == 0)
 			return "";
-
-		for (var i = 0; i < movie.posters.length; i++)
-			return movie.posters[i].image.url;
-
-		return "";
-	}
+		return movie.posters[0].image.url;
+	};
 
 	//
 	//	Derives an actors collection from detailed movie information.
@@ -123,7 +119,7 @@ var MovieService = function() {
 		}
 
 		return actors;
-	}
+	};
 
 	//
 	//	Derives a director name from detailed movie information.
@@ -139,7 +135,7 @@ var MovieService = function() {
 				return movie.cast[i].name;
 		}
 		return "";
-	}
+	};
 
 	//
 	//	Wraps a movie returned from TheMovieDB.org.
@@ -160,6 +156,6 @@ var MovieService = function() {
 			Actors: deriveActors(movie),
 			Director: deriveDirector(movie)
 		};
-	}
+	};
 
 }();
