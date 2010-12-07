@@ -39,7 +39,10 @@ var StaticServer = function() {
 			if (request.url.indexOf("favicon.ico") > -1)
 				return;
 
-			handleStaticFile(_fileretriever, request.url, response);
+			if (request.headers.range)
+				handleStreamedFile(_fileretriever, request, response);
+			else
+				handleStaticFile(_fileretriever, request.url, response);
 		}).listen(port, "127.0.0.1");
 
 		console.log("Static server listening on " + port + ".");
@@ -47,6 +50,35 @@ var StaticServer = function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Private Methods */
+
+	//
+	//	Handles a request for a streamed file.
+	//	fileretriever:			The file retriever application to invoke.
+	//	request:				The request object.
+	//	response:				The response object.
+	//
+	var handleStreamedFile = function (fileretriever, request, response) {
+		var path = _root + request.url;
+		fileretriever.getFile(path, function(file, type) {
+			var range = request.headers.range;
+			var total = file.length;
+
+			var parts = range.replace(/bytes=/, "").split("-");
+			var partialstart = parts[0];
+			var partialend = parts[1];
+
+			var start = parseInt(partialstart, 10);
+			var end = partialend ? parseInt(partialend, 10) : total-1;
+
+			var chunksize = (end-start)+1;
+
+			response.writeHead(206, { "Connection": "Close", "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": type });
+			response.end(file.slice(start, end), "binary");
+		}, function(error) {
+			response.writeHead(404, { "Content-Type": "text/plain" });
+			response.end(error);
+		});
+	};
 
 	//
 	//	Handles a request for a static file.
@@ -58,9 +90,13 @@ var StaticServer = function() {
 		if (url == "/")
 			url = "/index.html";
 
+		var index = url.indexOf("?");
+		if (index > -1)
+			url = url.substring(0, index);
+
 		var path = _root + url;
 		fileretriever.getFile(path, function(file, type) {
-			response.writeHead(200, { "Content-Type": type });
+			response.writeHead(200, { "Content-Type": type, "Content-Length": file.length });
 			response.end(file, "binary");
 		}, function(error) {
 			response.writeHead(404, { "Content-Type": "text/plain" });

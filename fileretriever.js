@@ -52,7 +52,8 @@ exports.getFile = function(path, success, error) {
 			case ".css": return "text/css";
 			case ".html" || ".htm": return "text/html";
 			case ".xml": return "text/xml";
+			case ".ogv": return "application/ogg";
 			default: return "text/plain";
 		}
 	}
-}
+};

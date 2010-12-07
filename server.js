@@ -27,7 +27,7 @@ var Server = {
 			fileretriever: parameters.fileretriever,
 			root: parameters.root
 		});
-		staticserver.run(3000);
+		staticserver.run(4000);
 
 		var dynamicserver = require("./dynamicserver");
 		dynamicserver.initialize({
@@ -40,31 +40,7 @@ var Server = {
 			filessaver: parameters.filesaver,
 			movieservice: parameters.movieservice
 		});
-		dynamicserver.run(3001);
-
-//		_fs = parameters.fs;
-//		_formidable = parameters.formidable;
-//		_root = parameters.root;
-//		_uploads = parameters.uploads;
-//
-//		parameters.movieservice.initialize("c26c67ed161834067f4d91430df1024e");
-//
-//		parameters.http.createServer(function(request, response) {
-//			if (request.url.indexOf("favicon.ico") > -1)
-//				return;
-//
-//			switch (deriveDirector(request.url)) {
-//				case "joiner": handleJoiner(parameters.filejoiner, request.url, response); break;
-//				case "upload": handleUpload(parameters.filesaver, request, response); break;
-//				case "movie": handleMovie(parameters.movieservice, request, response); break;
-//				default: handleStaticFile(parameters.fileretriever, request.url, response); break;
-//			}
-//		}).listen(parameters.port, "127.0.0.1");
-//
-//		console.log("Server listening on " + parameters.port + ".");
-
-		
-
+		dynamicserver.run(4001);
 	}
 }.initialize({
 	http: require("http"),
