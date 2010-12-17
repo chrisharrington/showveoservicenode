@@ -27,7 +27,7 @@ var Server = {
 			fileretriever: parameters.fileretriever,
 			root: parameters.root
 		});
-		staticserver.run(4000);
+		staticserver.run(3000);
 
 		var dynamicserver = require("./dynamicserver");
 		dynamicserver.initialize({
@@ -40,7 +40,7 @@ var Server = {
 			filessaver: parameters.filesaver,
 			movieservice: parameters.movieservice
 		});
-		dynamicserver.run(4001);
+		dynamicserver.run(3001);
 	}
 }.initialize({
 	http: require("http"),

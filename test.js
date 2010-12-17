@@ -1,13 +1,18 @@
-var filejoiner = require("./filejoiner");
+sys     = require('sys');
+fs      = require('fs');
+Inotify = require('inotify').Inotify;
 
-filejoiner.join({
-	root: "/home/chrisharrington/Code/showveo",
-	path: "/",
-	extension: "js",
-	callback: function(data) {
-		while (data.length > 0) {
-			data = data.substring(0, 1000);
-			
-		}
+var inotify = new Inotify();
+
+var home_watch_descriptor = inotify.addWatch({
+	path: "/home/chrisharrington/Test",
+	watch_for: Inotify.IN_CREATE | Inotify.IN_DELETE,
+	callback: function(event) {
+		var mask = event.mask;
+		var name = event.name;
+		if (mask & Inotify.IN_CREATE)
+			console.log(name + " added.");
+		else if (mask & Inotify.IN_DELETE)
+			console.log(name + " removed.");
 	}
 });

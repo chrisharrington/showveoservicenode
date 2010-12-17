@@ -70,9 +70,9 @@ var StaticServer = function() {
 			var start = parseInt(partialstart, 10);
 			var end = partialend ? parseInt(partialend, 10) : total-1;
 
-			var chunksize = (end-start)+1;
+			var chunksize = (end-start);
 
-			response.writeHead(206, { "Connection": "Close", "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": type });
+			response.writeHead(206, { "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": type });
 			response.end(file.slice(start, end), "binary");
 		}, function(error) {
 			response.writeHead(404, { "Content-Type": "text/plain" });
