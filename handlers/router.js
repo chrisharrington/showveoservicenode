@@ -122,13 +122,13 @@ var router = function() {
 	//	response:				The response object.
 	//
 	var handle = function(location, request, response) {
-		require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response);
-//		try {
-//			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response);
-//		}
-//		catch (error) {
-//			write500(request, response);
-//		}
+		try {
+			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response);
+		}
+		catch (error) {
+			console.log(error.toString());
+			write500(request, response);
+		}
 	};
 
 }();

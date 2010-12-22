@@ -67,15 +67,8 @@ var service = {
 			webserver.initialize({
 				router: require("./handlers/router"),
 				http: require("http"),
-				fs: require("fs"),
-				url: require("url"),
-				formidable: require("formidable"),
 				root: parameters.root,
-				uploads: parameters.uploads,
-				filejoiner: require("./filejoiner"),
-				filessaver: require("./filesaver"),
-				fileretriever: require("./fileretriever"),
-				movieservice: require("./movieservice")
+				fileretriever: require("./fileretriever")
 			});
 			webserver.run(port);
 		};
