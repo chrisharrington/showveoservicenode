@@ -1,7 +1,7 @@
 //
-//	The main server.  Delegates to handlers based on incoming requests.
+//	The main application for the service.
 //
-var Server = {
+var service = {
 	initialize: function(parameters) {
 
 		//------------------------------------------------------------------------------------------------------------------
@@ -13,9 +13,6 @@ var Server = {
 		//	The included multipart form parser library.
 		var _formidable;
 
-		//	The root path for all applications.
-		var _root;
-
 		//	The root uploads directory.
 		var _uploads;
 
@@ -24,9 +21,8 @@ var Server = {
 
 		//
 		//	Initializes the mongoose database connection.
-		//	Returns:				The repositories container.
 		//
-		var createDatabase = function() {
+		var initializeDatabase = function() {
 			var mongoose = require("mongoose").Mongoose;
 			require("./models/user").create(mongoose);
 			require("./models/movie").create(mongoose);
@@ -48,36 +44,28 @@ var Server = {
 				}).save();
 			});
 
-			var repositories = {};
-			repositories.user = require("./repositories/userRepository").create(db);
+			require("./repositories/userRepository").create(db);
 
 			console.log("Database initialized.");
-
-			return repositories;
 		};
 
 		//
-		//	Initializes the static server.
-		//	port:				The port on which the static server should listen for requests.
+		//	Initializes the creation of all required request handlers.
 		//
-		var initializeStaticServer = function(port) {
-			var staticserver = require("./staticserver");
-			staticserver.initialize({
-				http: require("http"),
-				fileretriever: require("./fileretriever"),
+		var initializeHandlers = function () {
+			require("./handlers/handlers").create({
 				root: parameters.root
 			});
-			staticserver.run(port);
 		};
 
 		//
 		//	Initializes the web server.
 		//	port:				The port on which the web server should listen for requests.
-		//	repositories:		The repositories container.
 		//
-		var initializeWebServer = function(port, repositories) {
+		var initializeWebServer = function(port) {
 			var webserver = require("./webserver");
 			webserver.initialize({
+				router: require("./handlers/router"),
 				http: require("http"),
 				fs: require("fs"),
 				url: require("url"),
@@ -87,8 +75,7 @@ var Server = {
 				filejoiner: require("./filejoiner"),
 				filessaver: require("./filesaver"),
 				fileretriever: require("./fileretriever"),
-				movieservice: require("./movieservice"),
-				repositories: repositories
+				movieservice: require("./movieservice")
 			});
 			webserver.run(port);
 		};
@@ -96,9 +83,14 @@ var Server = {
 		//------------------------------------------------------------------------------------------------------------------
 
 		require("./extensions/string").initialize();
+		require("./handlers/router").initialize({
+			path: require("path"),
+			root: __dirname
+		});
 
-		var repositories = createDatabase();
-		initializeWebServer(parameters.port, repositories);
+		initializeDatabase();
+		initializeHandlers();
+		initializeWebServer(parameters.port);
 	}
 }.initialize({
 	port: 3000,

@@ -6,6 +6,9 @@ var DynamicServer = function() {
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
 
+	//	Routes incoming requests to the appropriate handler.
+	var _router;
+
 	//	The included http library.
 	var _http;
 
@@ -44,10 +47,11 @@ var DynamicServer = function() {
 
 	//
 	//	Initializes the dynamic server components.
+	//	router:			Routes incoming requests to the appropriate handler.
 	//	http:				The included http library.
-	//	fs:					The included file system library.
+	//	fs:				The included file system library.
 	//	url:				The included url parsing library.
-	//	formidable:			The included multipart form parser library.
+	//	formidable:		The included multipart form parser library.
 	//	root:				The root path for all applications.
 	//	uploads:			The root uploads directory.
 	//	filejoiner:			The file joining library.
@@ -57,6 +61,7 @@ var DynamicServer = function() {
 	//	repositories:		The repositories container.
 	//
 	exports.initialize = function(parameters) {
+		_router = parameters.router;
 		_http = parameters.http;
 		_fs = parameters.fs;
 		_url = parameters.url;
@@ -76,19 +81,14 @@ var DynamicServer = function() {
 	//
 	exports.run = function(port) {
 		_http.createServer(function(request, response) {
-			if (request.url.indexOf("favicon.ico") > -1)
-				return;
-
 			var url = request.url;
 			if (url.indexOf("?") > -1)
 				url = url.substring(0, url.indexOf("?"));
 
 			if (url.endsWith(".data"))
-				handleDynamicRequest(request, response);
+				_router.route(request, response);
 			else
 				handleStaticRequest(request, response);
-
-
 		}).listen(port, "127.0.0.1");
 
 		console.log("Web server listening on " + port + ".");
