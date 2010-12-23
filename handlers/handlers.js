@@ -16,6 +16,7 @@ var handlers = function(parameters) {
 	exports.create = function(parameters) {
 		createScriptHandlers(parameters);
 		createAccountHandlers(parameters);
+		createMovieHandlers(parameters);
 	};
 
 	//------------------------------------------------------------------------------------------------------------------
@@ -47,4 +48,16 @@ var handlers = function(parameters) {
 			urlParser: require("url")
 		});
 	};
+
+	//
+	//	Creates the movie handlers.
+	//	parameters:			The parameters object.  Holds all required parameters for handler creation.
+	//
+	var createMovieHandlers = function(parameters) {
+		var movieRepository = require("../repositories/movieRepository");
+		require("./movies/recent.get").initialize({
+			movieRepository: movieRepository
+		});
+	};
+
 }();

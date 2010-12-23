@@ -17,29 +17,36 @@ var home_watch_descriptor = inotify.addWatch({
 	}
 });*/
 
-//var mongoose = require("mongoose").Mongoose;
-//require("./models/user").create(mongoose);
-//require("./models/movie").create(mongoose);
-//require("./models/genre").create(mongoose);
+var mongoose = require("mongoose").Mongoose;
+require("./models/user").create(mongoose);
+require("./models/movie").create(mongoose);
+require("./models/genre").create(mongoose);
+
+var db = mongoose.connect("mongodb://localhost/test");
+var User = db.model("User");
+var user;
+User.find({emailAddress: "chrisharrington99@gmail.com"}).first(function(localUser) {
+	user = localUser;
+
+	var movieModel = db.model("Movie");
+
+//	var movie = new movieModel({
+//		name: "The Tourist",
+//		year: 2010,
+//		synopsis: "Revolves around Frank, an American tourist visiting Italy to mend a broken heart. Elise is an extraordinary woman who deliberately crosses his path.",
+//		genres: new Array("Action", "Drama", "Thriller"),
+//		owner: user,
+//		uploadDate: new Date(),
+//		lastWatched: null,
+//		lastWatchedDate: null,
+//		poster: "http://hwcdn.themoviedb.org/posters/f72/4cfeca335e73d6299e004f72/the-tourist-cover.jpg",
+//		director: "Florian Henckel von Donnersmarck",
+//		actors: new Array("Johnny Depp", "Angelina Jolie"),
+//		isFavorite: false,
+//		url: "http://www.google.com"
+//	});
 //
-//var db = mongoose.connect("mongodb://localhost/test");
-//var User = db.model("User");
-//User.find({emailAddress: "chrisharrington99@gmail.com"}).all(function(users) {
-//	users[0].firstName = "Chris";
-//	users[0].save();
-//});
+//	movie.save();
 
-require("./extensions/string").initialize();
-
-var router = require("./handlers/router");
-router.initialize({ handlers: {}, path: require("path"), root: __dirname });
-router.route({
-	//url: "/account/signin.data",
-	url: "/account/signin/383833ff3fafaf3fafafa3234234.data",
-	type: "get"
+	db.close();
 });
-
-//var path = require("path");
-//path.exists(__dirname + "/handlers/account/signin/get.js", function(exists) {
-//	console.log(exists);
-//});

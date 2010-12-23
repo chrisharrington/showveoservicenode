@@ -112,7 +112,7 @@ var DynamicServer = function() {
 		if (index > -1)
 			url = url.substring(0, index);
 
-		var path = _root + url;
+		var path = require("path").normalize(_root + url);
 		fileretriever.getFile(path, function(file, type) {
 			response.writeHead(200, { "Content-Type": type, "Content-Length": file.length });
 			response.end(file, "binary");

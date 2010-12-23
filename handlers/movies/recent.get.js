@@ -1,19 +1,23 @@
 //
-//	Handles a request for a template operation.
+//	Handles a request for a retrieval of recent movies operation.
 //
-var template = function() {
+var getRecentMovies = function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
+
+	//	A container for movie information.
+	var _movieRepository;
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Initializes the handler.
+	//	movieRepository:			A container for movie information.
 	//
 	exports.initialize = function(parameters) {
-
+		_movieRepository = parameters.movieRepository;
 	};
 
 	//
@@ -22,7 +26,17 @@ var template = function() {
 	//	response:				The response object.
 	//
 	exports.handle = function(request, response) {
-
+		_movieRepository.getRecent(5, {
+			success: function(movies) {
+				console.log(movies.length);
+				response.writeHead(200, { "Content-Type": "application/json" });
+				response.end(JSON.stringify(movies));
+			},
+			error: function() {
+				response.writeHead(500, { "Content-Type": "plain/text" });
+				response.end("An error has occurred while retrieving the recent movies list.");
+			}
+		});
 	};
 
 	//------------------------------------------------------------------------------------------------------------------

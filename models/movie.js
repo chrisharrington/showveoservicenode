@@ -21,7 +21,13 @@ exports.create = function(mongoose) {
 			"actors",
 			"isFavorite",
 			"url"
-		]
+		],
+
+		cast: {
+			year: Number,
+			uploadDate: Date,
+			lastWatchedDate: Date
+		}
 	});
 };
 

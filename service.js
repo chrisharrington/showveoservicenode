@@ -45,6 +45,7 @@ var service = {
 			});
 
 			require("./repositories/userRepository").create(db);
+			require("./repositories/movieRepository").create(db);
 
 			console.log("Database initialized.");
 		};
@@ -87,6 +88,6 @@ var service = {
 	}
 }.initialize({
 	port: 3000,
-	root: "/home/chrisharrington/Code/showveo",
-	uploads: "/home/chrisharrington/Code/showveoservice/uploads"
+	root: __dirname.replace(/showveoservice/g, "") + "showveo",
+	uploads: "~/Code/showveoservice/uploads"
 });
