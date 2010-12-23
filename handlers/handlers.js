@@ -41,5 +41,10 @@ var handlers = function(parameters) {
 			userRepository: require("../repositories/userRepository"),
 			urlParser: require("url")
 		});
+
+		require("./account/signin/.get").initialize({
+			userRepository: require("../repositories/userRepository"),
+			urlParser: require("url")
+		});
 	};
 }();

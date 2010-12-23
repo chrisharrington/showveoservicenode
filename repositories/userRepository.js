@@ -28,24 +28,48 @@ var userRepository = function() {
 	//	Returns:				The retrieved user or null.
 	//
 	exports.getByEmailAndPassword = function(email, password, handlers) {
-		if (!email)
-			return;
-		if (!password)
-			return;
-		if (!handlers)
+		if (!email || !password || !handlers)
 			return;
 
 		try {
-		_db.model("User").find({emailAddress: email, password: password }).all(function(users) {
-			if (users.length == 0 && handlers.success)
-				handlers.success();
-			else if (handlers.success)
-				handlers.success(users[0]);
-		});
+			_db.model("User").find({emailAddress: email, password: password }).all(function(users) {
+				if (users.length == 0 && handlers.success)
+					handlers.success();
+				else if (handlers.success)
+					handlers.success(users[0]);
+			});
 		} catch (error) {
 			if (handlers.error)
 				handlers.error();
+			else
+				throw error;
 		}
 	};
+
+	//
+	//	Retrieves a user by identity.
+	//	identity:				The user's identity.
+	//	handlers:				The handler functions.
+	//
+	exports.getByIdentity = function(identity, handlers) {
+		if (!identity || !handlers)
+			return;
+
+		try {
+			_db.model("User").find({identity: identity }).all(function(users) {
+				if (users.length == 0 && handlers.success)
+					handlers.success();
+				else if (handlers.success)
+					handlers.success(users[0]);
+			});
+		}
+		catch (error) {
+			if (handlers.error)
+				handlers.error();
+			else
+				throw error;
+		}
+	};
+
 
 }();

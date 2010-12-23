@@ -56,10 +56,9 @@ var router = function() {
 		if (url.indexOf("?") > -1)
 			url = url.substring(0, url.indexOf("?"));
 		var location = deriveRoutedPath(url, request.method);
-		console.log(location);
 		_path.exists(location, function(exists) {
 			if (!exists) {
-				url = replaceFinalUrlPart(request.url, "");
+				url = replaceFinalUrlPart(request.url, "") + ".data";
 				location = deriveRoutedPath(url, request.method);
 				_path.exists(location, function(exists) {
 					if (!exists)
