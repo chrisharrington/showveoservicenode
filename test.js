@@ -28,37 +28,8 @@ var user;
 User.find({emailAddress: "chrisharrington99@gmail.com"}).first(function(localUser) {
 	user = localUser;
 
-	var movieModel = db.model("Movie");
-
-//	movieModel.find().all(function(movies) {
-//		for (var i in movies)
-//			console.log(movies[i].name + ": " + movies[i].isFavorite);
-//	});
-
-	movieModel.find().first(function(movie) {
-		movie.isFavorite = true;
-
-		movie.save(function() {
-			console.log("saved");
-			db.close();
-		});
+	db.model("Movie").find().all(function(movies) {
+		for (var i = 0; i l< movies.length; i++)
+			console.log(movies[i].name);
 	});
-
-//	var movie = new movieModel({
-//		name: "The Tourist",
-//		year: 2010,
-//		synopsis: "Revolves around Frank, an American tourist visiting Italy to mend a broken heart. Elise is an extraordinary woman who deliberately crosses his path.",
-//		genres: new Array("Action", "Drama", "Thriller"),
-//		owner: user,
-//		uploadDate: new Date(),
-//		lastWatched: null,
-//		lastWatchedDate: null,
-//		poster: "http://hwcdn.themoviedb.org/posters/f72/4cfeca335e73d6299e004f72/the-tourist-cover.jpg",
-//		director: "Florian Henckel von Donnersmarck",
-//		actors: new Array("Johnny Depp", "Angelina Jolie"),
-//		isFavorite: false,
-//		url: "http://www.google.com"
-//	});
-//
-//	movie.save();
 });

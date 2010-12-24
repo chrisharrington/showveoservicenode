@@ -1,40 +1,39 @@
 //
-//	Handles a request for a retrieval of genre movies operation.
+//	Handles a request for a genre retrieval operation.
 //
-(function() {
+var template = function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
 
-	//	A container for movie information.
-	var _movieRepository;
+	//	A container for genre information.
+	var _genreRepository;
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Initializes the handler.
-	//	movieRepository:			A container for movie information.
+	//	genreRepository:		A container for genre information.
 	//
 	exports.initialize = function(parameters) {
-		_movieRepository = parameters.movieRepository;
+		_genreRepository = parameters.genreRepository;
 	};
 
 	//
 	//	Handles an incoming request.
 	//	request:				The request object.
 	//	response:				The response object.
-	//	genre:				The genre.
 	//
-	exports.handle = function(request, response, genre) {
-		_movieRepository.getByGenre(genre.replace(/_/g, " "), {
-			success: function(movies) {
+	exports.handle = function(request, response) {
+		_genreRepository.getAll({
+			success: function(genres) {
 				response.writeHead(200, { "Content-Type": "application/json" });
-				response.end(JSON.stringify(movies));
+				response.end(JSON.stringify(genres));
 			},
-			error: function() {
+			error: function(error) {
 				response.writeHead(500, { "Content-Type": "plain/text" });
-				response.end("An error has occurred while retrieving the recent movies list.");
+				response.end("An error has occurred while retrieving the genre list:  " + error);
 			}
 		});
 	};
@@ -42,4 +41,5 @@
 	//------------------------------------------------------------------------------------------------------------------
 	/* Private Methods */
 
-})();
+}();
+

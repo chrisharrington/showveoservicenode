@@ -65,9 +65,18 @@ var template = function() {
 	//	Retrieves a list of movies by genre.
 	//	handlers:			The function handlers.
 	//
-	exports.getAll = function(genre, handlers) {
+	exports.getByGenre = function(genre, handlers) {
 		try {
-			_db.model("Movie").find().in().all(function(movies) {
+			_db.model("Movie").find().all(function(all) {
+				var movies = new Array();
+				for (var i = 0; i < all.length; i++) {
+					for (var j = 0; j < all[i].genres.length; j++) {
+						if (all[i].genres[j].name == genre) {
+							movies.push(all[i]);
+							break;
+						}
+					}
+				}
 				if (handlers.success)
 					handlers.success(movies);
 			});

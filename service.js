@@ -46,6 +46,7 @@ var service = {
 
 			require("./repositories/userRepository").create(db);
 			require("./repositories/movieRepository").create(db);
+			require("./repositories/genreRepository").create(db);
 
 			console.log("Database initialized.");
 		};
