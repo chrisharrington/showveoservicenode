@@ -58,6 +58,14 @@ var handlers = function(parameters) {
 		require("./movies/recent.get").initialize({
 			movieRepository: movieRepository
 		});
+
+		require("./movies/favorites.get").initialize({
+			movieRepository: movieRepository	
+		});
+
+		require("./movies/all.get").initialize({
+			movieRepository: movieRepository	
+		});
 	};
 
 }();

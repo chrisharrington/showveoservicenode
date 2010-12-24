@@ -30,6 +30,20 @@ User.find({emailAddress: "chrisharrington99@gmail.com"}).first(function(localUse
 
 	var movieModel = db.model("Movie");
 
+//	movieModel.find().all(function(movies) {
+//		for (var i in movies)
+//			console.log(movies[i].name + ": " + movies[i].isFavorite);
+//	});
+
+	movieModel.find().first(function(movie) {
+		movie.isFavorite = true;
+
+		movie.save(function() {
+			console.log("saved");
+			db.close();
+		});
+	});
+
 //	var movie = new movieModel({
 //		name: "The Tourist",
 //		year: 2010,
@@ -47,6 +61,4 @@ User.find({emailAddress: "chrisharrington99@gmail.com"}).first(function(localUse
 //	});
 //
 //	movie.save();
-
-	db.close();
 });

@@ -29,10 +29,9 @@ var _get = function() {
 	//	Handles an incoming request.
 	//	request:				The request object.
 	//	response:				The response object.
+	//	identity:				The identity.
 	//
-	exports.handle = function(request, response) {
-		var parts = _urlParser.parse(request.url).pathname.split("/");
-		var identity = parts[parts.length-1].replace(/.data/g, "");
+	exports.handle = function(request, response, identity) {
 		_userRepository.getByIdentity(identity, {
 			success: function(user) {
 				response.writeHead(200, { "Content-Type": "application/json" });

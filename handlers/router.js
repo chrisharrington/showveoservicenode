@@ -58,13 +58,14 @@ var router = function() {
 		var location = deriveRoutedPath(url, request.method);
 		_path.exists(location, function(exists) {
 			if (!exists) {
+				var value = location.substring(location.lastIndexOf("/")+1).replace("." + request.method.toLowerCase() + ".js", "");
 				url = replaceFinalUrlPart(request.url, "") + ".data";
 				location = deriveRoutedPath(url, request.method);
 				_path.exists(location, function(exists) {
 					if (!exists)
 						write404(request, response);
 					else
-						handle(location, request, response);
+						handle(location, request, response, value);
 				});
 			}
 			else
@@ -119,10 +120,11 @@ var router = function() {
 	//	location:				The location of the handler to execute.
 	//	request:				The request object.
 	//	response:				The response object.
+	//	value:				The optional value for the handler.
 	//
-	var handle = function(location, request, response) {
+	var handle = function(location, request, response, value) {
 		try {
-			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response);
+			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response, value);
 		}
 		catch (error) {
 			console.log(error.toString());

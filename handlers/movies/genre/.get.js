@@ -1,7 +1,7 @@
 //
-//	Handles a request for a retrieval of recent movies operation.
+//	Handles a request for a retrieval of genre movies operation.
 //
-var getRecentMovies = function() {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -41,4 +41,4 @@ var getRecentMovies = function() {
 	//------------------------------------------------------------------------------------------------------------------
 	/* Private Methods */
 
-}();
+})();

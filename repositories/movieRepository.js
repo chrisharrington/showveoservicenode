@@ -43,4 +43,58 @@ var template = function() {
 		}
 	};
 
+	//
+	//	Retrieves a list of the favorite movies.
+	//	handlers:			The function handlers.
+	//
+	exports.getFavorites = function(handlers) {
+		try {
+			_db.model("Movie").find({ isFavorite: true }).all(function(movies) {
+				if (handlers.success)
+					handlers.success(movies);
+			});
+		} catch (error) {
+			if (handlers.error)
+				handlers.error(error);
+			else
+				throw error;
+		}
+	};
+
+	//
+	//	Retrieves a list of movies by genre.
+	//	handlers:			The function handlers.
+	//
+	exports.getAll = function(genre, handlers) {
+		try {
+			_db.model("Movie").find().in().all(function(movies) {
+				if (handlers.success)
+					handlers.success(movies);
+			});
+		} catch (error) {
+			if (handlers.error)
+				handlers.error(error);
+			else
+				throw error;
+		}
+	};
+
+	//
+	//	Retrieves a list of all movies.
+	//	handlers:			The function handlers.
+	//
+	exports.getAll = function(handlers) {
+		try {
+			_db.model("Movie").find().all(function(movies) {
+				if (handlers.success)
+					handlers.success(movies);
+			});
+		} catch (error) {
+			if (handlers.error)
+				handlers.error(error);
+			else
+				throw error;
+		}
+	};
+
 }();
