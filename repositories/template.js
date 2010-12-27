@@ -2,7 +2,7 @@
 //	A container for template information.
 //	db:				The underlying database connection.
 //
-var template = function() {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -21,4 +21,4 @@ var template = function() {
 		_db = db;
 	};
 
-}();
+})();

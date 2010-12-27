@@ -55,24 +55,37 @@ var handlers = function(parameters) {
 	//
 	var createMovieHandlers = function(parameters) {
 		var movieRepository = require("../repositories/movieRepository");
+		var userRepository = require("../repositories/userRepository");
 		require("./movies/recent.get").initialize({
-			movieRepository: movieRepository
+			movieRepository: movieRepository,
+			userRepository: userRepository
 		});
 
 		require("./movies/favorites.get").initialize({
-			movieRepository: movieRepository	
+			movieRepository: movieRepository,
+			userRepository: userRepository
 		});
 
 		require("./movies/all.get").initialize({
-			movieRepository: movieRepository	
+			movieRepository: movieRepository,
+			userRepository: userRepository
 		});
 
 		require("./movies/genre/.get").initialize({
-			movieRepository: movieRepository	
+			movieRepository: movieRepository,
+			userRepository: userRepository
 		});
 
 		require("./movies/genres.get").initialize({
 			genreRepository: require("../repositories/genreRepository")
+		});
+
+		require("./movies/favorite/.put").initialize({
+			movieRepository: movieRepository	
+		});
+
+		require("./movies/unfavorite/.put").initialize({
+			movieRepository: movieRepository
 		});
 	};
 

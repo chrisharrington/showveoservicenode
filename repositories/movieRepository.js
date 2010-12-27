@@ -27,16 +27,17 @@
 	};
 
     //
-    //	Retrieves a list of the most recently added movies.
+    //	Retrieves a list of the most recently added movies for a user.
+	//	user:				The user whose movies are being retrieved.
     //	count:			The number of movies to add.
 	//	handlers:			The function handlers.
     //
-	exports.getRecent = function(count, handlers) {
+	exports.getRecent = function(user, count, handlers) {
 		if (!count)
 			count = 5;
 
 		try {
-			_db.model("UserMovieInfo").find().sort([[ "movie.name", "ascending" ]]).limit(count).all(function(infos) {
+			_db.model("UserMovieInfo").find({ "user.identity": user.identity }).sort([[ "movie.name", "ascending" ]]).limit(count).all(function(infos) {
 				var movies = new Array();
 				for (var i = 0; i < infos.length; i++)
 					movies.push(merge(infos[i]));
@@ -52,11 +53,12 @@
 
 	//
 	//	Retrieves a list of the favorite movies.
+	//	user:				The user whose movies are being retrieved.
 	//	handlers:			The function handlers.
 	//
-	exports.getFavorites = function(handlers) {
+	exports.getFavorites = function(user, handlers) {
 		try {
-			_db.model("UserMovieInfo").find({ isFavorite: true }).sort([[ "movie.name", "ascending" ]]).all(function(infos) {
+			_db.model("UserMovieInfo").find({ "user.identity": user.identity, isFavorite: true }).sort([[ "movie.name", "ascending" ]]).all(function(infos) {
 				var movies = new Array();
 				for (var i = 0; i < infos.length; i++)
 					movies.push(merge(infos[i]));
@@ -72,11 +74,13 @@
 
 	//
 	//	Retrieves a list of movies by genre.
+	//	user:				The user whose movies are being retrieved.
+	//	genre:			The genre.
 	//	handlers:			The function handlers.
 	//
-	exports.getByGenre = function(genre, handlers) {
+	exports.getByGenre = function(user, genre, handlers) {
 		try {
-			_db.model("UserMovieInfo").find().sort([[ "movie.name", "ascending" ]]).all(function(infos) {
+			_db.model("UserMovieInfo").find({ "user.identity": user.identity }).sort([[ "movie.name", "ascending" ]]).all(function(infos) {
 				var movies = new Array();
 				for (var i = 0; i < infos.length; i++) {
 					var movie = infos[i].movie;
@@ -100,11 +104,12 @@
 
 	//
 	//	Retrieves a list of all movies.
+	//	user:				The user whose movies are being retrieved.
 	//	handlers:			The function handlers.
 	//
-	exports.getAll = function(handlers) {
+	exports.getAll = function(user, handlers) {
 		try {
-			_db.model("UserMovieInfo").find().sort([[ "movie.name", "ascending" ]]).all(function(infos) {
+			_db.model("UserMovieInfo").find({ "user.identity": user.identity }).sort([[ "movie.name", "ascending" ]]).all(function(infos) {
 				var movies = new Array();
 				for (var i = 0; i < infos.length; i++)
 					movies.push(merge(infos[i]));
@@ -113,6 +118,28 @@
 			});
 		} catch (error) {
 			_logger.log("movieRepository.getAll:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
+	};
+
+	//
+	//	Sets the favorite status of a movie.
+	//	movieID:			The movie ID.
+	//	status:			The favorite status.
+	//	handlers:			The function handlers.
+	//
+	exports.setFavorite = function(movieID, status, handlers) {
+		try {
+			_db.model("UserMovieInfo").find({ "movie.id": movieID }).first(function(info) {
+				info.isFavorite = status;
+				info.save();
+
+				if (handlers.success)
+					handlers.success();
+			});
+		} catch (error) {
+			_logger.log("movieRepository.setFavorite:  " + error);
 			if (handlers.error)
 				handlers.error(error);
 		}

@@ -124,11 +124,30 @@ var router = function() {
 	//
 	var handle = function(location, request, response, value) {
 		try {
+			request.identity = deriveIdentity(request);
 			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response, value);
 		}
 		catch (error) {
 			console.log(error.toString());
 			write500(request, response);
+		}
+	};
+
+	//
+	//	Derives the identity (of any) of the requesting user.
+	//	request:				The request object.
+	//	Returns:				The derived identity or nothing.
+	//
+	var deriveIdentity = function(request) {
+		try {
+			var parts = request.headers.cookie.split(";");
+			for (var i = 0; i < parts.length; i++) {
+				var subparts = parts[i].split("=");
+				if (subparts[0] == "identity")
+					return subparts[1];
+			}
+		} catch (error) {
+			
 		}
 	};
 

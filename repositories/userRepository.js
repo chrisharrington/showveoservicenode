@@ -2,7 +2,7 @@
 //	A container for user information.
 //	db:				The underlying database connection.
 //
-var userRepository = function() {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -72,4 +72,4 @@ var userRepository = function() {
 	};
 
 
-}();
+})();

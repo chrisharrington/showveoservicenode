@@ -2,7 +2,7 @@
 //	A container for genre information.
 //	db:				The underlying database connection.
 //
-var template = function() {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -39,5 +39,4 @@ var template = function() {
 		}
 	};
 
-}();
-
+})();

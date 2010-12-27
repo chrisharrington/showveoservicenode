@@ -9,15 +9,20 @@
 	//	A container for movie information.
 	var _movieRepository;
 
+	//	A container for user information.
+	var _userRepository;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Initializes the handler.
 	//	movieRepository:			A container for movie information.
+	//	userRepository:			A container for user information.
 	//
 	exports.initialize = function(parameters) {
 		_movieRepository = parameters.movieRepository;
+		_userRepository = parameters.userRepository;
 	};
 
 	//
@@ -27,14 +32,18 @@
 	//	genre:				The genre.
 	//
 	exports.handle = function(request, response, genre) {
-		_movieRepository.getByGenre(genre.replace(/_/g, " "), {
-			success: function(movies) {
-				response.writeHead(200, { "Content-Type": "application/json" });
-				response.end(JSON.stringify(movies));
-			},
-			error: function() {
-				response.writeHead(500, { "Content-Type": "plain/text" });
-				response.end("An error has occurred while retrieving the recent movies list.");
+		_userRepository.getByIdentity(request.identity, {
+			success: function(user) {
+				_movieRepository.getByGenre(user, genre.replace(/_/g, " "), {
+					success: function(movies) {
+						response.writeHead(200, { "Content-Type": "application/json" });
+						response.end(JSON.stringify(movies));
+					},
+					error: function() {
+						response.writeHead(500, { "Content-Type": "plain/text" });
+						response.end("An error has occurred while retrieving the recent movies list.");
+					}
+				});
 			}
 		});
 	};

@@ -8,6 +8,7 @@ exports.create = function(mongoose) {
 
 	mongoose.model("Movie", {
 		properties: [
+			"id",
 			"name",
 			"year",
 			"synopsis",
