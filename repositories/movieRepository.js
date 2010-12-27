@@ -2,7 +2,7 @@
 //	A container for movie information.
 //	db:				The underlying database connection.
 //
-var template = function() {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -10,15 +10,20 @@ var template = function() {
 	//	The underlying database object.
 	var _db;
 
+	//	The error logger.
+	var _logger;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Creates the repository.
 	//	db:			The underlying database object.
+	//	logger:		The error logger.
 	//
-	exports.create = function(db) {
-		_db = db;
+	exports.create = function(parameters) {
+		_db = parameters.db;
+		_logger = parameters.logger;
 	};
 
     //
@@ -31,15 +36,17 @@ var template = function() {
 			count = 5;
 
 		try {
-			_db.model("Movie").find().limit(count).all(function(movies) {
+			_db.model("UserMovieInfo").find().sort([[ "movie.name", "ascending" ]]).limit(count).all(function(infos) {
+				var movies = new Array();
+				for (var i = 0; i < infos.length; i++)
+					movies.push(merge(infos[i]));
 				if (handlers.success)
 					handlers.success(movies);
 			});
 		} catch (error) {
+			_logger.log("movieRepository.getRecent:  " + error);
 			if (handlers.error)
 				handlers.error(error);
-			else
-				throw error;
 		}
 	};
 
@@ -49,15 +56,17 @@ var template = function() {
 	//
 	exports.getFavorites = function(handlers) {
 		try {
-			_db.model("Movie").find({ isFavorite: true }).all(function(movies) {
+			_db.model("UserMovieInfo").find({ isFavorite: true }).sort([[ "movie.name", "ascending" ]]).all(function(infos) {
+				var movies = new Array();
+				for (var i = 0; i < infos.length; i++)
+					movies.push(merge(infos[i]));
 				if (handlers.success)
 					handlers.success(movies);
 			});
 		} catch (error) {
+			_logger.log("movieRepository.getFavorites:  " + error);
 			if (handlers.error)
 				handlers.error(error);
-			else
-				throw error;
 		}
 	};
 
@@ -67,24 +76,25 @@ var template = function() {
 	//
 	exports.getByGenre = function(genre, handlers) {
 		try {
-			_db.model("Movie").find().all(function(all) {
+			_db.model("UserMovieInfo").find().sort([[ "movie.name", "ascending" ]]).all(function(infos) {
 				var movies = new Array();
-				for (var i = 0; i < all.length; i++) {
-					for (var j = 0; j < all[i].genres.length; j++) {
-						if (all[i].genres[j].name == genre) {
-							movies.push(all[i]);
+				for (var i = 0; i < infos.length; i++) {
+					var movie = infos[i].movie;
+					for (var j = 0; j < movie.genres.length; j++) {
+						if (movie.genres[j].name == genre) {
+							movies.push(merge(infos[i]));
 							break;
 						}
 					}
 				}
+				
 				if (handlers.success)
 					handlers.success(movies);
 			});
 		} catch (error) {
+			_logger.log("movieRepository.getByGenre:  " + error);
 			if (handlers.error)
 				handlers.error(error);
-			else
-				throw error;
 		}
 	};
 
@@ -94,16 +104,32 @@ var template = function() {
 	//
 	exports.getAll = function(handlers) {
 		try {
-			_db.model("Movie").find().all(function(movies) {
+			_db.model("UserMovieInfo").find().sort([[ "movie.name", "ascending" ]]).all(function(infos) {
+				var movies = new Array();
+				for (var i = 0; i < infos.length; i++)
+					movies.push(merge(infos[i]));
 				if (handlers.success)
 					handlers.success(movies);
 			});
 		} catch (error) {
+			_logger.log("movieRepository.getAll:  " + error);
 			if (handlers.error)
 				handlers.error(error);
-			else
-				throw error;
 		}
 	};
 
-}();
+	//------------------------------------------------------------------------------------------------------------------
+	/* Private Methods */
+
+	//
+	//	Merges the user specific movie information and the movie in the given user-movie information object.
+	//	info:				The information object.
+	//	Returns:			The merged movie object.
+	//
+	var merge = function (info) {
+		var movie = info.movie;
+		movie.isFavorite = info.isFavorite;
+		return movie;
+	};
+
+})();

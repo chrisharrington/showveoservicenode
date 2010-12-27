@@ -21,15 +21,10 @@ var mongoose = require("mongoose").Mongoose;
 require("./models/user").create(mongoose);
 require("./models/movie").create(mongoose);
 require("./models/genre").create(mongoose);
+require("./models/userMovieInfo").create(mongoose);
 
 var db = mongoose.connect("mongodb://localhost/test");
-var User = db.model("User");
-var user;
-User.find({emailAddress: "chrisharrington99@gmail.com"}).first(function(localUser) {
-	user = localUser;
-
-	db.model("Movie").find().all(function(movies) {
-		for (var i = 0; i l< movies.length; i++)
-			console.log(movies[i].name);
-	});
+db.model("UserMovieInfo").find().all(function(infos) {
+	for (var i = 0; i < infos.length; i++)
+		console.log(infos[i]);
 });

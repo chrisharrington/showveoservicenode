@@ -1,7 +1,7 @@
 //
 //	Handles a request for a retrieval of recent movies operation.
 //
-var getFavoriteMovies = function() {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -41,4 +41,4 @@ var getFavoriteMovies = function() {
 	//------------------------------------------------------------------------------------------------------------------
 	/* Private Methods */
 
-}();
+})();

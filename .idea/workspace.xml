@@ -2,11 +2,12 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/test.js" line="5" mnemonic="0" />
+    <bookmark url="file://$PROJECT_DIR$/setup.js" line="118" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="ec507b45-5b76-4a26-b7da-e562df3908f0" name="Default" comment="" />
-    <ignored path=".idea/workspace.xml" />
     <ignored path="showveoservice.iws" />
+    <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,28 +28,28 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="handlers.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/handlers.js">
+      <file leaf-file-name="movieRepository.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="42" selection-start="2293" selection-end="2293" vertical-scroll-proportion="0.0">
+            <state line="46" column="50" selection-start="1264" selection-end="1264" vertical-scroll-proportion="0.49383983">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="genres.get.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/movies/genres.get.js">
+      <file leaf-file-name="service.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="39" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0">
+            <state line="49" column="87" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="genreRepository.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/repositories/genreRepository.js">
+      <file leaf-file-name="logger.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logging/logger.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="6" selection-start="655" selection-end="655" vertical-scroll-proportion="0.5385675">
+            <state line="13" column="29" selection-start="285" selection-end="285" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -68,22 +69,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/handlers/base.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/all.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/favorites.get.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/recent.get.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/all.get.js" />
-        <option value="$PROJECT_DIR$/handlers/router.js" />
-        <option value="$PROJECT_DIR$/handlers/account/signin/.get.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/genre/.get.js" />
-        <option value="$PROJECT_DIR$/models/movie.js" />
-        <option value="$PROJECT_DIR$/setup.js" />
-        <option value="$PROJECT_DIR$/test.js" />
-        <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
-        <option value="$PROJECT_DIR$/service.js" />
         <option value="$PROJECT_DIR$/handlers/handlers.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/genres.get.js" />
         <option value="$PROJECT_DIR$/repositories/genreRepository.js" />
+        <option value="$PROJECT_DIR$/handlers/movies/favorite/.put.js" />
+        <option value="$PROJECT_DIR$/handlers/account/signin/.get.js" />
+        <option value="$PROJECT_DIR$/handlers/script/joined.get.js" />
+        <option value="$PROJECT_DIR$/handlers/movies/recent.get.js" />
+        <option value="$PROJECT_DIR$/handlers/movies/genres.get.js" />
+        <option value="$PROJECT_DIR$/handlers/movies/favorites.get.js" />
+        <option value="$PROJECT_DIR$/handlers/movies/all.get.js" />
+        <option value="$PROJECT_DIR$/handlers/account/signin.get.js" />
+        <option value="$PROJECT_DIR$/models/userMovieInfo.js" />
+        <option value="$PROJECT_DIR$/test.js" />
+        <option value="$PROJECT_DIR$/setup.js" />
+        <option value="$PROJECT_DIR$/logging/logger.js" />
+        <option value="$PROJECT_DIR$/service.js" />
+        <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
       </list>
     </option>
   </component>
@@ -105,7 +106,7 @@
       <flattenPackages />
       <showMembers />
       <showModules />
-      <showLibraryContents />
+      <showLibraryContents ProjectPane="false" />
       <hideEmptyPackages />
       <abbreviatePackageNames />
       <autoscrollToSource />
@@ -114,6 +115,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -121,12 +123,6 @@
               <option name="myItemId" value="showveoservice" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="showveoservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="showveoservice" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -142,13 +138,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="repositories" />
+              <option name="myItemId" value="logging" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -198,14 +193,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="24" width="1900" height="904" extended-state="0" />
+    <frame x="10" y="24" width="1900" height="1152" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1689546" sideWeight="0.66566867" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16862327" sideWeight="0.3273453" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16808964" sideWeight="0.3273453" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -249,106 +244,138 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/handlers/movies/all.get.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="36" selection-start="680" selection-end="680" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/movies/recent.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="39" selection-start="0" selection-end="1322" vertical-scroll-proportion="0.0" />
+        <state line="43" column="2" selection-start="1298" selection-end="1298" vertical-scroll-proportion="0.71560574">
+          <folding>
+            <marker date="1293470783000" expanded="true" signature="83:1297" placeholder="{...}" />
+            <marker date="1293470783000" expanded="true" signature="205:223" placeholder="/*...*/" />
+            <marker date="1293470783000" expanded="true" signature="407:427" placeholder="/*...*/" />
+            <marker date="1293470783000" expanded="true" signature="430:523" placeholder="//..." />
+            <marker date="1293470783000" expanded="true" signature="567:620" placeholder="{...}" />
+            <marker date="1293470783000" expanded="true" signature="624:737" placeholder="//..." />
+            <marker date="1293470783000" expanded="true" signature="784:1151" placeholder="{...}" />
+            <marker date="1293470783000" expanded="true" signature="818:1146" placeholder="{...}" />
+            <marker date="1293470783000" expanded="true" signature="849:966" placeholder="{...}" />
+            <marker date="1293470783000" expanded="true" signature="989:1142" placeholder="{...}" />
+            <marker date="1293470783000" expanded="true" signature="1273:1294" placeholder="/*...*/" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/account/signin/.get.js">
+    <entry file="file://$PROJECT_DIR$/handlers/movies/genres.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="6" selection-start="0" selection-end="1432" vertical-scroll-proportion="0.0" />
+        <state line="43" column="5" selection-start="1290" selection-end="1290" vertical-scroll-proportion="0.71560574">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/router.js">
+    <entry file="file://$PROJECT_DIR$/handlers/movies/favorites.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="118" selection-start="1764" selection-end="1764" vertical-scroll-proportion="0.0" />
+        <state line="43" column="2" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.71560574">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/movies/all.get.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="2" selection-start="1287" selection-end="1287" vertical-scroll-proportion="0.71560574">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/movies/genre/.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="60" selection-start="871" selection-end="871" vertical-scroll-proportion="0.0">
+        <state line="4" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.034907598">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/genre.js">
+    <entry file="file://$PROJECT_DIR$/handlers/account/signin.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="18" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
+        <state line="49" column="2" selection-start="1480" selection-end="1480" vertical-scroll-proportion="0.82032853">
+          <folding>
+            <marker date="1293470813000" expanded="true" signature="64:1479" placeholder="{...}" />
+            <marker date="1293470813000" expanded="true" signature="186:204" placeholder="/*...*/" />
+            <marker date="1293470813000" expanded="true" signature="422:442" placeholder="/*...*/" />
+            <marker date="1293470813000" expanded="true" signature="445:567" placeholder="//..." />
+            <marker date="1293470813000" expanded="true" signature="611:699" placeholder="{...}" />
+            <marker date="1293470813000" expanded="true" signature="703:816" placeholder="//..." />
+            <marker date="1293470813000" expanded="true" signature="863:1333" placeholder="{...}" />
+            <marker date="1293470813000" expanded="true" signature="1008:1328" placeholder="{...}" />
+            <marker date="1293470813000" expanded="true" signature="1037:1152" placeholder="{...}" />
+            <marker date="1293470813000" expanded="true" signature="1175:1324" placeholder="{...}" />
+            <marker date="1293470813000" expanded="true" signature="1455:1476" placeholder="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/account/signin/.get.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="2" selection-start="1420" selection-end="1420" vertical-scroll-proportion="0.82032853">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.js">
+    <entry file="file://$PROJECT_DIR$/handlers/movies/favorite/.put.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="38" selection-start="907" selection-end="907" vertical-scroll-proportion="0.59774965">
+        <state line="6" column="22" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
+    <entry file="file://$PROJECT_DIR$/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="28" selection-start="1425" selection-end="1425" vertical-scroll-proportion="0.18044077">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="12" selection-start="1611" selection-end="1611" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/template.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="582" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/template.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="766" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="277" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/movie.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="25" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/userMovieInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="254" selection-end="254" vertical-scroll-proportion="0.261807">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="59" selection-start="5285" selection-end="5285" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="27" selection-start="931" selection-end="931" vertical-scroll-proportion="0.3278237">
+        <state line="27" column="31" selection-start="852" selection-end="852" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/handlers.js">
+    <entry file="file://$PROJECT_DIR$/logging/logger.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="42" selection-start="2293" selection-end="2293" vertical-scroll-proportion="0.0">
+        <state line="13" column="29" selection-start="285" selection-end="285" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/movies/genres.get.js">
+    <entry file="file://$PROJECT_DIR$/service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="39" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0">
+        <state line="49" column="87" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/genreRepository.js">
+    <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="6" selection-start="655" selection-end="655" vertical-scroll-proportion="0.5385675">
+        <state line="46" column="50" selection-start="1264" selection-end="1264" vertical-scroll-proportion="0.49383983">
           <folding />
         </state>
       </provider>

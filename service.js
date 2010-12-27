@@ -27,6 +27,7 @@ var service = {
 			require("./models/user").create(mongoose);
 			require("./models/movie").create(mongoose);
 			require("./models/genre").create(mongoose);
+			require("./models/userMovieInfo").create(mongoose);
 
 			var db = mongoose.connect("mongodb://localhost/test");
 
@@ -44,8 +45,9 @@ var service = {
 				}).save();
 			});
 
+			var logger = require("./logging/logger");
 			require("./repositories/userRepository").create(db);
-			require("./repositories/movieRepository").create(db);
+			require("./repositories/movieRepository").create({ db: db, logger: logger });
 			require("./repositories/genreRepository").create(db);
 
 			console.log("Database initialized.");
