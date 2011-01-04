@@ -17,67 +17,6 @@ var service = {
 		var _uploads;
 
 		//------------------------------------------------------------------------------------------------------------------
-		/* Private Methods */
-
-		//
-		//	Initializes the mongoose database connection.
-		//
-		var initializeDatabase = function() {
-			var mongoose = require("mongoose").Mongoose;
-			require("./models/user").create(mongoose);
-			require("./models/movie").create(mongoose);
-			require("./models/genre").create(mongoose);
-			require("./models/userMovieInfo").create(mongoose);
-
-			var db = mongoose.connect("mongodb://localhost/test");
-
-			var usermodel = db.model("User");
-			usermodel.find({}).all(function(users) {
-				if (users.length > 0)
-					return;
-
-				new usermodel({
-					firstName: "Chris",
-					lastName: "Harrington",
-					emailAddress: "chrisharrington99@gmail.com",
-					password: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
-					identity: "757a3f7922bc4176eeae0d8c9611bf1ee7993beb"
-				}).save();
-			});
-
-			var logger = require("./logging/logger");
-			require("./repositories/userRepository").create(db);
-			require("./repositories/movieRepository").create({ db: db, logger: logger });
-			require("./repositories/genreRepository").create(db);
-
-			console.log("Database initialized.");
-		};
-
-		//
-		//	Initializes the creation of all required request handlers.
-		//
-		var initializeHandlers = function () {
-			require("./handlers/handlers").create({
-				root: parameters.root
-			});
-		};
-
-		//
-		//	Initializes the web server.
-		//	port:				The port on which the web server should listen for requests.
-		//
-		var initializeWebServer = function(port) {
-			var webserver = require("./webserver");
-			webserver.initialize({
-				router: require("./handlers/router"),
-				http: require("http"),
-				root: parameters.root,
-				fileretriever: require("./fileretriever")
-			});
-			webserver.run(port);
-		};
-
-		//------------------------------------------------------------------------------------------------------------------
 
 		require("./extensions/string").initialize();
 		require("./handlers/router").initialize({
@@ -85,9 +24,32 @@ var service = {
 			root: __dirname
 		});
 
-		initializeDatabase();
-		initializeHandlers();
-		initializeWebServer(parameters.port);
+		require("./database").initialize();
+		require("./handlers/handlers").create({
+			root: parameters.root
+		});
+
+		var watcher = require("./watcher/watcher");
+		watcher.initialize();
+
+		var movieWatcher = require("./watcher/movieWatcher");
+		movieWatcher.initialize({
+			watcher: watcher,
+			repository: require("./repositories/uncategorizedMovieRepository"),
+			guidFactory: require("guid"),
+			movieLocation: "/home/chris/Videos/showveo/",
+			fs: require("fs")
+		});
+		movieWatcher.watch("/home/chris/Test");
+
+		var webserver = require("./webserver");
+		webserver.initialize({
+			router: require("./handlers/router"),
+			http: require("http"),
+			root: parameters.root,
+			fileretriever: require("./file/fileretriever")
+		});
+		webserver.run(parameters.port);
 	}
 }.initialize({
 	port: 3000,

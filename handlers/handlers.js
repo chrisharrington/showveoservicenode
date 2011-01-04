@@ -28,7 +28,7 @@ var handlers = function(parameters) {
 	//
 	var createScriptHandlers = function (parameters) {
 		require("./script/joined.get").initialize({
-			fileJoiner: require("../filejoiner"),
+			fileJoiner: require("../file/filejoiner"),
 			root: parameters.root
 		});
 	};

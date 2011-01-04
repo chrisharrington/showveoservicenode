@@ -8,7 +8,7 @@
 
 	//
 	//	Logs the given message.
-	//	message:
+	//	message:		The message to log.
 	//
 	exports.log = function(message) {
 		console.log(message);	

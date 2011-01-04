@@ -1,7 +1,7 @@
 //
 //	A node.js module encapsulating a dynamic content web server.
 //
-var DynamicServer = function() {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -121,4 +121,4 @@ var DynamicServer = function() {
 			response.end(error);
 		});
 	};
-}();
+})();
