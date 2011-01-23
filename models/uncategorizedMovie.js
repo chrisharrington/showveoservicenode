@@ -9,6 +9,7 @@ exports.create = function(mongoose) {
 	mongoose.model("UncategorizedMovie", {
 		properties: [
 			"id",
+			"categorizedMovieID",
 			"filename",
 			"createdDate",
 			"encoded"

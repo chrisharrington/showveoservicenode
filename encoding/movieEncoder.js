@@ -18,6 +18,9 @@
 	//	A container for uncategorized movie information.
 	var _uncategorizedMovieRepository;
 
+	//	A container for movie information.
+	var _movieRepository;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -26,12 +29,14 @@
 	//	encoder:				The base encoder.
 	//	fs:					The included file system library.
 	//	repository:			A container for uncategorized movie information.
+	//	movieRepository:		A container for movie information.
 	//	guidFactory:			Generates guids.
 	//
-	exports.initialize = function(encoder, fs, repository, guidFactory) {
+	exports.initialize = function(encoder, fs, repository, movieRepository, guidFactory) {
 		_encoder = encoder;
 		_fs = fs;
 		_uncategorizedMovieRepository = repository;
+		_movieRepository = movieRepository;
 		_guidFactory = guidFactory;
 	};
 
@@ -55,10 +60,20 @@
 				var output = path.replace(".raw", ".mp4");
 				_encoder.encode(path, output, function() {
 					_fs.rename(output, output.replace(".mp4", ""), function() {
-						insertedMovie.encoded = true;
-						_uncategorizedMovieRepository.update(insertedMovie, {
-							success: function() {
-								console.log("success!");
+						_uncategorizedMovieRepository.getByID(insertedMovie.id, {
+							success: function(retrievedMovie) {
+								var id = retrievedMovie.categorizedMovieID;
+								if (retrievedMovie.categorizedMovieID) {
+									_movieRepository.getByID(id, {
+										success: function(categorizedMovie) {
+											categorizedMovie.encoded = true;
+											_movieRepository.update(categorizedMovie, {});
+										}
+									});
+								}
+
+								retrievedMovie.encoded = true;
+								_uncategorizedMovieRepository.update(retrievedMovie);
 							}
 						});
 					});

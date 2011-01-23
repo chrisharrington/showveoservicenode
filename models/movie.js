@@ -21,7 +21,8 @@ exports.create = function(mongoose) {
 			"director",
 			"actors",
 			"isFavorite",
-			"url"
+			"url",
+			"encoded"
 		],
 
 		cast: {

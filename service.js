@@ -36,7 +36,7 @@ var service = {
 		encoder.initialize(require("child_process"));
 
 		var movieEncoder = require("./encoding/movieEncoder");
-		movieEncoder.initialize(encoder, require("fs"), require("./repositories/uncategorizedMovieRepository"), require("guid"));
+		movieEncoder.initialize(encoder, require("fs"), require("./repositories/uncategorizedMovieRepository"), require("./repositories/movieRepository"), require("guid"));
 
 		var movieWatcher = require("./watcher/movieWatcher");
 		movieWatcher.initialize({

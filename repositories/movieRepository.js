@@ -26,6 +26,50 @@
 		_logger = parameters.logger;
 	};
 
+	//
+	//	Updates the given movie.
+	//	movie:			The movie to update.
+	//	handlers:			The function handlers.
+	//
+	exports.update = function(movie, handlers) {
+		try {
+			if (!movie)
+				throw "The movie given is invalid.";
+
+			movie.save(function() {
+				if (handlers.success)
+					handlers.success();
+			});
+		} catch (error) {
+			_logger.log("movieRepository.update:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
+	};
+
+	//
+	//	Retrieves a movie by ID.
+	//	id:				The ID of the movie.
+	//	handlers:			The function handlers.
+	//
+	exports.getByID = function(id, handlers) {
+		try {
+			if (!id)
+				throw "The given ID is invalid.";
+
+			_db.model("UserMovieInfo").find({ id: id }).all(function(movies) {
+				if (movies.length == 0)
+					handlers.success();
+				else
+					handlers.success(movies[0]);
+			});
+		} catch (error) {
+			_logger.log("movieRepository.getByID:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
+	};
+
     //
     //	Retrieves a list of the most recently added movies for a user.
 	//	user:				The user whose movies are being retrieved.

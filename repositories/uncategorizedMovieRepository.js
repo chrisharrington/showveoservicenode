@@ -72,4 +72,28 @@
 		}
 	};
 
+	//
+	//	Retrieves an uncategorized movie by ID.
+	//	id:			The uncategorized movie ID.
+	//	handlers:		The function handlers.
+	//
+	exports.getByID = function(id, handlers) {
+		try {
+			if (!id)
+				throw "The ID is invalid.";
+
+			_db.model("UncategorizedMovie").find({ id: id }).all(function(movies) {
+				if (movies.length == 0)
+					handlers.error("No movie with ID \"" + id + "\" was found.");
+
+				handlers.success(movies[0]);
+			});
+
+		} catch(error) {
+			_logger.log("uncategorizedMovieRepository.getByID:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
+	};
+
 })();
