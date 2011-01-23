@@ -73,9 +73,10 @@
 //		if (!path.endsWith(".ogv") && !path.endsWith(".avi") && !path.endsWith(".mkv") && !path.endsWith(".mpg") && !path.endsWith(".mp4"))
 //			return;
 
+		var parts = path.split("/");
 		var newFilename = _guidFactory.create().value.replace(/-/g, "") + ".raw";
 		_fs.rename(path, _movieLocation + newFilename, function() {
-			_encoder.encode(_movieLocation + newFilename);
+			_encoder.encode(parts[parts.length-1], _movieLocation + newFilename);
 		});
 	};
 

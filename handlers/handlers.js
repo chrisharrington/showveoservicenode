@@ -87,6 +87,10 @@ var handlers = function(parameters) {
 		require("./movies/unfavorite/.put").initialize({
 			movieRepository: movieRepository
 		});
+
+		require("./movies/uncategorized.get").initialize({
+			repository: require("../repositories/uncategorizedMovieRepository")	
+		});
 	};
 
 }();

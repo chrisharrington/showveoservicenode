@@ -42,15 +42,16 @@
 
 	//
 	//	Encodes a movie.
+	//	original:				The original filename.
 	//	path:				The path of the movie to encode.
 	//
-	exports.encode = function(path) {
+	exports.encode = function(original, path) {
 		var parts = path.split("/");
 		var filename = parts[parts.length-1];
 
 		var movie = {
 			id: _guidFactory.create().value,
-			filename: filename.replace(".raw", ""),
+			filename: original,
 			createdDate: new Date(),
 			encoded: false
 		};
@@ -59,23 +60,23 @@
 			success: function(insertedMovie) {
 				var output = path.replace(".raw", ".mp4");
 				_encoder.encode(path, output, function() {
-					_fs.rename(output, output.replace(".mp4", ""), function() {
-						_uncategorizedMovieRepository.getByID(insertedMovie.id, {
-							success: function(retrievedMovie) {
-								var id = retrievedMovie.categorizedMovieID;
-								if (retrievedMovie.categorizedMovieID) {
-									_movieRepository.getByID(id, {
-										success: function(categorizedMovie) {
-											categorizedMovie.encoded = true;
-											_movieRepository.update(categorizedMovie, {});
-										}
-									});
-								}
+					_fs.unlink(path);
 
-								retrievedMovie.encoded = true;
-								_uncategorizedMovieRepository.update(retrievedMovie);
+					_uncategorizedMovieRepository.getByID(insertedMovie.id, {
+						success: function(retrievedMovie) {
+							var id = retrievedMovie.categorizedMovieID;
+							if (retrievedMovie.categorizedMovieID) {
+								_movieRepository.getByID(id, {
+									success: function(categorizedMovie) {
+										categorizedMovie.encoded = true;
+										_movieRepository.update(categorizedMovie);
+									}
+								});
 							}
-						});
+
+							retrievedMovie.encoded = true;
+							_uncategorizedMovieRepository.update(retrievedMovie);
+						}
 					});
 				}, function() {
 					console.log("error");

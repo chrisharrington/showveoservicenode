@@ -29,9 +29,6 @@
 	//
 	exports.encode = function(input, output, success, error) {
 		var ffmpeg = _cp.spawn("ffmpeg", ["-i", input, "-b", "3000k", "-ab", "192k", output]);
-//		ffmpeg.stderr.on("data", function (data) {
-//			console.log("stderr: " + data);
-//		});
 		ffmpeg.on("exit", function(code) {
 			if (code == 1)
 				error();

@@ -57,6 +57,9 @@
 	//	handlers:		The function handlers.
 	//
 	exports.update = function(movie, handlers) {
+		if (!handlers)
+			handlers = {};
+
 		try {
 			if (!movie.save)
 				throw "The given movie is not a valid model.";
@@ -91,6 +94,22 @@
 
 		} catch(error) {
 			_logger.log("uncategorizedMovieRepository.getByID:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
+	};
+
+	//
+	//	Retrieves all uncategorized movies in the repository.
+	//	handlers:		The function handlers.
+	//
+	exports.getAll = function(handlers) {
+		try {
+			_db.model("UncategorizedMovie").find().all(function(movies) {
+				handlers.success(movies);	
+			});
+		} catch (error) {
+			_logger.log("uncategorizedMovieRepository.getAll:  " + error);
 			if (handlers.error)
 				handlers.error(error);
 		}

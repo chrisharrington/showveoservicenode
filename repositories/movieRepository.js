@@ -32,6 +32,9 @@
 	//	handlers:			The function handlers.
 	//
 	exports.update = function(movie, handlers) {
+		if (!handlers)
+			handlers = {};
+
 		try {
 			if (!movie)
 				throw "The movie given is invalid.";
