@@ -32,13 +32,20 @@ var service = {
 		var watcher = require("./watcher/watcher");
 		watcher.initialize();
 
+		var encoder = require("./encoding/encoder");
+		encoder.initialize(require("child_process"));
+
+		var movieEncoder = require("./encoding/movieEncoder");
+		movieEncoder.initialize(encoder, require("fs"), require("./repositories/uncategorizedMovieRepository"), require("guid"));
+
 		var movieWatcher = require("./watcher/movieWatcher");
 		movieWatcher.initialize({
 			watcher: watcher,
 			repository: require("./repositories/uncategorizedMovieRepository"),
 			guidFactory: require("guid"),
 			movieLocation: "/home/chris/Videos/showveo/",
-			fs: require("fs")
+			fs: require("fs"),
+			encoder: movieEncoder
 		});
 		movieWatcher.watch("/home/chris/Test");
 

@@ -70,32 +70,13 @@
 	//	path:			The path of the added movie file.
 	//
 	var onMovieAdded = function(path) {
-		if (!path.endsWith(".ogv") && !path.endsWith(".avi") && !path.endsWith(".mkv") && !path.endsWith(".mpg") && !path.endsWith(".mp4"))
-			return;
+//		if (!path.endsWith(".ogv") && !path.endsWith(".avi") && !path.endsWith(".mkv") && !path.endsWith(".mpg") && !path.endsWith(".mp4"))
+//			return;
 
-		var newFilename = _guidFactory.create().value.replace(/-/g, "");
+		var newFilename = _guidFactory.create().value.replace(/-/g, "") + ".raw";
 		_fs.rename(path, _movieLocation + newFilename, function() {
-			_uncategorizedMovieRepository.insert({
-				id: _guidFactory.create().value,
-				filename: newFilename,
-				createdDate: new Date(),
-				encoded: false
-			}, {
-				success: function() { encode(path); },
-				error: function(error) { console.log("error: " + error) ; }
-			});
+			_encoder.encode(_movieLocation + newFilename);
 		});
-	};
-
-	//------------------------------------------------------------------------------------------------------------------
-	/* Private Methods */
-
-	//
-	//	Encodes the movie at the given path.
-	//	path:			The path of the movie to encode.
-	//
-	var encode = function (path) {
-		console.log("Encoding " + path);
 	};
 
 })();

@@ -34,20 +34,42 @@
 	exports.insert = function(movie, handlers) {
 		try {
 			var model = _db.model("UncategorizedMovie");
-			new model({
+			var inserted = new model({
 				id: movie.id,
 				filename: movie.filename,
 				createdDate: movie.createdDate,
 				encoded: movie.encoded
-			}).save(function() {
+			});
+			inserted.save(function() {
 				if (handlers.success)
-					handlers.success();
+					handlers.success(inserted);
 			});
 		} catch (error) {
 			_logger.log("uncategorizedMovieRepository.insert:  " + error);
 			if (handlers.error)
 				handlers.error(error);
 		}
-	};	
+	};
+
+	//
+	//	Updates an uncategorized movie object.
+	//	movie:		The movie to update.
+	//	handlers:		The function handlers.
+	//
+	exports.update = function(movie, handlers) {
+		try {
+			if (!movie.save)
+				throw "The given movie is not a valid model.";
+
+			movie.save(function() {
+				if (handlers.success)
+					handlers.success();
+			});
+		} catch (error) {
+			_logger.log("uncategorizedMovieRepository.update:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
+	};
 
 })();
