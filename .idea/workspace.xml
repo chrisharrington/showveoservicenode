@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/setup.js" line="124" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/setup.js" line="128" mnemonic="9" />
     <bookmark url="file://$PROJECT_DIR$/encoding/movieEncoder.js" line="34" mnemonic="0" />
   </component>
   <component name="ChangeListManager">
@@ -41,7 +41,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/handlers/movies/unfavorite/.put.js" />
         <option value="$PROJECT_DIR$/logging/logger.js" />
         <option value="$PROJECT_DIR$/models/uncategorizedmovie.js" />
         <option value="$PROJECT_DIR$/handlers/handlers.js" />
@@ -57,6 +56,7 @@
         <option value="$PROJECT_DIR$/models/movie.js" />
         <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
         <option value="$PROJECT_DIR$/encoding/movieEncoder.js" />
+        <option value="$PROJECT_DIR$/setup.js" />
       </list>
     </option>
   </component>
@@ -109,6 +109,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="watcher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="showveoservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="showveoservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -252,13 +266,6 @@
         <state line="39" column="98" selection-start="1367" selection-end="1367" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="12" selection-start="896" selection-end="896" vertical-scroll-proportion="0.017708333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="4" selection-start="808" selection-end="888" vertical-scroll-proportion="0.0">
@@ -315,13 +322,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/movie.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="21" selection-start="396" selection-end="396" vertical-scroll-proportion="0.36652976">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="63" column="48" selection-start="1492" selection-end="1492" vertical-scroll-proportion="0.37226278">
@@ -332,6 +332,20 @@
     <entry file="file://$PROJECT_DIR$/encoding/movieEncoder.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="66" column="66" selection-start="1945" selection-end="1945" vertical-scroll-proportion="0.49383983">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/movie.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="21" selection-start="396" selection-end="396" vertical-scroll-proportion="0.36652976">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="33" selection-start="3373" selection-end="3373" vertical-scroll-proportion="0.46089676">
           <folding />
         </state>
       </provider>

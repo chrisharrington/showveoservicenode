@@ -66,7 +66,8 @@ setTimeout(function() {
 					poster: "http://hwcdn.themoviedb.org/posters/f72/4cfeca335e73d6299e004f72/the-tourist-cover.jpg",
 					director: "Florian Henckel von Donnersmarck",
 					actors: new Array("Johnny Depp", "Angelina Jolie"),
-					url: "http://www.google.com"
+					url: "http://www.google.com",
+					encoded: false
 				}));
 				movies[0].save();
 
@@ -83,7 +84,8 @@ setTimeout(function() {
 					poster: "http://hwcdn.themoviedb.org/posters/20c/4bf96844017a3c702d00020c/scott-pilgrim-vs-the-world-cover.jpg",
 					director: "Edgar Wright",
 					actors: new Array("Michael Cera", "Mary Elizabeth Winstead"),
-					url: "http://www.google.com"
+					url: "http://www.google.com",
+					encoded: true
 				}));
 				movies[1].save();
 
@@ -100,7 +102,8 @@ setTimeout(function() {
 					poster: "http://hwcdn.themoviedb.org/posters/cf4/4cf5e5325e73d62999000cf4/iron-man-2-cover.jpg",
 					director: "Jon Favreau",
 					actors: new Array("Robert Downey Jr.", "Mickey Rourke"),
-					url: "http://www.google.com"
+					url: "http://www.google.com",
+					encoded: false
 				}));
 				movies[2].save();
 
@@ -117,7 +120,8 @@ setTimeout(function() {
 					poster: "http://hwcdn.themoviedb.org/posters/f8e/4bc908b0017a3c57fe002f8e/fight-club-cover.jpg",
 					director: "David Fincher",
 					actors: new Array("Edward Norton", "Brad Pitt"),
-					url: "http://www.google.com"
+					url: "http://www.google.com",
+					encoded: true
 				}));
 				movies[3].save();
 
