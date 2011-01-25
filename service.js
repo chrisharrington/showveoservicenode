@@ -24,7 +24,10 @@ var service = {
 			root: __dirname
 		});
 
-		require("./database").initialize();
+		var movieService = require("./remote/movieService");
+		movieService.initialize("http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
+
+		require("./database").initialize(movieService);
 		require("./handlers/handlers").create({
 			root: parameters.root
 		});
@@ -54,7 +57,8 @@ var service = {
 			router: require("./handlers/router"),
 			http: require("http"),
 			root: parameters.root,
-			fileretriever: require("./file/fileretriever")
+			fileretriever: require("./file/fileretriever"),
+			querystring: require("querystring")
 		});
 		webserver.run(parameters.port);
 	}

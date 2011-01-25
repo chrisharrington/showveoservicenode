@@ -18,6 +18,9 @@
 	//	Retrieves files to be written.
 	var _fileretriever;
 
+	//	The included query string library.
+	var _querystring;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -27,12 +30,14 @@
 	//	http:				The included http library.
 	//	root:				The root path for all applications.
 	//	fileretriever:		The file retrieval library.
+	//	querystring:		The included query string library.
 	//
 	exports.initialize = function(parameters) {
 		_router = parameters.router;
 		_http = parameters.http;
 		_root = parameters.root;
 		_fileretriever = parameters.fileretriever;
+		_querystring = parameters.querystring;
 	};
 
 	//
@@ -41,14 +46,22 @@
 	//
 	exports.run = function(port) {
 		_http.createServer(function(request, response) {
-			var url = request.url;
-			if (url.indexOf("?") > -1)
-				url = url.substring(0, url.indexOf("?"));
+			var data = "";
+			request.on("data", function(chunk) {
+				data += chunk;
+			});
+			request.on("end", function() {
+				request.data = _querystring.parse(data);
+				
+				var url = request.url;
+				if (url.indexOf("?") > -1)
+					url = url.substring(0, url.indexOf("?"));
 
-			if (url.endsWith(".data"))
-				_router.route(request, response);
-			else
-				handleStaticRequest(request, response);
+				if (url.endsWith(".data"))
+					_router.route(request, response);
+				else
+					handleStaticRequest(request, response);
+			});
 		}).listen(port, "127.0.0.1");
 
 		console.log("Web server listening on " + port + ".");

@@ -21,9 +21,9 @@
 	//	db:			The underlying database object.
 	//	logger:		The error logger.
 	//
-	exports.create = function(parameters) {
-		_db = parameters.db;
-		_logger = parameters.logger;
+	exports.create = function(db, logger) {
+		_db = db;
+		_logger = logger;
 	};
 
 	//

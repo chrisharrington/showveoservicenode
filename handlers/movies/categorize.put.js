@@ -22,7 +22,13 @@
 	//	response:				The response object.
 	//
 	exports.handle = function(request, response) {
+		var uncategorizedMovieID = request.data.uncategorizedMovieID;
+		var movieInfoID = request.data.infoID;
 
+		
+
+		response.writeHead(200, { "Content-Type": "application/json" });
+		response.end("{}");
 	};
 
 	//------------------------------------------------------------------------------------------------------------------

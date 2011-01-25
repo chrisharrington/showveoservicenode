@@ -124,6 +124,9 @@ var router = function() {
 	//
 	var handle = function(location, request, response, value) {
 		try {
+			if (value)
+				value = value.replace(/\+/g, " ");
+
 			request.identity = deriveIdentity(request);
 			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response, value);
 		}
