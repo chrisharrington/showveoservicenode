@@ -14,7 +14,6 @@ exports.create = function(mongoose) {
 			"createdDate",
 			"encoded"
 		],
-
 		cast: {
 			createdDate: Date
 		}

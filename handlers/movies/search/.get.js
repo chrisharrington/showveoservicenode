@@ -26,8 +26,6 @@
 	//	response:				The response object.
 	//
 	exports.handle = function(request, response, query) {
-		console.log("search: " + query);
-
 		_movieInfoRepository.search(query, {
 			success: function(infos) {
 				response.writeHead(200, { "Content-Type": "application/json" });

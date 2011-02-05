@@ -41,7 +41,13 @@
 			if (!name)
 				throw "The given search query is invalid.";
 
-			handlers.success(new Array());
+			_service.search(name, function(movies) {
+				if (handlers.success)
+					handlers.success(movies);
+			}, function(error) {
+				if (handlers.error)
+					handlers.error(error);
+			});
 		} catch (error) {
 			_logger.log("movieInfoRepository.search:  " + error);
 			if (handlers.error)

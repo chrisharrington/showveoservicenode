@@ -25,7 +25,7 @@
 		var uncategorizedMovieID = request.data.uncategorizedMovieID;
 		var movieInfoID = request.data.infoID;
 
-		
+		console.log(uncategorizedMovieID + " " + movieInfoID);
 
 		response.writeHead(200, { "Content-Type": "application/json" });
 		response.end("{}");

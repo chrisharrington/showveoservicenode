@@ -17,6 +17,24 @@ var service = {
 		var _uploads;
 
 		//------------------------------------------------------------------------------------------------------------------
+		/* Private Methods */
+
+		//
+		//	Loads the exit events.
+		//	database:			The database object that needs to be closed on exit.
+		//
+		var loadExitEvents = function(database) {
+			process.on("SIGINT", function() {
+				process.exit();	
+			});
+
+			process.on("exit", function() {
+				database.close();
+				console.log("Process disposed.");
+			});
+		};
+
+		//------------------------------------------------------------------------------------------------------------------
 
 		require("./extensions/string").initialize();
 		require("./handlers/router").initialize({
@@ -25,9 +43,9 @@ var service = {
 		});
 
 		var movieService = require("./remote/movieService");
-		movieService.initialize("http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
+		movieService.initialize(require("http"), "http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
 
-		require("./database").initialize(movieService);
+		var database = require("./database").initialize(movieService);
 		require("./handlers/handlers").create({
 			root: parameters.root
 		});
@@ -61,6 +79,8 @@ var service = {
 			querystring: require("querystring")
 		});
 		webserver.run(parameters.port);
+
+		loadExitEvents(database);
 	}
 }.initialize({
 	port: 3000,

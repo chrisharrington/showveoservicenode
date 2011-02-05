@@ -1,3 +1,4 @@
+/*
 var mongoose = require("mongoose").Mongoose;
 require("./models/uncategorizedMovie").create(mongoose);
 
@@ -15,4 +16,16 @@ db.model("UncategorizedMovie").find().all(function(movies) {
 //
 //		db.close();
 //	});
+});
+*/
+
+require("http").createServer(function(request, response) {}).listen(3000, "127.0.0.1");
+
+process.on("exit", function() {
+	console.log("Exiting...");
+});
+
+process.on('SIGINT', function () {
+	console.log("Terminated.");
+	process.exit();
 });

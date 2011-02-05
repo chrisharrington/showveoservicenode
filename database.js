@@ -18,7 +18,7 @@
 		require("./models/userMovieInfo").create(mongoose);
 		require("./models/uncategorizedMovie").create(mongoose);
 
-		var db = mongoose.connect("mongodb://localhost/test");
+		var db = mongoose.connect("mongodb://localhost:3002/dev");
 
 		var usermodel = db.model("User");
 		usermodel.find({}).all(function(users) {
@@ -42,6 +42,8 @@
 		require("./repositories/movieInfoRepository").create(db, logger, movieService);
 
 		console.log("Database initialized.");
+
+		return db;
 	};
 
 })();

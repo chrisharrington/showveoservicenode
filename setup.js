@@ -4,7 +4,7 @@ require("./models/movie").create(mongoose);
 require("./models/genre").create(mongoose);
 require("./models/userMovieInfo").create(mongoose);
 
-var db = mongoose.connect("mongodb://localhost/test");
+var db = mongoose.connect("mongodb://localhost:3002/dev");
 var userModel = db.model("User");
 
 userModel.find().all(function(users) {
