@@ -64,12 +64,16 @@
 
 					_uncategorizedMovieRepository.getByID(insertedMovie.id, {
 						success: function(retrievedMovie) {
+
 							var id = retrievedMovie.categorizedMovieID;
 							if (retrievedMovie.categorizedMovieID) {
 								_movieRepository.getByID(id, {
 									success: function(categorizedMovie) {
-										categorizedMovie.encoded = true;
-										_movieRepository.update(categorizedMovie);
+										if (categorizedMovie) {
+											categorizedMovie.encoded = true;
+											categorizedMovie.url = output.substring(output.lastIndexOf("/")+1);
+											_movieRepository.update(categorizedMovie);
+										}
 									}
 								});
 							}

@@ -39,4 +39,48 @@
 		}
 	};
 
+	//
+	//	Retrieves a genre by name.
+	//	name:		The name of the genre.
+	//	handlers:		The function handlers.
+	//
+	exports.getByName = function(name, handlers) {
+		try {
+			_db.model("Genre").find({ "name": name }).all(function(genres) {
+				if (genres && genres.length > 0)
+					handlers.success(genres[0]);
+				else
+					handlers.success();
+			});
+		} catch (error) {
+			if (handlers.error)
+				handlers.error(error);
+			else
+				throw error;
+		}
+	};
+
+	//
+	//	Inserts a new genre.
+	//	genre:		The genre information to insert.
+	//	handlers:		The function handlers.
+	//
+	exports.insert = function(data, handlers) {
+		try {
+			var model = _db.model("Genre");
+			var genre = new model({
+				name: data.name
+			});
+			genre.save(function() {
+				if (handlers.success)
+					handlers.success(genre);
+			});
+		} catch (error) {
+			if (handlers.error)
+				handlers.error(error);
+			else
+				throw error;
+		}
+	};
+
 })();

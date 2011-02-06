@@ -56,6 +56,8 @@ var handlers = function(parameters) {
 	var createMovieHandlers = function(parameters) {
 		var movieRepository = require("../repositories/movieRepository");
 		var userRepository = require("../repositories/userRepository");
+		var movieInfoRepository = require("../repositories/movieInfoRepository");
+		var uncategorizedMovieRepository = require("../repositories/uncategorizedMovieRepository");
 
 		require("./movies/recent.get").initialize({ movieRepository: movieRepository, userRepository: userRepository });
 		require("./movies/favorites.get").initialize({ movieRepository: movieRepository, userRepository: userRepository });
@@ -64,9 +66,9 @@ var handlers = function(parameters) {
 		require("./movies/genres.get").initialize({ genreRepository: require("../repositories/genreRepository") });
 		require("./movies/favorite/.put").initialize({ movieRepository: movieRepository });
 		require("./movies/unfavorite/.put").initialize({ movieRepository: movieRepository });
-		require("./movies/uncategorized.get").initialize({ repository: require("../repositories/uncategorizedMovieRepository") });
-		require("./movies/search/.get").initialize({ movieInfoRepository: require("../repositories/movieInfoRepository") });
-		require("./movies/categorize.put").initialize({ });
+		require("./movies/uncategorized.get").initialize({ repository: uncategorizedMovieRepository });
+		require("./movies/search/.get").initialize({ movieInfoRepository: movieInfoRepository });
+		require("./movies/categorize.put").initialize({ movieInfoRepository: movieInfoRepository, uncategorizedMovieRepository: uncategorizedMovieRepository, movieRepository: movieRepository });
 	};
 
 }();

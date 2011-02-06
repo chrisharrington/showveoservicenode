@@ -13,6 +13,9 @@
 	//	The error logger.
 	var _logger;
 
+	//	The guid object used to generate new unique IDs.
+	var _guid;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -20,10 +23,49 @@
 	//	Creates the repository.
 	//	db:			The underlying database object.
 	//	logger:		The error logger.
+	//	guid:		The guid object used to generate new unique IDs.
 	//
-	exports.create = function(db, logger) {
+	exports.create = function(db, logger, guid) {
 		_db = db;
 		_logger = logger;
+		_guid = guid;
+	};
+
+	//
+	//	Inserts a movie.
+	//	movie:			The movie to insert.
+	//	handlers:			The function handlers.
+	//
+	exports.insert = function(movie, handlers) {
+		if (!handlers)
+			handlers = {};
+
+		try {
+			if (!movie)
+				throw "The movie given is invalid.";
+
+			movie.id = _guid.create().toString();
+			movie.save(function() {
+				_db.model("User").find().all(function(users) {
+					users.forEach(function(user) {
+						var model = _db.model("UserMovieInfo");
+						var info = new model({
+							user: user,
+							movie: movie,
+							isFavorite: false
+						});
+						info.save();
+					});
+				});
+
+				if (handlers.success)
+					handlers.success(movie);
+			});
+		} catch (error) {
+			_logger.log("movieRepository.insert:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
 	};
 
 	//

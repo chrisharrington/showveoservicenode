@@ -9,8 +9,9 @@
 	//
 	//	Performs the database initialization.
 	//	movieService:				The remote movie service.
+	//	movieServiceMapper:		Maps movie service data to local movie data.
 	//	
-	exports.initialize = function(movieService) {
+	exports.initialize = function(movieService, movieServiceMapper) {
 		var mongoose = require("mongoose").Mongoose;
 		require("./models/user").create(mongoose);
 		require("./models/movie").create(mongoose);
@@ -36,10 +37,10 @@
 
 		var logger = require("./logging/logger");
 		require("./repositories/userRepository").create(db);
-		require("./repositories/movieRepository").create(db, logger);
+		require("./repositories/movieRepository").create(db, logger, require("guid"));
 		require("./repositories/genreRepository").create(db);
 		require("./repositories/uncategorizedMovieRepository").create(db, logger);
-		require("./repositories/movieInfoRepository").create(db, logger, movieService);
+		require("./repositories/movieInfoRepository").create(db, logger, movieService, movieServiceMapper);
 
 		console.log("Database initialized.");
 

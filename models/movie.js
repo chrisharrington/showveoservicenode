@@ -13,7 +13,6 @@ exports.create = function(mongoose) {
 			"year",
 			"synopsis",
 			"genres",
-			"owner",
 			"uploadDate",
 			"lastWatched",
 			"lastWatchedDate",

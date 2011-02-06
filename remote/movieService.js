@@ -48,12 +48,12 @@
 		  path: "/2.1/Movie.search/en/json/" + _key + "/" + query
 		};
 
-		_http.get(options, function(res) {
+		_http.get(options, function(response) {
 			var data = "";
-			res.on("data", function(buffer) {
+			response.on("data", function(buffer) {
 				data += buffer.toString();
 			});
-			res.on("end", function() {
+			response.on("end", function() {
 				data = JSON.parse(data);
 
 				var movies = new Array();
@@ -69,6 +69,32 @@
 			});
 		}).on("error", function(e) {
 		  	error(e);
+		});
+	};
+
+	//
+	//	Retrieves detailed movie information.
+	//	id:			The movie ID.
+	//	handlers:		The function handlers.
+	//
+	exports.getByID = function(id, handlers) {
+		if (!id)
+			throw "movieSearch.getByID:  Invalid movie ID.";
+
+		var options = {
+		  host: "api.themoviedb.org",
+		  port: 80,
+		  path: "/2.1/Movie.getInfo/en/json/" + _key + "/" + id
+		};
+
+		_http.get(options, function(response) {
+			var data = "";
+			response.on("data", function(buffer) {
+				data += buffer.toString();
+			});
+			response.on("end", function() {
+				handlers.success(JSON.parse(data)[0]);
+			});
 		});
 	};
 

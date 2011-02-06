@@ -105,7 +105,7 @@
 	//
 	exports.getAll = function(handlers) {
 		try {
-			_db.model("UncategorizedMovie").find().all(function(movies) {
+			_db.model("UncategorizedMovie").find({ "categorizedMovieID": null }).all(function(movies) {
 				handlers.success(movies);	
 			});
 		} catch (error) {

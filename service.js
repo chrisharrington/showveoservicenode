@@ -45,10 +45,14 @@ var service = {
 		var movieService = require("./remote/movieService");
 		movieService.initialize(require("http"), "http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
 
-		var database = require("./database").initialize(movieService);
+		var movieServiceMapper = require("./remote/movieServiceMapper");
+
+		var database = require("./database").initialize(movieService, movieServiceMapper);
 		require("./handlers/handlers").create({
 			root: parameters.root
 		});
+
+		movieServiceMapper.initialize(require("./repositories/genreRepository"), database);
 
 		var watcher = require("./watcher/watcher");
 		watcher.initialize();

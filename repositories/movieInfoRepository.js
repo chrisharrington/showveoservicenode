@@ -16,6 +16,9 @@
 	//	The underlying remote movie service.
 	var _service;
 
+	//	Maps remote movie information to local movie objects.
+	var _mapper;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -24,11 +27,13 @@
 	//	db:			The underlying database object.
 	//	logger:		The error logger.
 	//	service:		The underlying remote movie service.
+	//	mapper:		Maps remote movie information to local movie objects.
 	//
-	exports.create = function(db, logger, service) {
+	exports.create = function(db, logger, service, mapper) {
 		_db = db;
 		_logger = logger;
 		_service = service;
+		_mapper = mapper;
 	};
 
 	//
@@ -50,6 +55,35 @@
 			});
 		} catch (error) {
 			_logger.log("movieInfoRepository.search:  " + error);
+			if (handlers.error)
+				handlers.error(error);
+		}
+	};
+
+	//
+	//	Retrieves detailed movie information.
+	//	id:			The ID of the movie.
+	//	handlers:		The function handlers.
+	//
+	exports.getByID = function(id, handlers) {
+		try {
+			if (!id)
+				throw "The given ID is invalid.";
+
+			_service.getByID(id, {
+				success: function(movie) {
+					_mapper.map(movie, function(mapped) {
+						if (handlers.success)
+							handlers.success(mapped);
+					});
+				},
+				error: function(error) {
+					if (handlers.error)
+						handlers.error(error);
+				}
+			});
+		} catch (error) {
+			_logger.log("movieInfoRepository.getByID:  " + error);
 			if (handlers.error)
 				handlers.error(error);
 		}

@@ -19,7 +19,7 @@ db.model("UncategorizedMovie").find().all(function(movies) {
 });
 */
 
-require("http").createServer(function(request, response) {}).listen(3000, "127.0.0.1");
+/*require("http").createServer(function(request, response) {}).listen(3000, "127.0.0.1");
 
 process.on("exit", function() {
 	console.log("Exiting...");
@@ -28,4 +28,23 @@ process.on("exit", function() {
 process.on('SIGINT', function () {
 	console.log("Terminated.");
 	process.exit();
+});*/
+
+var mapper = require("./remote/movieServiceMapper");
+
+var movieService = require("./remote/movieService");
+movieService.initialize(require("http"), "http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
+
+var database = require("./database").initialize(movieService, mapper);
+mapper.initialize(require("./repositories/genreRepository"), database);
+
+var movieInfoRepository = require("./repositories/movieInfoRepository");
+movieInfoRepository.getByID(187, {
+	success: function(movie) {
+		console.log(movie.genres);
+		database.close();
+	},
+	error: function(error) {
+		console.log("error");
+	}
 });

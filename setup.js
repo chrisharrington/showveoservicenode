@@ -12,6 +12,12 @@ userModel.find().all(function(users) {
 		users[i].remove();
 });
 
+var uncategorizedMovieModel = db.model("UncategorizedMovie");
+uncategorizedMovieModel.find().all(function(movies) {
+	for (var i = 0; i < movies.length; i++)
+		movies[i].remove();
+});
+
 setTimeout(function() {
 	var user = new userModel({
 		firstName: "Chris",
@@ -59,7 +65,6 @@ setTimeout(function() {
 					year: 2010,
 					synopsis: "Revolves around Frank, an American tourist visiting Italy to mend a broken heart. Elise is an extraordinary woman who deliberately crosses his path.",
 					genres: new Array(genres["Action"], genres["Drama"], genres["Thriller"]),
-					owner: user,
 					uploadDate: new Date(),
 					lastWatched: null,
 					lastWatchedDate: null,
@@ -77,7 +82,6 @@ setTimeout(function() {
 					year: 2010,
 					synopsis: "Scott Pilgrim is a film adaptation of the critically acclaimed, award-winning series of graphic novels of the same name by Canadian cartoonist Bryan Lee O’Malley. Scott Pilgrim is a 23 year old Canadian slacker and wannabe rockstar who falls in love with an American delivery girl, Ramona V. Flowers, and must defeat her seven 'evil exes' to be able to date her.",
 					genres: new Array(genres["Action"], genres["Adventure"], genres["Comedy"]),
-					owner: user,
 					uploadDate: new Date(),
 					lastWatched: null,
 					lastWatchedDate: null,
@@ -95,7 +99,6 @@ setTimeout(function() {
 					year: 2010,
 					synopsis: "Wealthy inventor Tony Stark (Robert Downey Jr.) -- aka Iron Man -- resists calls by the American government to hand over his technology. Meanwhile, Ivan Vanko (Mickey Rourke) has constructed his own miniaturized arc reactor, causing all kinds of problems for our superhero. Sam Rockwell, Gwyneth Paltrow, Scarlett Johansson, Don Cheadle and Samuel L. Jackson co-star in director Jon Favreau's sequel based on Marvel comic book characters.",
 					genres: new Array(genres["Action"], genres["Adventure"], genres["Fantasy"], genres["Science Fiction"], genres["Thriller"]),
-					owner: user,
 					uploadDate: new Date(),
 					lastWatched: null,
 					lastWatchedDate: null,
@@ -113,7 +116,6 @@ setTimeout(function() {
 					year: 1999,
 					synopsis: "A lonely, isolated thirty-something young professional seeks an escape from his mundane existence with the help of a devious soap salesman. They find their release from the prison of reality through underground fight clubs, where men can be what the world now denies them. Their boxing matches and harmless pranks soon lead to an out-of-control spiral towards oblivion.",
 					genres: new Array(genres["Action"], genres["Comedy"], genres["Crime"], genres["Drama"], genres["Thriller"]),
-					owner: user,
 					uploadDate: new Date(),
 					lastWatched: null,
 					lastWatchedDate: null,
