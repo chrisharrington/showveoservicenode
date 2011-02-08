@@ -38,13 +38,10 @@ movieService.initialize(require("http"), "http://www.themoviedb.org/", "c26c67ed
 var database = require("./database").initialize(movieService, mapper);
 mapper.initialize(require("./repositories/genreRepository"), database);
 
-var movieInfoRepository = require("./repositories/movieInfoRepository");
-movieInfoRepository.getByID(187, {
-	success: function(movie) {
-		console.log(movie.genres);
-		database.close();
-	},
-	error: function(error) {
-		console.log("error");
+require("./repositories/uncategorizedMovieRepository").getAll({
+	success: function(movies) {
+		movies.forEach(function(movie) {
+			console.log(movie.filename);
+		});
 	}
 });

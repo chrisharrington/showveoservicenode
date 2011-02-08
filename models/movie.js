@@ -19,7 +19,6 @@ exports.create = function(mongoose) {
 			"poster",
 			"director",
 			"actors",
-			"isFavorite",
 			"url",
 			"encoded"
 		],

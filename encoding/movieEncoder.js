@@ -62,6 +62,8 @@
 				_encoder.encode(path, output, function() {
 					_fs.unlink(path);
 
+					console.log("Movie encoded.");
+
 					_uncategorizedMovieRepository.getByID(insertedMovie.id, {
 						success: function(retrievedMovie) {
 

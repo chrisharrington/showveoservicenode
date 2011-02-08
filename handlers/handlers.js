@@ -58,17 +58,18 @@ var handlers = function(parameters) {
 		var userRepository = require("../repositories/userRepository");
 		var movieInfoRepository = require("../repositories/movieInfoRepository");
 		var uncategorizedMovieRepository = require("../repositories/uncategorizedMovieRepository");
+		var userMovieMerger = require("../service/userMovieMerger");
 
-		require("./movies/recent.get").initialize({ movieRepository: movieRepository, userRepository: userRepository });
-		require("./movies/favorites.get").initialize({ movieRepository: movieRepository, userRepository: userRepository });
-		require("./movies/all.get").initialize({ movieRepository: movieRepository, userRepository: userRepository });
-		require("./movies/genre/.get").initialize({ movieRepository: movieRepository, userRepository: userRepository });
+		require("./movies/recent.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
+		require("./movies/favorites.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
+		require("./movies/all.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
+		require("./movies/genre/.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
 		require("./movies/genres.get").initialize({ genreRepository: require("../repositories/genreRepository") });
 		require("./movies/favorite/.put").initialize({ movieRepository: movieRepository });
 		require("./movies/unfavorite/.put").initialize({ movieRepository: movieRepository });
 		require("./movies/uncategorized.get").initialize({ repository: uncategorizedMovieRepository });
 		require("./movies/search/.get").initialize({ movieInfoRepository: movieInfoRepository });
-		require("./movies/categorize.put").initialize({ movieInfoRepository: movieInfoRepository, uncategorizedMovieRepository: uncategorizedMovieRepository, movieRepository: movieRepository });
+		require("./movies/categorize.put").initialize({ userRepository: userRepository, movieInfoRepository: movieInfoRepository, uncategorizedMovieRepository: uncategorizedMovieRepository, movieRepository: movieRepository });
 	};
 
 }();

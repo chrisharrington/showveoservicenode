@@ -15,6 +15,9 @@
 	//	A container for movie information.
 	var _movieRepository;
 
+	//	A container for user information.
+	var _userRepository;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -23,11 +26,13 @@
 	//	uncategorizedMovieRepository:			A container for uncategorized movie information.
 	//	movieInfoRepository:					A container for detailed movie information.
 	//	movieRepository:						A container for movie information.
+	//	userRepository:						A container for user information.
 	//
 	exports.initialize = function(parameters) {
 		_uncategorizedMovieRepository = parameters.uncategorizedMovieRepository;
 		_movieInfoRepository = parameters.movieInfoRepository;
 		_movieRepository = parameters.movieRepository;
+		_userRepository = parameters.userRepository;
 	};
 
 	//
@@ -39,37 +44,42 @@
 		var uncategorizedMovieID = request.data.uncategorizedMovieID;
 		var movieInfoID = request.data.infoID;
 
-		_movieInfoRepository.getByID(movieInfoID, {
-			success: function(movie) {
-				_movieRepository.insert(movie, {
+		_userRepository.getByIdentity(request.identity, {
+			success: function(user) {
+				_movieInfoRepository.getByID(movieInfoID, {
 					success: function(movie) {
-						_uncategorizedMovieRepository.getByID(uncategorizedMovieID, {
-							success: function(uncategorizedMovie) {
-								uncategorizedMovie.categorizedMovieID = movie.id;
-								_uncategorizedMovieRepository.update(uncategorizedMovie, {
-									success: function() {
-										response.writeHead(200, { "Content-Type": "application/json" });
-										response.end("{}");
+						_movieRepository.insert(user, movie, {
+							success: function(info) {
+								movie = info.movie;
+								_uncategorizedMovieRepository.getByID(uncategorizedMovieID, {
+									success: function(uncategorizedMovie) {
+										uncategorizedMovie.categorizedMovieID = movie.id;
+										_uncategorizedMovieRepository.update(uncategorizedMovie, {
+											success: function() {
+												response.writeHead(200, { "Content-Type": "application/json" });
+												response.end("{}");
+											},
+											error: function() {
+												writeError(response, "An error has occurred while updating the uncategorized movie.");
+											}
+										});
 									},
 									error: function() {
-										writeError(response, "An error has occurred while updating the uncategorized movie.");
+										writeError(response, "An error has occurred while retrieving the uncategorized movie information.");
 									}
 								});
 							},
 							error: function() {
-								writeError(response, "An error has occurred while retrieving the uncategorized movie information.");
+								writeError(response, "An error has occurred while inserting the newly categorized movie.");
 							}
 						});
 					},
 					error: function() {
-						writeError(response, "An error has occurred while inserting the newly categorized movie.");
+						writeError(response, "An error has occurred while retrieving the movie information.");
 					}
 				});
-			},
-			error: function() {
-				writeError(response, "An error has occurred while retrieving the movie information.");
 			}
-		});
+		});		
 	};
 
 	//------------------------------------------------------------------------------------------------------------------
