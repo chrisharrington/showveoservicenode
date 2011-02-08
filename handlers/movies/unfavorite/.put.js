@@ -29,8 +29,8 @@
 	exports.handle = function(request, response, movieID) {
 		_movieRepository.setFavorite(movieID, false, {
 			success: function() {
-				response.writeHead(200, { "Content-Type": "application/xml" });
-				response.end("<empty></empty>");
+				response.writeHead(200, { "Content-Type": "application/json" });
+				response.end("{}");
 			},
 			error: function(error) {
 				response.writeHead(500, { "Content-Type": "plain/text" });
