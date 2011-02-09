@@ -9,9 +9,6 @@
 	//	A container for movie information.
 	var _movieRepository;
 
-	//	A container for user information.
-	var _userRepository;
-
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -30,21 +27,23 @@
 	//	movieID:				The ID of the movie to set as a favorite.
 	//
 	exports.handle = function(request, response, movieID) {
-		_movieRepository.setFavorite(movieID, true, {
-			success: function() {
-				response.writeHead(200, { "Content-Type": "application/json" });
-				response.end("{}");
-			},
-			error: function(error) {
-				if (error.status == 200) {
+		request.getUser(function(user) {
+			_movieRepository.setFavorite(user, movieID, true, {
+				success: function() {
 					response.writeHead(200, { "Content-Type": "application/json" });
 					response.end("{}");
-					return;
+				},
+				error: function(error) {
+					if (error.status == 200) {
+						response.writeHead(200, { "Content-Type": "application/json" });
+						response.end("{}");
+						return;
+					}
+
+					response.writeHead(500, { "Content-Type": "plain/text" });
+					response.end("An error has occurred while setting a movie's favorite status.");
 				}
-				
-				response.writeHead(500, { "Content-Type": "plain/text" });
-				response.end("An error has occurred while setting a movie's favorite status.");
-			}
+			});
 		});
 	};
 

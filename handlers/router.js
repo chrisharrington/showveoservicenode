@@ -131,8 +131,9 @@ var router = function() {
 			if (value)
 				value = value.replace(/\+/g, " ");
 
+
 			request.getUser = function(callback) {
-				_userRepository.getUserByIdentity(deriveIdentity(request), {
+				_userRepository.getByIdentity(deriveIdentity(request), {
 					success: function(user) {
 						if (callback)
 							callback(user);
