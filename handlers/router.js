@@ -9,6 +9,8 @@ var router = function() {
 	//	The root path.
 	var _root;
 
+	//	A container for user information.
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -16,10 +18,12 @@ var router = function() {
 	//	Initializes the router class.
 	//	path:				The included path library.
 	//	root:					The root path.
+	//	userRepository:		A container for user information.
 	//
 	exports.initialize = function(parameters) {
 		_path = parameters.path;
 		_root = parameters.root;
+		_userRepository = parameters.userRepository;
 	};
 
 	//
@@ -126,6 +130,15 @@ var router = function() {
 		try {
 			if (value)
 				value = value.replace(/\+/g, " ");
+
+			request.getUser = function(callback) {
+				_userRepository.getUserByIdentity(deriveIdentity(request), {
+					success: function(user) {
+						if (callback)
+							callback(user);
+					}
+				});
+			};
 
 			request.identity = deriveIdentity(request);
 			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response, value);

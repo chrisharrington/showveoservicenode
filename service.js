@@ -37,10 +37,6 @@ var service = {
 		//------------------------------------------------------------------------------------------------------------------
 
 		require("./extensions/string").initialize();
-		require("./handlers/router").initialize({
-			path: require("path"),
-			root: __dirname
-		});
 
 		var movieService = require("./remote/movieService");
 		movieService.initialize(require("http"), "http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
@@ -53,6 +49,12 @@ var service = {
 		});
 
 		movieServiceMapper.initialize(require("./repositories/genreRepository"), database);
+
+		require("./handlers/router").initialize({
+			path: require("path"),
+			root: __dirname,
+			userRepository: require("./repositories/userRepository")
+		});
 
 		var watcher = require("./watcher/watcher");
 		watcher.initialize();

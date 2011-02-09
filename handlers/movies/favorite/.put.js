@@ -9,6 +9,9 @@
 	//	A container for movie information.
 	var _movieRepository;
 
+	//	A container for user information.
+	var _userRepository;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -33,8 +36,12 @@
 				response.end("{}");
 			},
 			error: function(error) {
-				if (error.status == 200)
+				if (error.status == 200) {
+					response.writeHead(200, { "Content-Type": "application/json" });
+					response.end("{}");
 					return;
+				}
+				
 				response.writeHead(500, { "Content-Type": "plain/text" });
 				response.end("An error has occurred while setting a movie's favorite status.");
 			}
