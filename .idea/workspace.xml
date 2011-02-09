@@ -27,65 +27,7 @@
   </component>
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="categorize.put.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/movies/categorize.put.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="51" selection-start="1765" selection-end="1765" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setup.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="68" selection-start="5496" selection-end="5496" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="handlers.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/handlers.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="35" selection-start="1686" selection-end="1686" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="uncategorized.get.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/movies/uncategorized.get.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="34" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.41889116">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="movieRepository.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="41" selection-start="1317" selection-end="1317" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1297145180000" expanded="true" signature="1175:1237" placeholder="{...}" />
-                <marker date="1297145180000" expanded="true" signature="1263:1324" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -103,7 +45,6 @@
         <option value="$PROJECT_DIR$/repositories/movieInfoRepository.js" />
         <option value="$PROJECT_DIR$/remote/movieServiceMapper.js" />
         <option value="$PROJECT_DIR$/handlers/movies/unfavorite/.put.js" />
-        <option value="$PROJECT_DIR$/encoding/movieEncoder.js" />
         <option value="$PROJECT_DIR$/models/movie.js" />
         <option value="$PROJECT_DIR$/repositories/userMovieRepository.js" />
         <option value="$PROJECT_DIR$/service/userMovieMerger.js" />
@@ -111,10 +52,11 @@
         <option value="$PROJECT_DIR$/handlers/movies/favorites.get.js" />
         <option value="$PROJECT_DIR$/handlers/movies/recent.get.js" />
         <option value="$PROJECT_DIR$/handlers/movies/genre/.get.js" />
-        <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
         <option value="$PROJECT_DIR$/handlers/movies/categorize.put.js" />
         <option value="$PROJECT_DIR$/handlers/handlers.js" />
         <option value="$PROJECT_DIR$/test.js" />
+        <option value="$PROJECT_DIR$/encoding/movieEncoder.js" />
+        <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
       </list>
     </option>
   </component>
@@ -337,20 +279,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/repositories/userMovieRepository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="63" selection-start="1584" selection-end="1584" vertical-scroll-proportion="0.50616014">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/userMovieMerger.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="27" selection-start="395" selection-end="395" vertical-scroll-proportion="0.24435319">
@@ -393,23 +321,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="41" selection-start="1317" selection-end="1317" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1297145180000" expanded="true" signature="1175:1237" placeholder="{...}" />
-            <marker date="1297145180000" expanded="true" signature="1263:1324" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/movies/categorize.put.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="51" selection-start="1765" selection-end="1765" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -447,7 +358,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="34" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.41889116">
+        <state line="43" column="34" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/encoding/encoder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/movies/categorize.put.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="51" selection-start="1765" selection-end="1765" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/encoding/movieEncoder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="78" selection-start="2287" selection-end="2287" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="25" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.24435319">
           <folding />
         </state>
       </provider>

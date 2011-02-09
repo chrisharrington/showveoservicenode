@@ -72,7 +72,7 @@
 		try {
 			info.save(function() {
 				if (handlers.success)
-					handler.success();
+					handlerss.success();
 			});
 		} catch (error) {
 			_logger.log("movieRepository.update:  " + error);

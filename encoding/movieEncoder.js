@@ -70,11 +70,15 @@
 							var id = retrievedMovie.categorizedMovieID;
 							if (retrievedMovie.categorizedMovieID) {
 								_movieRepository.getByID(id, {
-									success: function(categorizedMovie) {
-										if (categorizedMovie) {
-											categorizedMovie.encoded = true;
-											categorizedMovie.url = output.substring(output.lastIndexOf("/")+1);
-											_movieRepository.update(categorizedMovie);
+									success: function(categorized) {
+										if (categorized) {
+											categorized.movie.encoded = true;
+											categorized.movie.url = output.substring(output.lastIndexOf("/")+1);
+											_movieRepository.update(categorized, {
+												success: function() {
+													console.log("Completed.");
+												}
+											});
 										}
 									}
 								});
