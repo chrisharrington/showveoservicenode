@@ -9,8 +9,8 @@
 	//	A container for genre information.
 	var _genreRepository;
 
-	//	The database object used to create the model.
-	var _db;
+	//	The movie model.
+	var _movie;
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
@@ -18,11 +18,11 @@
 	//
 	//	Initializes the mapper.
 	//	genreRepository:	A container for genre information.
-	//	db:				The database object used to created the model.
+	//	movie:				The movie model.
 	//
-	exports.initialize = function(genreRepository, db) {
+	exports.initialize = function(genreRepository, movie) {
 		_genreRepository = genreRepository;
-		_db = db;
+		_movie = movie;
 	};
 
 	//
@@ -31,8 +31,7 @@
 	//	callback:			The callback function.
 	//
 	exports.map = function(data, callback) {
-		var model = _db.model("Movie");
-		var movie = new model({
+		var created = new _model({
 			name: data.name,
 			year: data.released.substring(0, 4),
 			synopsis: data.overview,
@@ -48,8 +47,8 @@
 		});
 
 		deriveGenres(data.genres, function(genres) {
-			movie.genres = genres;
-			callback(movie);
+			created.genres = genres;
+			callback(created);
 		});
 	};
 

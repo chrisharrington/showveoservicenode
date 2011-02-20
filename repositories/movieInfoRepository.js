@@ -34,6 +34,8 @@
 		_logger = logger;
 		_service = service;
 		_mapper = mapper;
+
+		_mapper.initialize()
 	};
 
 	//

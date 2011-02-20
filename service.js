@@ -29,7 +29,6 @@ var service = {
 			});
 
 			process.on("exit", function() {
-				database.close();
 				console.log("Process disposed.");
 			});
 		};
@@ -43,12 +42,12 @@ var service = {
 
 		var movieServiceMapper = require("./remote/movieServiceMapper");
 
-		var database = require("./database").initialize(movieService, movieServiceMapper);
+		var models = require("./database").initialize(movieService, movieServiceMapper);
 		require("./handlers/handlers").create({
 			root: parameters.root
 		});
 
-		movieServiceMapper.initialize(require("./repositories/genreRepository"), database);
+		//movieServiceMapper.initialize(require("./repositories/genreRepository"), models["Movie"]);
 
 		require("./handlers/router").initialize({
 			path: require("path"),
@@ -85,8 +84,6 @@ var service = {
 			querystring: require("querystring")
 		});
 		webserver.run(parameters.port);
-
-		loadExitEvents(database);
 	}
 }.initialize({
 	port: 3000,

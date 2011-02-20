@@ -12,14 +12,14 @@
 	//	movieServiceMapper:		Maps movie service data to local movie data.
 	//	
 	exports.initialize = function(movieService, movieServiceMapper) {
-		var mongoose = require("mongoose").Mongoose;
+		var mongoose = require("mongoose");
 		require("./models/user").create(mongoose);
 		require("./models/movie").create(mongoose);
 		require("./models/genre").create(mongoose);
 		require("./models/userMovieInfo").create(mongoose);
 		require("./models/uncategorizedMovie").create(mongoose);
 
-		var db = mongoose.connect("mongodb://localhost:3002/dev");
+		var db = mongoose.connect("mongodb://localhost:3001/dev");
 
 		var usermodel = db.model("User");
 		usermodel.find({}).all(function(users) {

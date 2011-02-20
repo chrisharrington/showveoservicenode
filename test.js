@@ -1,45 +1,31 @@
-/*
-var mongoose = require("mongoose").Mongoose;
-require("./models/uncategorizedMovie").create(mongoose);
+/*var mongoose = require("mongoose");
+var db = mongoose.connect("mongodb://localhost:3001/dev");
 
-var db = mongoose.connect("mongodb://localhost/test");
-db.model("UncategorizedMovie").find().all(function(movies) {
-	for (var i = 0; i < movies.length; i++)
-		console.log(movies[i].filename);
-
-//	for (var i = 0; i < movies.length; i++)
-//		movies[i].remove();
-//
-//	db.model("UserMovieInfo").find().all(function(infos) {
-//		for (var i = 0; i < infos.length; i++)
-//			infos[i].remove();
-//
-//		db.close();
-//	});
+var user = new mongoose.Schema({
+        firstName: String,
+        lastName: String,
+        emailAddress: String,
+        identity: String,
+        password: String
 });
-*/
+mongoose.model("User", user);
 
-/*require("http").createServer(function(request, response) {}).listen(3000, "127.0.0.1");
-
-process.on("exit", function() {
-	console.log("Exiting...");
-});
-
-process.on('SIGINT', function () {
-	console.log("Terminated.");
-	process.exit();
+var User = db.model("User");
+User.find({}, function(err, users) {
+	console.log(users.length);
 });*/
 
-var mapper = require("./remote/movieServiceMapper");
+
 
 var movieService = require("./remote/movieService");
 movieService.initialize(require("http"), "http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
 
-var database = require("./database").initialize(movieService, mapper);
-mapper.initialize(require("./repositories/genreRepository"), database);
+var movieServiceMapper = require("./remote/movieServiceMapper");
 
-require("./repositories/userRepository").getByIdentity("757a3f7922bc4176eeae0d8c9611bf1ee7993beb", {
-	success: function(user) {
-		console.log(user);
+require("./database").initialize(movieService, movieServiceMapper);
+
+require("./repositories/genreRepository").getAll({
+	success: function(genres) {
+		console.log(genres.length);
 	}
 });

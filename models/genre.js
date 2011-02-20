@@ -6,9 +6,10 @@ exports.create = function(mongoose) {
 	if (!mongoose)
 		return;
 
-	mongoose.model("Genre", {
-		properties: [
-			"name"
-		]
+	var genre = new mongoose.Schema({
+		name: String
 	});
+
+	mongoose.model("Genre", genre);
+	return genre;
 };

@@ -27,7 +27,12 @@
 	//
 	exports.getAll = function(handlers) {
 		try {
-			_db.model("Genre").find().all(function(genres) {
+			_db.model("Genre").find({}, function(error, genres) {
+				if (error && handlers.error) {
+					handlers.error(error);
+					return;
+				}
+
 				if (handlers.success)
 					handlers.success(genres);
 			});
@@ -46,7 +51,12 @@
 	//
 	exports.getByName = function(name, handlers) {
 		try {
-			_db.model("Genre").find({ "name": name }).all(function(genres) {
+			_db.model("Genre").find({ "name": name }, function(error, genres) {
+				if (error && handlers.error) {
+					handlers.error(error);
+					return;
+				}
+
 				if (genres && genres.length > 0)
 					handlers.success(genres[0]);
 				else

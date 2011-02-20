@@ -25,14 +25,19 @@
 	//	Retrieves a user by email address and password.
 	//	email:				The email address of the user.
 	//	password:			The password of the user.
-	//	Returns:				The retrieved user or null.
+	//	Returns:			The retrieved user or null.
 	//
 	exports.getByEmailAndPassword = function(email, password, handlers) {
 		if (!email || !password || !handlers)
 			return;
 
 		try {
-			_db.model("User").find({emailAddress: email, password: password }).all(function(users) {
+			_db.model("User").find({emailAddress: email, password: password }, function(error, users) {
+				if (error && handlers.error) {
+					handlers.error(error);
+					return;
+				}
+
 				if (users.length == 0 && handlers.success)
 					handlers.success();
 				else if (handlers.success)
@@ -56,7 +61,12 @@
 			return;
 
 		try {
-			_db.model("User").find({identity: identity }).all(function(users) {
+			_db.model("User").find({identity: identity }, function(error, users) {
+				if (error && handlers.error) {
+					handlers.error(error);
+					return;
+				}
+
 				if (users.length == 0 && handlers.success)
 					handlers.success();
 				else if (handlers.success)

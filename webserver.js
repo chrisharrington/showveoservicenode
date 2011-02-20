@@ -46,6 +46,7 @@
 	//
 	exports.run = function(port) {
 		_http.createServer(function(request, response) {
+
 			var data = "";
 			request.on("data", function(chunk) {
 				data += chunk;
@@ -64,7 +65,7 @@
 			});
 		}).listen(port, "127.0.0.1");
 
-		console.log("Web server listening on " + port + ".");
+		console.log("Web server listening on " + port + " with root " + _root + ".");
 	};
 
 	//------------------------------------------------------------------------------------------------------------------

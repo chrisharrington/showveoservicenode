@@ -1,10 +1,11 @@
-var mongoose = require("mongoose").Mongoose;
-require("./models/user").create(mongoose);
-require("./models/movie").create(mongoose);
-require("./models/genre").create(mongoose);
-require("./models/userMovieInfo").create(mongoose);
+var mongoose = require("mongoose");
+var user = require("./models/user").create(mongoose);
+var genre = require("./models/genre").create(mongoose);
+var movie = require("./models/movie").create(mongoose, user, genre);
+require("./models/uncategorizedMovie").create(mongoose);
+require("./models/userMovieInfo").create(mongoose, user, movie);
 
-var db = mongoose.connect("mongodb://localhost:3002/dev");
+var db = mongoose.connect("mongodb://localhost:3001/dev");
 var userModel = db.model("User");
 
 userModel.find().all(function(users) {
@@ -132,7 +133,8 @@ setTimeout(function() {
 						new userMovieInfoModel({ user: user, movie: movies[i], isFavorite: i%2 == 0 }).save();
 
 					setTimeout(function() {
-						db.close();
+						console.log("Done!");
+						process.exit();
 					}, 500);
 				}, 500);
 			}, 500);

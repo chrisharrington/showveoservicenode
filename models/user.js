@@ -6,13 +6,13 @@ exports.create = function(mongoose) {
 	if (!mongoose)
 		return;
 
-	mongoose.model("User", {
-		properties: [
-			"firstName",
-			"lastName",
-			"emailAddress",
-			"identity",
-			"password"
-		]
+	var user = new mongoose.Schema({
+		firstName: String,
+		lastName: String,
+		emailAddress: String,
+		identity: String,
+		password: String
 	});
+	mongoose.model("User", user);
+	return user;
 };

@@ -6,18 +6,13 @@ exports.create = function(mongoose) {
 	if (!mongoose)
 		return;
 
-	mongoose.model("UncategorizedMovie", {
-		properties: [
-			"id",
-			"categorizedMovieID",
-			"filename",
-			"createdDate",
-			"encoded"
-		],
-		cast: {
-			createdDate: Date
-		}
-	});
+	mongoose.model("UncategorizedMovie", new mongoose.Schema({
+		"id": Number,
+		"categorizedMovieID": Number,
+		"filename": String,
+		"createdDate": Date,
+		"encoded": Boolean
+	}));
 };
 
 

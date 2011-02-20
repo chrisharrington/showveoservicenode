@@ -60,6 +60,7 @@ var router = function() {
 		if (url.indexOf("?") > -1)
 			url = url.substring(0, url.indexOf("?"));
 		var location = deriveRoutedPath(url, request.method);
+		console.log(location);
 		_path.exists(location, function(exists) {
 			if (!exists) {
 				var value = location.substring(location.lastIndexOf("/")+1).replace("." + request.method.toLowerCase() + ".js", "");
@@ -145,7 +146,6 @@ var router = function() {
 			require(location.replace(__dirname, ".").replace(".js", "")).handle(request, response, value);
 		}
 		catch (error) {
-			console.log(error.toString());
 			write500(request, response);
 		}
 	};
@@ -164,7 +164,7 @@ var router = function() {
 					return subparts[1];
 			}
 		} catch (error) {
-			
+			return;
 		}
 	};
 
