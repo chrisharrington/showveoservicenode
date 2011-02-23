@@ -14,5 +14,5 @@ exports.create = function(mongoose) {
 		password: String
 	});
 	mongoose.model("User", user);
-	return user;
+	return mongoose.model("User");
 };

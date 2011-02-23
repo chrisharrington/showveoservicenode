@@ -19,29 +19,69 @@
 	//
 	exports.create = function(db) {
 		_db = db;
+		return this;
+	};
+
+	//
+	//	Inserts a new user into the user collection.
+	//	user:				The user to insert.
+	//	handlers:			The function handlers.
+	//
+	exports.insert = function(user, handlers) {
+		_db.open(function(error, db) {
+			db.collection("users", function(error, collection) {
+				collection.insert(user, function(error, docs) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success(docs[0]);
+				});
+			});
+		});
+	};
+
+	//
+	//	Removes all users from the repository.
+	//	handlers:			The function handlers.
+	//
+	exports.removeAll = function(handlers) {
+		_db.open(function(error, db) {
+			db.collection("users", function(error, collection) {
+				collection.remove(function(error, collection) {
+					db.close();
+					if (error)
+						handlers.error();
+					else
+						handlers.success();
+				});
+			});
+		});
 	};
 
 	//
 	//	Retrieves a user by email address and password.
 	//	email:				The email address of the user.
 	//	password:			The password of the user.
-	//	Returns:			The retrieved user or null.
+	//	handlers:			The function handlers.
 	//
 	exports.getByEmailAndPassword = function(email, password, handlers) {
-		if (!email || !password || !handlers)
-			return;
-
 		try {
-			_db.model("User").find({emailAddress: email, password: password }, function(error, users) {
-				if (error && handlers.error) {
-					handlers.error(error);
-					return;
-				}
-
-				if (users.length == 0 && handlers.success)
-					handlers.success();
-				else if (handlers.success)
-					handlers.success(users[0]);
+			_db.open(function(error, db) {
+				if (error) { handlers.error(error); _db.close(); return; }
+				db.collection("users", function(error, collection) {
+					if (error) { handlers.error(error); _db.close(); return; }
+					collection.find({ emailAddress: email, password: password }, {}, function(error, cursor) {
+						if (error) { handlers.error(error); _db.close(); return; }
+						cursor.toArray(function(error, users) {
+							_db.close();
+							if (error)
+								handlers.error(error);
+							else
+								handlers.success(users[0]);
+						});
+					});
+				});
 			});
 		} catch (error) {
 			if (handlers.error)
@@ -61,16 +101,21 @@
 			return;
 
 		try {
-			_db.model("User").find({identity: identity }, function(error, users) {
-				if (error && handlers.error) {
-					handlers.error(error);
-					return;
-				}
-
-				if (users.length == 0 && handlers.success)
-					handlers.success();
-				else if (handlers.success)
-					handlers.success(users[0]);
+			_db.open(function(error, db) {
+				if (error) { handlers.error(error); _db.close(); return; }
+				db.collection("users", function(error, collection) {
+					if (error) { handlers.error(error); _db.close(); return; }
+					collection.find({ identity: identity }, {}, function(error, cursor) {
+						if (error) { handlers.error(error); _db.close(); return; }
+						cursor.toArray(function(error, users) {
+							_db.close();
+							if (error)
+								handlers.error(error);
+							else
+								handlers.success(users[0]);
+						});
+					});
+				});
 			});
 		}
 		catch (error) {

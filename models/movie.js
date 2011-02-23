@@ -9,17 +9,17 @@ exports.create = function(mongoose, user, genre) {
 		return;
 
 	var movie = new mongoose.Schema({
-		id: Number,
+		id: String,
 		name: String,
 		year: Number,
 		synopsis: String,
-		genres: [[genre]],
+		genres: [mongoose.model("Genre")],
 		uploadDate: Date,
-		lastWatched: [user],
+		lastWatched: [mongoose.model("User")],
 		lastWatchedDate: Date,
 		poster: String,
 		director: String,
-		actors: String,
+		actors: [String],
 		url: String,
 		encoded: Boolean
 	});

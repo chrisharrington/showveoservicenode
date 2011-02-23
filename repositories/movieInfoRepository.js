@@ -7,9 +7,6 @@
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
 
-	//	The underlying database object.
-	var _db;
-
 	//	The error logger.
 	var _logger;
 
@@ -24,13 +21,11 @@
 
 	//
 	//	Creates the repository.
-	//	db:			The underlying database object.
 	//	logger:		The error logger.
-	//	service:		The underlying remote movie service.
+	//	service:	The underlying remote movie service.
 	//	mapper:		Maps remote movie information to local movie objects.
 	//
-	exports.create = function(db, logger, service, mapper) {
-		_db = db;
+	exports.create = function(logger, service, mapper) {
 		_logger = logger;
 		_service = service;
 		_mapper = mapper;

@@ -48,8 +48,13 @@
 				user: user,
 				movie: movie,
 				isFavorite: false
-			})
-			info.save(function() {
+			});
+			info.save(function(error) {
+				if (error && handlers.error) {
+					handlers.error(error);
+					return;
+				}
+
 				if (handlers.success)
 					handlers.success(info);
 			});
@@ -70,7 +75,12 @@
 			return;
 
 		try {
-			info.save(function() {
+			info.save(function(error) {
+				if (handlers.error && error) {
+					handlers.error(error);
+					return;
+				}
+
 				if (handlers.success)
 					handlerss.success();
 			});
@@ -91,8 +101,9 @@
 			return;
 
 		try {
-			_db.model("UserMovieInfo").find({ "movie.id": id }).first(function(info) {
-				handlers.success(info);
+			_db.model("UserMovieInfo").find({ "movie.id": id }, function(infos) {
+				if (infos.length > 0)
+					handlers.success(infos[0]);
 			});
 		} catch (error) {
 			_logger.log("movieRepository.getByID:  " + error);

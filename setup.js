@@ -1,3 +1,54 @@
+var repository = require("./repositories/repository").initialize(require("mongodb"), "localhost", 3001, "dev");
+
+var userRepository = require("./repositories/userRepository").create(repository);
+var uncategorizedMovieRepository = require("./repositories/uncategorizedMovieRepository").create(repository);
+var genreRepository = require("./repositories/genreRepository").create(repository);
+var userMovieRepository = require("./repositories/userMovieRepository").create(repository);
+
+userMovieRepository.removeAll({
+	error: function() { console.log("An error has occurred while removing all user-movie info objects."); },
+	success: function() {}
+});
+
+uncategorizedMovieRepository.removeAll({
+	error: function() { console.log("An error has occurred while removing all uncategorized movies."); },
+	success: function() {}
+});
+
+genreRepository.removeAll({
+	error: function() { console.log("An error has occurred while removing all genres."); },
+	success: function() {
+		var genres = {};
+		new Array("Action", "Adventure", "Comedy", "Crime", "Drama", "Fantasy", "Romance", "Science Fiction", "Thriller").forEach(function(name) {
+			genreRepository.insert({ name: name }, {
+				error: function() { console.log("An error has occurred while inserting the \"" + name + "\" genre."); },
+				success: function(genre) { genres[name] = genre; }
+			})
+		});
+
+	}
+});
+
+userRepository.removeAll({
+	error: function() { console.log("An error has occurred while removing all users from the user collection."); },
+	success: function() {
+		userRepository.insert({
+			firstName: "Chris",
+			lastName: "Harrington",
+			emailAddress: "chrisharrington99@gmail.com",
+			identity: "757a3f7922bc4176eeae0d8c9611bf1ee7993beb",
+			password: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+		}, {
+			error: function() { console.log("An error has occurred while inserting the base user."); },
+			success: function(user) {
+
+			}
+		});
+	}
+});
+
+
+/*
 var mongoose = require("mongoose");
 var user = require("./models/user").create(mongoose);
 var genre = require("./models/genre").create(mongoose);
@@ -6,15 +57,16 @@ require("./models/uncategorizedMovie").create(mongoose);
 require("./models/userMovieInfo").create(mongoose, user, movie);
 
 var db = mongoose.connect("mongodb://localhost:3001/dev");
+
 var userModel = db.model("User");
 
-userModel.find().all(function(users) {
+userModel.find({}, function(error, users) {
 	for (var i = 0; i < users.length; i++)
 		users[i].remove();
 });
 
 var uncategorizedMovieModel = db.model("UncategorizedMovie");
-uncategorizedMovieModel.find().all(function(movies) {
+uncategorizedMovieModel.find({}, function(error, movies) {
 	for (var i = 0; i < movies.length; i++)
 		movies[i].remove();
 });
@@ -29,13 +81,13 @@ setTimeout(function() {
 	});
 	user.save(function() {
 		var genreModel = db.model("Genre");
-		genreModel.find().all(function(genres) {
+		genreModel.find({}, function(error, genres) {
 			for (var i = 0; i < genres.length; i++)
 				genres[i].remove();
 		});
 
 		var movieModel = db.model("Movie");
-		movieModel.find().all(function(movies) {
+		movieModel.find({}, function(error, movies) {
 			for (var i = 0; i < movies.length; i++)
 				movies[i].remove();
 		});
@@ -51,7 +103,7 @@ setTimeout(function() {
 			}
 
 			var userMovieInfoModel = db.model("UserMovieInfo");
-			userMovieInfoModel.find().all(function(infos) {
+			userMovieInfoModel.find({}, function(error, infos) {
 				for (var i = 0; i < infos.length; i++)
 					infos[i].remove();
 			});
@@ -60,22 +112,27 @@ setTimeout(function() {
 
 			setTimeout(function() {
 				var movies = new Array();
-				movies.push(new movieModel({
+
+				var movie = new movieModel({
 					id: guid.create().toString(),
 					name: "The Tourist",
 					year: 2010,
 					synopsis: "Revolves around Frank, an American tourist visiting Italy to mend a broken heart. Elise is an extraordinary woman who deliberately crosses his path.",
-					genres: new Array(genres["Action"], genres["Drama"], genres["Thriller"]),
+					//genres: new Array(genres["Action"], genres["Drama"], genres["Thriller"]),
 					uploadDate: new Date(),
-					lastWatched: null,
-					lastWatchedDate: null,
+					//lastWatched: null,
+					//lastWatchedDate: null,
 					poster: "http://hwcdn.themoviedb.org/posters/f72/4cfeca335e73d6299e004f72/the-tourist-cover.jpg",
 					director: "Florian Henckel von Donnersmarck",
 					actors: new Array("Johnny Depp", "Angelina Jolie"),
 					url: "http://www.google.com",
 					encoded: false
-				}));
-				movies[0].save();
+				});
+				console.log(movie.genres);
+				movie.genres.push(genres["Action"]);
+				movie.save(function(error) {
+					console.log("error: " + error);
+				});
 
 				movies.push(new movieModel({
 					id: guid.create().toString(),
@@ -133,6 +190,7 @@ setTimeout(function() {
 						new userMovieInfoModel({ user: user, movie: movies[i], isFavorite: i%2 == 0 }).save();
 
 					setTimeout(function() {
+						db.connection.close();
 						console.log("Done!");
 						process.exit();
 					}, 500);
@@ -140,4 +198,4 @@ setTimeout(function() {
 			}, 500);
 		}, 500);
 	});
-}, 500);
+}, 500);*/

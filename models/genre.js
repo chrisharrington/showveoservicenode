@@ -11,5 +11,5 @@ exports.create = function(mongoose) {
 	});
 
 	mongoose.model("Genre", genre);
-	return genre;
+	return mongoose.model("Genre");
 };

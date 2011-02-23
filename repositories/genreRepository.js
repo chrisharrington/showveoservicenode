@@ -19,6 +19,44 @@
 	//
 	exports.create = function(db) {
 		_db = db;
+		return this;
+	};
+
+	//
+	//	Removes all genres from the repository.
+	//	handlers:		The function handlers.
+	//
+	exports.removeAll = function(handlers) {
+		_db.open(function(error, db) {
+			db.collection("genres", function(error, collection) {
+				collection.remove(function(error, collection) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success();
+				});
+			});
+		});
+	};
+
+	//
+	//	Inserts a new genre.
+	//	genre:			The genre information to insert.
+	//	handlers:		The function handlers.
+	//
+	exports.insert = function(genre, handlers) {
+		_db.open(function(error, db) {
+			db.collection("genres", function(error, collection) {
+				collection.insert(genre, function(error, docs) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success(docs[0]);
+				});
+			});
+		});
 	};
 
 	//
@@ -61,29 +99,6 @@
 					handlers.success(genres[0]);
 				else
 					handlers.success();
-			});
-		} catch (error) {
-			if (handlers.error)
-				handlers.error(error);
-			else
-				throw error;
-		}
-	};
-
-	//
-	//	Inserts a new genre.
-	//	genre:		The genre information to insert.
-	//	handlers:		The function handlers.
-	//
-	exports.insert = function(data, handlers) {
-		try {
-			var model = _db.model("Genre");
-			var genre = new model({
-				name: data.name
-			});
-			genre.save(function() {
-				if (handlers.success)
-					handlers.success(genre);
 			});
 		} catch (error) {
 			if (handlers.error)

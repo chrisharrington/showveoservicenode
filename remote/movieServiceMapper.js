@@ -31,7 +31,7 @@
 	//	callback:			The callback function.
 	//
 	exports.map = function(data, callback) {
-		var created = new _model({
+		var created = new _movie({
 			name: data.name,
 			year: data.released.substring(0, 4),
 			synopsis: data.overview,

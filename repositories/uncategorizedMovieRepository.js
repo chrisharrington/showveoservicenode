@@ -24,6 +24,25 @@
 	exports.create = function(db, logger) {
 		_db = db;
 		_logger = logger;
+		return this;
+	};
+
+	//
+	//	Removes all uncategorized movies from the repository.
+	//	handlers:		The function handlers.
+	//
+	exports.removeAll = function(handlers) {
+		_db.open(function(error, db) {
+			db.collection("uncategorizedmovies", function(error, collection) {
+				collection.remove(function(error, collection) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success();
+				});
+			});
+		});
 	};
 
 	//
@@ -32,23 +51,17 @@
 	//	handlers:		The function handlers.
 	//
 	exports.insert = function(movie, handlers) {
-		try {
-			var model = _db.model("UncategorizedMovie");
-			var inserted = new model({
-				id: movie.id,
-				filename: movie.filename,
-				createdDate: movie.createdDate,
-				encoded: movie.encoded
+		_db.open(function(error, db) {
+			db.collection("uncategorizedmovies", function(error, collection) {
+				collection.insert(movie, function(error, docs) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success(docs[0]);
+				});
 			});
-			inserted.save(function() {
-				if (handlers.success)
-					handlers.success(inserted);
-			});
-		} catch (error) {
-			_logger.log("uncategorizedMovieRepository.insert:  " + error);
-			if (handlers.error)
-				handlers.error(error);
-		}
+		});
 	};
 
 	//

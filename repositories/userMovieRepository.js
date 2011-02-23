@@ -19,6 +19,33 @@
 	/* Public Methods */
 
 	//
+	//	Creates the repository.
+	//	db:					The underlying database object.
+	//
+	exports.create = function(db) {
+		_db = db;
+		return this;
+	};
+
+	//
+	//	Removes all user-movie relationships.
+	//	handlers:			The function handlers.
+	//
+	exports.removeAll = function(handlers) {
+		_db.open(function(error, db) {
+			db.collection("usermovieinfos", function(error, collection) {
+				collection.remove(function(error, collection) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success();
+				});
+			});
+		});
+	};
+
+	//
 	//	Inserts a movie.
 	//	movie:			The movie to insert.
 	//	handlers:			The function handlers.
