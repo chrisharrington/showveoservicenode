@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/setup.js" line="188" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/setup.js" line="277" mnemonic="9" />
     <bookmark url="file://$PROJECT_DIR$/encoding/movieEncoder.js" line="34" mnemonic="0" />
   </component>
   <component name="ChangeListManager">
@@ -31,9 +31,20 @@
       <file leaf-file-name="setup.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/setup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="26" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.4848801">
+            <state line="121" column="44" selection-start="6101" selection-end="6101" vertical-scroll-proportion="1.2356621">
               <folding>
-                <marker date="1298427509000" expanded="true" signature="1920:1924" placeholder="..." />
+                <marker date="1298441532000" expanded="true" signature="6351:6355" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="movieRepository.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="68" column="8" selection-start="1395" selection-end="1658" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1298434537000" expanded="true" signature="1487:1648" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -42,7 +53,7 @@
       <file leaf-file-name="userMovieRepository.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repositories/userMovieRepository.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="43" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0">
+            <state line="60" column="50" selection-start="1477" selection-end="1477" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -78,7 +89,7 @@
       <file leaf-file-name="userRepository.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repositories/userRepository.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="50" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.0">
+            <state line="32" column="63" selection-start="888" selection-end="888" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -121,15 +132,15 @@
         <option value="$PROJECT_DIR$/remote/movieServiceMapper.js" />
         <option value="$PROJECT_DIR$/repositories/movieInfoRepository.js" />
         <option value="$PROJECT_DIR$/service.js" />
-        <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
         <option value="$PROJECT_DIR$/models/genre.js" />
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/models/movie.js" />
         <option value="$PROJECT_DIR$/test.js" />
-        <option value="$PROJECT_DIR$/repositories/userRepository.js" />
         <option value="$PROJECT_DIR$/repositories/repository.js" />
         <option value="$PROJECT_DIR$/repositories/uncategorizedMovieRepository.js" />
         <option value="$PROJECT_DIR$/repositories/genreRepository.js" />
+        <option value="$PROJECT_DIR$/repositories/userRepository.js" />
+        <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
         <option value="$PROJECT_DIR$/repositories/userMovieRepository.js" />
         <option value="$PROJECT_DIR$/setup.js" />
       </list>
@@ -384,20 +395,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/userRepository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="50" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="27" selection-start="1346" selection-end="1346" vertical-scroll-proportion="-0.92402464">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repositories/genreRepository.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="20" selection-start="569" selection-end="569" vertical-scroll-proportion="0.0">
@@ -412,18 +409,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/repositories/userRepository.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="63" selection-start="888" selection-end="888" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="8" selection-start="1395" selection-end="1658" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1298434537000" expanded="true" signature="1487:1648" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/repositories/userMovieRepository.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="43" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0">
+        <state line="60" column="50" selection-start="1477" selection-end="1477" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="26" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.4848801">
+        <state line="121" column="44" selection-start="6101" selection-end="6101" vertical-scroll-proportion="1.2356621">
           <folding>
-            <marker date="1298427509000" expanded="true" signature="1920:1924" placeholder="..." />
+            <marker date="1298441532000" expanded="true" signature="6351:6355" placeholder="..." />
           </folding>
         </state>
       </provider>

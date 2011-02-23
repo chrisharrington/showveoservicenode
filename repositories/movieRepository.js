@@ -29,40 +29,44 @@
 		_db = db;
 		_logger = logger;
 		_guid = guid;
+		return this;
+	};
+
+	//
+	//	Removes all movies from the repository.
+	//	handlers:		The function handlers.
+	//
+	exports.removeAll = function(handlers) {
+		_db.open(function(error, db) {
+			db.collection("movies", function(error, collection) {
+				collection.remove(function(error, collection) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success();
+				});
+			});
+		});
 	};
 
 	//
 	//	Inserts a user-movie information link.
-	//	user:				The user.
-	//	movie:			The movie to insert.
+	//	movie:				The movie to insert.
 	//	handlers:			The function handlers.
 	//
-	exports.insert = function(user, movie, handlers) {
-		if (!handlers || !movie || !user)
-			return;
-
-		try {
-			movie.id = _guid.create().toString();			
-			var model = _db.model("UserMovieInfo");
-			var info = new model({
-				user: user,
-				movie: movie,
-				isFavorite: false
+	exports.insert = function(movie, handlers) {
+		_db.open(function(error, db) {
+			db.collection("movies", function(error, collection) {
+				collection.insert(movie, function(error, docs) {
+					db.close();
+					if (error)
+						handlers.error(error);
+					else
+						handlers.success(docs[0]);
+				});
 			});
-			info.save(function(error) {
-				if (error && handlers.error) {
-					handlers.error(error);
-					return;
-				}
-
-				if (handlers.success)
-					handlers.success(info);
-			});
-		} catch (error) {
-			_logger.log("movieRepository.insert:  " + error);
-			if (handlers.error)
-				handlers.error(error);
-		}
+		});
 	};
 
 	//
