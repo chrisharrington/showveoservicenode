@@ -27,17 +27,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.removeAll = function(handlers) {
-		_db.open(function(error, db) {
-			db.collection("genres", function(error, collection) {
-				collection.remove(function(error, collection) {
-					db.close();
-					if (error)
-						handlers.error(error);
-					else
-						handlers.success();
-				});
-			});
-		});
+		_db.removeAll("genres", handlers);
 	};
 
 	//
@@ -46,17 +36,16 @@
 	//	handlers:		The function handlers.
 	//
 	exports.insert = function(genre, handlers) {
-		_db.open(function(error, db) {
-			db.collection("genres", function(error, collection) {
-				collection.insert(genre, function(error, docs) {
-					db.close();
-					if (error)
-						handlers.error(error);
-					else
-						handlers.success(docs[0]);
-				});
-			});
-		});
+		_db.insert("genres", genre, handlers);
+	};
+
+	//
+	//	Updates a genre.
+	//	genre:			The genre to update.
+	//	handlers:		The function handlers.
+	//
+	exports.update = function(genre, handlers) {
+		_db.update("genres", genre._id, genre, handlers);
 	};
 
 	//
@@ -64,22 +53,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.getAll = function(handlers) {
-		try {
-			_db.model("Genre").find({}, function(error, genres) {
-				if (error && handlers.error) {
-					handlers.error(error);
-					return;
-				}
-
-				if (handlers.success)
-					handlers.success(genres);
-			});
-		} catch(error) {
-			if (handlers.error)
-				handlers.error(error);
-			else
-				throw error;
-		}
+		_db.find("genres", handlers);
 	};
 
 	//
@@ -88,24 +62,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.getByName = function(name, handlers) {
-		try {
-			_db.model("Genre").find({ "name": name }, function(error, genres) {
-				if (error && handlers.error) {
-					handlers.error(error);
-					return;
-				}
-
-				if (genres && genres.length > 0)
-					handlers.success(genres[0]);
-				else
-					handlers.success();
-			});
-		} catch (error) {
-			if (handlers.error)
-				handlers.error(error);
-			else
-				throw error;
-		}
+		_db.findOne("genres", { name: name }, handlers);
 	};
 
 })();

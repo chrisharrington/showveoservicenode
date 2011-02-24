@@ -60,7 +60,6 @@ var router = function() {
 		if (url.indexOf("?") > -1)
 			url = url.substring(0, url.indexOf("?"));
 		var location = deriveRoutedPath(url, request.method);
-		console.log(location);
 		_path.exists(location, function(exists) {
 			if (!exists) {
 				var value = location.substring(location.lastIndexOf("/")+1).replace("." + request.method.toLowerCase() + ".js", "");

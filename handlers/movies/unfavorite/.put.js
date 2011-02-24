@@ -1,23 +1,23 @@
 //
-//	Handles a request for a movie unfavorite operation.
+//	Handles a request for a movie favorite operation.
 //
 (function() {
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
 
-	//	A container for movie information.
-	var _movieRepository;
+	//	A container for user-movie information.
+	var _userMovieRepository;
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Initializes the handler.
-	//	movieRepository:		A container for movie information.
+	//	userRepository:		A container for user-movie information.
 	//
 	exports.initialize = function(parameters) {
-		_movieRepository = parameters.movieRepository;
+		_userMovieRepository = parameters.userMovieRepository;
 	};
 
 	//
@@ -28,7 +28,7 @@
 	//
 	exports.handle = function(request, response, movieID) {
 		request.getUser(function(user) {
-			_movieRepository.setFavorite(user, movieID, false, {
+			_userMovieRepository.setFavorite(user, movieID, false, {
 				success: function() {
 					response.writeHead(200, { "Content-Type": "application/json" });
 					response.end("{}");

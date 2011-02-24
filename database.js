@@ -8,43 +8,16 @@
 
 	//
 	//	Performs the database initialization.
-	//	movieService:				The remote movie service.
-	//	movieServiceMapper:		Maps movie service data to local movie data.
 	//	
-	exports.initialize = function(movieService, movieServiceMapper) {
-		var mongoose = require("mongoose");
-		require("./models/user").create(mongoose);
-		require("./models/movie").create(mongoose);
-		require("./models/genre").create(mongoose);
-		require("./models/userMovieInfo").create(mongoose);
-		require("./models/uncategorizedMovie").create(mongoose);
-
-		var db = mongoose.connect("mongodb://localhost:3001/dev");
-
-		var usermodel = db.model("User");
-		usermodel.find({}).all(function(users) {
-			if (users.length > 0)
-				return;
-
-			new usermodel({
-				firstName: "Chris",
-				lastName: "Harrington",
-				emailAddress: "chrisharrington99@gmail.com",
-				password: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
-				identity: "757a3f7922bc4176eeae0d8c9611bf1ee7993beb"
-			}).save();
-		});
-
-		var logger = require("./logging/logger");
-		require("./repositories/userRepository").create(db);
-		require("./repositories/movieRepository").create(db, logger, require("guid"));
-		require("./repositories/genreRepository").create(db);
-		require("./repositories/uncategorizedMovieRepository").create(db, logger);
-		require("./repositories/movieInfoRepository").create(db, logger, movieService, movieServiceMapper);
+	exports.initialize = function() {
+		var repository = require("./repositories/repository").initialize(require("mongodb"), "localhost", 3001, "dev");
+		require("./repositories/userRepository").create(repository);
+		require("./repositories/uncategorizedMovieRepository").create(repository);
+		require("./repositories/genreRepository").create(repository);
+		require("./repositories/userMovieRepository").create(repository);
+		require("./repositories/movieRepository").create(repository);
 
 		console.log("Database initialized.");
-
-		return db;
 	};
 
 })();

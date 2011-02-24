@@ -9,9 +9,6 @@
 	//	A container for genre information.
 	var _genreRepository;
 
-	//	The movie model.
-	var _movie;
-
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -22,7 +19,6 @@
 	//
 	exports.initialize = function(genreRepository, movie) {
 		_genreRepository = genreRepository;
-		_movie = movie;
 	};
 
 	//
@@ -31,7 +27,7 @@
 	//	callback:			The callback function.
 	//
 	exports.map = function(data, callback) {
-		var created = new _movie({
+		var created = {
 			name: data.name,
 			year: data.released.substring(0, 4),
 			synopsis: data.overview,
@@ -44,7 +40,7 @@
 			isFavorite: false,
 			url: "",
 			encoded: false
-		});
+		};
 
 		deriveGenres(data.genres, function(genres) {
 			created.genres = genres;

@@ -6,28 +6,28 @@
 	//------------------------------------------------------------------------------------------------------------------
 	/* Data Members */
 
-	//	A container for movie information.
-	var _movieRepository;
+	//	A container for user-movie information.
+	var _userMovieRepository;
 
 	//	A container for user information.
 	var _userRepository;
 
-	//	An object used to merge movie and user information.
-	var _userMovieMerger;
+	//	Converts objects into their json representations.
+	var _stringifier;
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Initializes the handler.
-	//	movieRepository:			A container for movie information.
+	//	userMovieRepository:	A container for user-movie information.
 	//	userRepository:			A container for user information.
-	//	userMovieMerger:			Merges user-movie info objects.
+	//	stringifier:			Converts objects into their json representations.
 	//
 	exports.initialize = function(parameters) {
-		_movieRepository = parameters.movieRepository;
+		_userMovieRepository = parameters.userMovieRepository;
 		_userRepository = parameters.userRepository;
-		_userMovieMerger = parameters.userMovieMerger;
+		_stringifier = parameters.stringifier;
 	};
 
 	//
@@ -38,10 +38,10 @@
 	exports.handle = function(request, response) {
 		_userRepository.getByIdentity(request.identity, {
 			success: function(user) {
-				_movieRepository.getFavorites(user, {
+				_userMovieRepository.getFavoritesByUser(user, {
 					success: function(infos) {
 						response.writeHead(200, { "Content-Type": "application/json" });
-						response.end(JSON.stringify(_userMovieMerger.mergeList(infos)));
+						response.end(_stringifier.stringify(infos));
 					},
 					error: function() {
 						response.writeHead(500, { "Content-Type": "plain/text" });

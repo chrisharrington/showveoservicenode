@@ -4,9 +4,6 @@
 var handlers = function(parameters) {
 
 	//------------------------------------------------------------------------------------------------------------------
-	/* Data Members */
-
-	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
@@ -54,22 +51,26 @@ var handlers = function(parameters) {
 	//	parameters:			The parameters object.  Holds all required parameters for handler creation.
 	//
 	var createMovieHandlers = function(parameters) {
-		var movieRepository = require("../repositories/movieRepository");
-		var userRepository = require("../repositories/userRepository");
-		var movieInfoRepository = require("../repositories/movieInfoRepository");
-		var uncategorizedMovieRepository = require("../repositories/uncategorizedMovieRepository");
-		var userMovieMerger = require("../service/userMovieMerger");
+		var container = {
+			stringifier: require("../service/stringifier"),
+			movieRepository: require("../repositories/movieRepository"),
+			userRepository: require("../repositories/userRepository"),
+			movieInfoRepository: require("../repositories/movieInfoRepository"),
+			uncategorizedMovieRepository: require("../repositories/uncategorizedMovieRepository"),
+			userMovieRepository: require("../repositories/userMovieRepository"),
+			genreRepository: require("../repositories/genreRepository")
+		};
 
-		require("./movies/recent.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
-		require("./movies/favorites.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
-		require("./movies/all.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
-		require("./movies/genre/.get").initialize({ movieRepository: movieRepository, userRepository: userRepository, userMovieMerger: userMovieMerger });
-		require("./movies/genres.get").initialize({ genreRepository: require("../repositories/genreRepository") });
-		require("./movies/favorite/.put").initialize({ movieRepository: movieRepository });
-		require("./movies/unfavorite/.put").initialize({ movieRepository: movieRepository });
-		require("./movies/uncategorized.get").initialize({ repository: uncategorizedMovieRepository });
-		require("./movies/search/.get").initialize({ movieInfoRepository: movieInfoRepository });
-		require("./movies/categorize.put").initialize({ userRepository: userRepository, movieInfoRepository: movieInfoRepository, uncategorizedMovieRepository: uncategorizedMovieRepository, movieRepository: movieRepository });
+		require("./movies/recent.get").initialize(container);
+		require("./movies/favorites.get").initialize(container);
+		require("./movies/all.get").initialize(container);
+		require("./movies/genre/.get").initialize(container);
+		require("./movies/genres.get").initialize(container);
+		require("./movies/favorite/.put").initialize(container);
+		require("./movies/unfavorite/.put").initialize(container);
+		require("./movies/uncategorized.get").initialize(container);
+		require("./movies/search/.get").initialize(container);
+		require("./movies/categorize.put").initialize(container);
 	};
 
 }();

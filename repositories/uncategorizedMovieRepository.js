@@ -32,17 +32,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.removeAll = function(handlers) {
-		_db.open(function(error, db) {
-			db.collection("uncategorizedmovies", function(error, collection) {
-				collection.remove(function(error, collection) {
-					db.close();
-					if (error)
-						handlers.error(error);
-					else
-						handlers.success();
-				});
-			});
-		});
+		_db.removeAll("uncategorizedmovies", handlers);
 	};
 
 	//
@@ -51,17 +41,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.insert = function(movie, handlers) {
-		_db.open(function(error, db) {
-			db.collection("uncategorizedmovies", function(error, collection) {
-				collection.insert(movie, function(error, docs) {
-					db.close();
-					if (error)
-						handlers.error(error);
-					else
-						handlers.success(docs[0]);
-				});
-			});
-		});
+		_db.insert("uncategorizedmovies", movie, handlers);
 	};
 
 	//
@@ -70,22 +50,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.update = function(movie, handlers) {
-		if (!handlers)
-			handlers = {};
-
-		try {
-			if (!movie.save)
-				throw "The given movie is not a valid model.";
-
-			movie.save(function() {
-				if (handlers.success)
-					handlers.success();
-			});
-		} catch (error) {
-			_logger.log("uncategorizedMovieRepository.update:  " + error);
-			if (handlers.error)
-				handlers.error(error);
-		}
+		_db.update("uncategorizedmovies", movie._id, movie, handlers);
 	};
 
 	//
@@ -94,22 +59,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.getByID = function(id, handlers) {
-		try {
-			if (!id)
-				throw "The ID is invalid.";
-
-			_db.model("UncategorizedMovie").find({ id: id }).all(function(movies) {
-				if (movies.length == 0)
-					handlers.error("No movie with ID \"" + id + "\" was found.");
-
-				handlers.success(movies[0]);
-			});
-
-		} catch(error) {
-			_logger.log("uncategorizedMovieRepository.getByID:  " + error);
-			if (handlers.error)
-				handlers.error(error);
-		}
+		_db.findOne("uncategorizedmovies", { id: id }, handlers);
 	};
 
 	//
@@ -117,15 +67,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.getAll = function(handlers) {
-		try {
-			_db.model("UncategorizedMovie").find({ "categorizedMovieID": null }).all(function(movies) {
-				handlers.success(movies);	
-			});
-		} catch (error) {
-			_logger.log("uncategorizedMovieRepository.getAll:  " + error);
-			if (handlers.error)
-				handlers.error(error);
-		}
+		_db.find("uncategorizedmovies", handlers);
 	};
 
 })();

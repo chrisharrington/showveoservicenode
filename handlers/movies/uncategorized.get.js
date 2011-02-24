@@ -14,10 +14,10 @@ var template = function() {
 
 	//
 	//	Initializes the handler.
-	//	repository:			A container for uncategorized movie information.
+	//	uncategorizedMovieRepository:			A container for uncategorized movie information.
 	//
 	exports.initialize = function(parameters) {
-		_uncategorizedMovieRepository = parameters.repository;
+		_uncategorizedMovieRepository = parameters.uncategorizedMovieRepository;
 	};
 
 	//

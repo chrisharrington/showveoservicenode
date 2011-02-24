@@ -38,14 +38,14 @@ var service = {
 			var movieServiceMapper = require("./remote/movieServiceMapper");
 			movieServiceMapper.initialize(require("./repositories/genreRepository"), require("./models/movie"));
 
-			require("./movieInfoRepository").initialize(require("./logging/logger"), movieService, movieServiceMapper);
+			require("./repositories/movieInfoRepository").create(require("./logging/logger"), movieService, movieServiceMapper);
 		};
 
 		//
 		//	Loads the database components.
 		//
 		var loadDatabase = function() {
-			require("./database").initialize(movieService, movieServiceMapper);
+			require("./database").initialize();
 		};
 
 		//
@@ -91,7 +91,7 @@ var service = {
 				guidFactory: require("guid"),
 				movieLocation: movieDestinationDirectory,
 				fs: require("fs"),
-				encoder: movieEncoder
+				encoder: require("./encoding/movieEncoder")
 			});
 			movieWatcher.watch(movieSourceDirectory);
 		};
@@ -116,12 +116,12 @@ var service = {
 		//------------------------------------------------------------------------------------------------------------------
 
 		loadExtensions();
-		loadMovieService();
 		loadDatabase();
+		loadMovieService();
 		loadHandlers(parameters.root);
 		loadEncoders();
 		loadWatchers("/home/chris/Test", "/home/chris/Videos/showveo/");
-		loadWebserver(parameters.root);
+		loadWebserver(parameters.root, parameters.port);
 	}
 }.initialize({
 	port: 3000,
