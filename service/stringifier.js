@@ -12,8 +12,7 @@
 	//	Returns;				The stringified object.
 	//
 	exports.stringify = function(object) {
-		stringify(object);
-		return JSON.stringify(object);
+		return JSON.stringify(strip(object));
 	};
 
 	//------------------------------------------------------------------------------------------------------------------
@@ -23,19 +22,24 @@
 	//	Replaces the _id objects with regular old id strings.
 	//	object:					The object to modify.
 	//
-	var stringify = function(object) {
+	var strip = function(object) {
 		if (!object)
-			return;
+			return object;
 
 		if (!object.charAt && object.length) {
 			for (var i = 0; i < object.length; i++)
-				stringify(object[i]);
+				object[i] = strip(object[i]);
+			return object;
 		}
 		else {
 			if (object._id) {
 				object.id = object._id.toHexString();
 				object._id = undefined;
+
+				for (var name in object)
+					object[name] = strip(object[name]);
 			}
+			return object;
 		}
 	};
 

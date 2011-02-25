@@ -51,6 +51,7 @@ userRepository.removeAll({
 
 				var movies = new Array();
 				movies.push({
+					id: guid.create().value,
 					name: "The Tourist",
 					year: 2010,
 					synopsis: "Revolves around Frank, an American tourist visiting Italy to mend a broken heart. Elise is an extraordinary woman who deliberately crosses his path.",
@@ -65,6 +66,7 @@ userRepository.removeAll({
 					encoded: false
 				});
 				movies.push({
+					id: guid.create().value,
 					name: "Scott Pilgrim vs. the World",
 					year: 2010,
 					synopsis: "Scott Pilgrim is a film adaptation of the critically acclaimed, award-winning series of graphic novels of the same name by Canadian cartoonist Bryan Lee O’Malley. Scott Pilgrim is a 23 year old Canadian slacker and wannabe rockstar who falls in love with an American delivery girl, Ramona V. Flowers, and must defeat her seven 'evil exes' to be able to date her.",
@@ -79,6 +81,7 @@ userRepository.removeAll({
 					encoded: true
 				});
 				movies.push({
+					id: guid.create().value,
 					name: "Iron Man 2",
 					year: 2010,
 					synopsis: "Wealthy inventor Tony Stark (Robert Downey Jr.) -- aka Iron Man -- resists calls by the American government to hand over his technology. Meanwhile, Ivan Vanko (Mickey Rourke) has constructed his own miniaturized arc reactor, causing all kinds of problems for our superhero. Sam Rockwell, Gwyneth Paltrow, Scarlett Johansson, Don Cheadle and Samuel L. Jackson co-star in director Jon Favreau's sequel based on Marvel comic book characters.",
@@ -93,6 +96,7 @@ userRepository.removeAll({
 					encoded: false
 				});
 				movies.push({
+					id: guid.create().value,
 					name: "Fight Club",
 					year: 1999,
 					synopsis: "A lonely, isolated thirty-something young professional seeks an escape from his mundane existence with the help of a devious soap salesman. They find their release from the prison of reality through underground fight clubs, where men can be what the world now denies them. Their boxing matches and harmless pranks soon lead to an out-of-control spiral towards oblivion.",

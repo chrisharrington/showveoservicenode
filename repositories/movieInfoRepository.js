@@ -29,13 +29,11 @@
 		_logger = logger;
 		_service = service;
 		_mapper = mapper;
-
-		_mapper.initialize()
 	};
 
 	//
 	//	Searches for movie information using the given name as a search query.
-	//	name:		The search query.
+	//	name:			The search query.
 	//	handlers:		The function handlers.
 	//
 	exports.search = function(name, handlers) {
@@ -59,7 +57,7 @@
 
 	//
 	//	Retrieves detailed movie information.
-	//	id:			The ID of the movie.
+	//	id:				The ID of the movie.
 	//	handlers:		The function handlers.
 	//
 	exports.getByID = function(id, handlers) {

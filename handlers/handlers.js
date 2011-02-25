@@ -58,7 +58,8 @@ var handlers = function(parameters) {
 			movieInfoRepository: require("../repositories/movieInfoRepository"),
 			uncategorizedMovieRepository: require("../repositories/uncategorizedMovieRepository"),
 			userMovieRepository: require("../repositories/userMovieRepository"),
-			genreRepository: require("../repositories/genreRepository")
+			genreRepository: require("../repositories/genreRepository"),
+			guidFactory: require("guid")
 		};
 
 		require("./movies/recent.get").initialize(container);

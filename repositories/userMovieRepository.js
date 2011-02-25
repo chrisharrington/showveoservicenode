@@ -106,7 +106,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.setFavorite = function(user, movieID, isFavorite, handlers) {
-		_db.update("usermovieinfos", movieID, { isFavorite: isFavorite }, handlers);
+		_db.update("usermovieinfos", { "movie.id": movieID }, { isFavorite: isFavorite }, handlers);
 	};
 
 })();

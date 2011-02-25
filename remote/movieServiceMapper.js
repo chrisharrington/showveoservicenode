@@ -15,9 +15,8 @@
 	//
 	//	Initializes the mapper.
 	//	genreRepository:	A container for genre information.
-	//	movie:				The movie model.
 	//
-	exports.initialize = function(genreRepository, movie) {
+	exports.initialize = function(genreRepository) {
 		_genreRepository = genreRepository;
 	};
 
@@ -73,9 +72,15 @@
 								collection.push(inserted);
 								if (collection.length == data.length)
 									callback(collection);
+							},
+							error: function(error) {
+								console.log("An error has occurred while inserting a new genre:  " + error);
 							}
 						});
 					}
+				},
+				error: function(error) {
+					console.log("An error has occurred while mapping a movie service result:  " + error);
 				}
 			});
 		});

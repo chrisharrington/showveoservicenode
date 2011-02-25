@@ -18,8 +18,8 @@
 
 	//
 	//	Creates the repository.
-	//	db:			The underlying database object.
-	//	logger:		The logger.
+	//	db:				The underlying database object.
+	//	logger:			The logger.
 	//
 	exports.create = function(db, logger) {
 		_db = db;
@@ -37,7 +37,7 @@
 
 	//
 	//	Inserts a new uncategorized movie object.
-	//	movie:		The uncategorized movie object to insert.
+	//	movie:			The uncategorized movie object to insert.
 	//	handlers:		The function handlers.
 	//
 	exports.insert = function(movie, handlers) {
@@ -46,16 +46,18 @@
 
 	//
 	//	Updates an uncategorized movie object.
-	//	movie:		The movie to update.
+	//	movie:			The movie to update.
 	//	handlers:		The function handlers.
 	//
 	exports.update = function(movie, handlers) {
-		_db.update("uncategorizedmovies", movie._id, movie, handlers);
+		if (!handlers)
+			handlers = { success: function() {}, error: function() {} };
+		_db.update("uncategorizedmovies", { id: movie.id }, movie, handlers);
 	};
 
 	//
 	//	Retrieves an uncategorized movie by ID.
-	//	id:			The uncategorized movie ID.
+	//	id:				The uncategorized movie ID.
 	//	handlers:		The function handlers.
 	//
 	exports.getByID = function(id, handlers) {

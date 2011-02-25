@@ -59,21 +59,21 @@
 		_uncategorizedMovieRepository.insert(movie, {
 			success: function(insertedMovie) {
 				var output = path.replace(".raw", ".mp4");
+				console.log(new Date() + " - encoding begun.");
 				_encoder.encode(path, output, function() {
 					_fs.unlink(path);
 
-					console.log("Movie encoded.");
+					console.log(new Date() + " - encoding finished.");
 
 					_uncategorizedMovieRepository.getByID(insertedMovie.id, {
 						success: function(retrievedMovie) {
-
 							var id = retrievedMovie.categorizedMovieID;
 							if (retrievedMovie.categorizedMovieID) {
 								_movieRepository.getByID(id, {
 									success: function(categorized) {
 										if (categorized) {
-											categorized.movie.encoded = true;
-											categorized.movie.url = output.substring(output.lastIndexOf("/")+1);
+											categorized.encoded = true;
+											categorized.url = output.substring(output.lastIndexOf("/")+1);
 											_movieRepository.update(categorized, {
 												success: function() {
 													console.log("Completed.");
@@ -89,10 +89,10 @@
 						}
 					});
 				}, function() {
-					console.log("error");
+
 				});
 			},
-			error: function(error) { console.log("error: " + error) ; }
+			error: function(error) { console.log("An error has occurred while inserting the uncategorized movie: " + error) ; }
 		});
 	};
 

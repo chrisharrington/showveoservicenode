@@ -18,21 +18,31 @@
 	//	A container for user information.
 	var _userRepository;
 
+	//	A container for user-movie information.
+	var _userMovieRepository;
+
+	//	Creates guids.
+	var _guidFactory;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Initializes the handler.
-	//	uncategorizedMovieRepository:			A container for uncategorized movie information.
-	//	movieInfoRepository:					A container for detailed movie information.
-	//	movieRepository:						A container for movie information.
+	//	uncategorizedMovieRepository:		A container for uncategorized movie information.
+	//	movieInfoRepository:				A container for detailed movie information.
+	//	movieRepository:					A container for movie information.
 	//	userRepository:						A container for user information.
+	//	userMovieRepository:				A container for user-movie information.
+	//	guidFactory:						Creates quids.
 	//
 	exports.initialize = function(parameters) {
 		_uncategorizedMovieRepository = parameters.uncategorizedMovieRepository;
 		_movieInfoRepository = parameters.movieInfoRepository;
 		_movieRepository = parameters.movieRepository;
 		_userRepository = parameters.userRepository;
+		_userMovieRepository = parameters.userMovieRepository;
+		_guidFactory = parameters.guidFactory;
 	};
 
 	//
@@ -48,9 +58,14 @@
 			success: function(user) {
 				_movieInfoRepository.getByID(movieInfoID, {
 					success: function(movie) {
-						_movieRepository.insert(user, movie, {
-							success: function(info) {
-								movie = info.movie;
+						movie.id = _guidFactory.create().value;
+						_movieRepository.insert(movie, {
+							success: function(movie) {
+								_userMovieRepository.insert({ user: user, movie: movie }, {
+									success: function() {},
+									error: function() {}
+								});
+
 								_uncategorizedMovieRepository.getByID(uncategorizedMovieID, {
 									success: function(uncategorizedMovie) {
 										uncategorizedMovie.categorizedMovieID = movie.id;

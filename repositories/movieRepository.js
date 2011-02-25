@@ -36,12 +36,21 @@
 	};
 
 	//
-	//	Inserts a user-movie information link.
+	//	Inserts a movie object..
 	//	movie:				The movie to insert.
 	//	handlers:			The function handlers.
 	//
 	exports.insert = function(movie, handlers) {
 		_db.insert("movies", movie, handlers);
+	};
+
+	//
+	//	Updates a movie object.
+	//	movie:				The movie to update.
+	//	handlers:			The function handlers.
+	//
+	exports.update = function(movie, handlers) {
+		_db.update("movies", movie, handlers);
 	};
 
 	//

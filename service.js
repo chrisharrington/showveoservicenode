@@ -36,7 +36,7 @@ var service = {
 			movieService.initialize(require("http"), "http://www.themoviedb.org/", "c26c67ed161834067f4d91430df1024e");
 
 			var movieServiceMapper = require("./remote/movieServiceMapper");
-			movieServiceMapper.initialize(require("./repositories/genreRepository"), require("./models/movie"));
+			movieServiceMapper.initialize(require("./repositories/genreRepository"));
 
 			require("./repositories/movieInfoRepository").create(require("./logging/logger"), movieService, movieServiceMapper);
 		};

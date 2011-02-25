@@ -2,11 +2,9 @@ var repository = require("./repositories/repository").initialize(require("mongod
 var userRepository = require("./repositories/userRepository").create(repository);
 var genreRepository = require("./repositories/genreRepository").create(repository);
 var userMovieRepository = require("./repositories/userMovieRepository").create(repository);
+var uncategorizedMovieRepository = require("./repositories/uncategorizedMovieRepository").create(repository);
 
-genreRepository.getAll({
-	success: function(genres) {
-		var string = require("./service/stringifier").stringify(genres);
-		console.log(string);		
-	},
+genreRepository.insert({ name: "Action" }, {
+	success: function(genre) { console.log("success - " + genre.name); },
 	error: function(error) { console.log("error - " + error); }
 });

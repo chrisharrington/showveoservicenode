@@ -78,19 +78,25 @@
 	//
 	//	Updates an object in a collection.
 	//	collection:			The name of the collection in which the object resides.
-	//	id:					The ID of the object to update.
+	//	query:				The query used to find the object to update.
 	//	values:				The container of fields and values to update.
 	//	handlers:			The function handlers.
 	//
-	exports.update = function(collection, id, values, handlers) {
+	exports.update = function(collection, query, values, handlers) {
 		var Db = _mongodb.Db;
 		var Server = _mongodb.Server;
 
+		var newValues = {};
+		for (var name in values) {
+			if (name == "_id")
+				continue;
+			newValues[name] = values[name];
+		}
+
 		var db = new Db(_database, new Server(_host, _port, {}));
-		db.on("error", function(error) { handleError(db, error.message, handlers); });
 		db.open(function(error, db) {
 			db.collection(collection, function(error, collection) {
-				collection.update({ _id: id }, values, function(error, document) {
+				collection.update(query, { "$set": newValues }, function(error, document) {
 					db.close();
 					if (error)
 						handlers.error(error);
@@ -213,6 +219,15 @@
 					collection.find(callback);
 			});
 		});
+	};
+
+	//
+	//	Creates an ObjectID from the given hex string.
+	//	hex:				The hex string from which to create the ObjectID.
+	//	Returns:			The created ObjectID.
+	//
+	exports.createObjectID = function(hex) {
+		return _mongodb.ObjectID.createFromHexString(hex);
 	};
 
 	//------------------------------------------------------------------------------------------------------------------
