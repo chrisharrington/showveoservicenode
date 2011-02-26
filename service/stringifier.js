@@ -33,7 +33,6 @@
 		}
 		else {
 			if (object._id) {
-				object.id = object._id.toHexString();
 				object._id = undefined;
 
 				for (var name in object)

@@ -38,7 +38,7 @@
 	exports.handle = function(request, response) {
 		_userRepository.getByIdentity(request.identity, {
 			success: function(user) {
-				_userMovieRepository.getByUser(user, {
+				_userMovieRepository.getAllByUser(user, {
 					success: function(infos) {
 						response.writeHead(200, { "Content-Type": "application/json" });
 						response.end(_stringifier.stringify(infos));

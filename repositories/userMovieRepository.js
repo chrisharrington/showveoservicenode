@@ -41,7 +41,7 @@
 	//	handlers:		The function handlers.
 	//
 	exports.insert = function(info, handlers) {
-		_db.insert("usermovieinfos", info, handlers);
+		_db.insert("usermovieinfos", { "userID": info.user.id, "movieID": info.movie.id, "isFavorite": info.isFavorite }, handlers);
 	};
 
 	//
@@ -49,8 +49,11 @@
 	//	user:			The user.
 	//	handlers:		The function handlers.
 	//
-	exports.getByUser = function(user, handlers) {
-		_db.find("usermovieinfos", { "user._id": user._id }, { "sort": [["movie.name", 1]]}, handlers);
+	exports.getAllByUser = function(user, handlers) {
+		_db.find("usermovieinfos", { "userID": user.id }, { "sort": [["movie.name", 1]]}, {
+			error: function(error) { handlers.error(error); },
+			success: function(infos) { assignMovieAndUserInfo(infos, user, handlers.success); }
+		});
 	};
 
 	//
@@ -59,7 +62,10 @@
 	//	handlers:		The function handlers.
 	//
 	exports.getFavoritesByUser = function(user, handlers) {
-		_db.find("usermovieinfos", { "user._id": user._id, isFavorite: true }, { "sort": [["movie.name", 1]]}, handlers);
+		_db.find("usermovieinfos", { "userID": user.id, "isFavorite": true }, { "sort": [["movie.name", 1]]}, {
+			error: function(error) { handlers.error(error); },
+			success: function(infos) { assignMovieAndUserInfo(infos, user, handlers.success); }
+		});
 	};
 
 	//
@@ -69,7 +75,22 @@
 	//	handlers:		The function handlers.
 	//
 	exports.getRecentByUser = function(user, count, handlers) {
-		_db.find("usermovieinfos", { "user._id": user._id }, { "limit": count, "sort": [["movie.uploadDate", 1]]}, handlers);		
+		_db.find("usermovieinfos", { "userID": user.id }, { "limit": count }, {
+			error: function(error) { handlers.error(error); },
+			success: function(infos) {
+				assignMovieAndUserInfo(infos, user, function(infos) {
+					infos.sort(function(first, second) {
+						if (first.movie.uploadDate > second.movie.uploadDate)
+							return -1;
+						else if (first.movie.uploadDate == second.movie.uploadDate)
+							return 0;
+						else
+							return 1;
+					});
+					handlers.success(infos);
+				});
+			}
+		});
 	};
 
 	//
@@ -79,18 +100,22 @@
 	//	handlers:		The function handlers.
 	//
 	exports.getGenreByUser = function(user, genre, handlers) {
-		_db.find("usermovieinfos", { "user._id": user._id }, { "sort": [["movie.name", 1]]}, {
-			success: function(retrieved) {
-				var infos = new Array();
-				retrieved.forEach(function(info) {
-					for (var i = 0; i < info.movie.genres.length; i++) {
-						if (info.movie.genres[i].name == genre) {
-							infos.push(info);
-							break;
+		_db.find("usermovieinfos", { "userID": user.id }, { "sort": [["movie.name", 1]]}, {
+			success: function(infos) {
+				var newInfos = new Array();
+				assignMovieAndUserInfo(infos, user, function(retrieved) {
+					retrieved.forEach(function(info) {
+						var movie = info.movie;
+						for (var i = 0; i < movie.genres.length; i++) {
+							if (movie.genres[i].name == genre) {
+								newInfos.push(info);
+								break;
+							}
 						}
-					}
+					});
+
+					handlers.success(newInfos);
 				});
-				handlers.success(infos);
 			},
 			error: function(error) {
 				handlers.error(error);
@@ -106,7 +131,43 @@
 	//	handlers:		The function handlers.
 	//
 	exports.setFavorite = function(user, movieID, isFavorite, handlers) {
-		_db.update("usermovieinfos", { "movie.id": movieID }, { isFavorite: isFavorite }, handlers);
+		_db.update("usermovieinfos", { "userID": user.id, "movieID": movieID }, { "isFavorite": isFavorite }, handlers);
+	};
+
+	//------------------------------------------------------------------------------------------------------------------
+	/* Public Methods */
+
+	//
+	//	Retrieves a list of movie objects from a collection of user-movie information objects.
+	//	infos:			The collection of user-movie info objects.
+	//	user:			The user object.
+	//	callback:		The function handlers.
+	//
+	var assignMovieAndUserInfo = function(infos, user, callback) {
+		if (infos.length == 0)
+			callback(infos);
+
+		var movies = new Array();
+		for (var i = 0; i < infos.length; i++) {
+			infos[i].user = user;
+			var getMovie = function(index) {
+				_db.findOne("movies", { id: infos[index].movieID }, {
+					error: function() { console.log("An error has occurred while retrieving movies from a user-movie info collection."); },
+					success: function(movie) {
+						movies.push({ movie: movie, index: index });
+						if (movies.length == infos.length) {
+							movies.forEach(function(container) {
+								infos[container.index].movie = container.movie;
+							});
+
+							callback(infos);
+						}
+					}
+				});
+			};
+
+			getMovie(i);
+		}
 	};
 
 })();

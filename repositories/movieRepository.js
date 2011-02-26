@@ -50,7 +50,7 @@
 	//	handlers:			The function handlers.
 	//
 	exports.update = function(movie, handlers) {
-		_db.update("movies", movie, handlers);
+		_db.update("movies", { id: movie.id }, movie, handlers);
 	};
 
 	//
