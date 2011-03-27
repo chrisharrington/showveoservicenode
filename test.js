@@ -1,23 +1,2 @@
-var repository = require("./repositories/repository").initialize(require("mongodb"), "localhost", 3001, "dev");
-var userRepository = require("./repositories/userRepository").create(repository);
-var genreRepository = require("./repositories/genreRepository").create(repository);
-var userMovieRepository = require("./repositories/userMovieRepository").create(repository);
-var uncategorizedMovieRepository = require("./repositories/uncategorizedMovieRepository").create(repository);
-var movieRepository = require("./repositories/movieRepository").create(repository);
-
-userRepository.getByIdentity("757a3f7922bc4176eeae0d8c9611bf1ee7993beb", {
-	error: function() {},
-	success: function(user) {
-
-		userMovieRepository.getFavoritesByUser(user, {
-			error: function(error) { console.log("error - " + error); },
-			success: function(infos) {
-				console.log(infos.length);
-				infos.forEach(function(info) {
-					console.log(info.movie.name);
-				});
-			}
-		});
-
-	}
-});
+var useragent = require("./service/requestAnalyzer");
+console.log(useragent.isMobile("Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.151 Safari/534.16,gzip(gfe)"));

@@ -6,8 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="ec507b45-5b76-4a26-b7da-e562df3908f0" name="Default" comment="" />
-    <ignored path="showveoservice.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="showveoservice.iws" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,48 +28,37 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="userMovieRepository.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/repositories/userMovieRepository.js">
+      <file leaf-file-name="encoder.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/encoding/encoder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="56" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.4147844">
+            <state line="73" column="0" selection-start="2169" selection-end="2169" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stringifier.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/stringifier.js">
+      <file leaf-file-name="requestAnalyzer.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/requestAnalyzer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="0" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0">
+            <state line="35" column="36" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="52" selection-start="6140" selection-end="6140" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1298741423000" expanded="true" signature="6359:6363" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="test.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="42" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
+            <state line="1" column="30" selection-start="84" selection-end="84" vertical-scroll-proportion="0.015400411">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="favorites.get.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/movies/favorites.get.js">
+      <file leaf-file-name="webserver.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webserver.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="55" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.0">
+            <state line="108" column="0" selection-start="3040" selection-end="3040" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -89,22 +78,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/repositories/uncategorizedMovieRepository.js" />
-        <option value="$PROJECT_DIR$/repositories/movieInfoRepository.js" />
-        <option value="$PROJECT_DIR$/remote/movieServiceMapper.js" />
-        <option value="$PROJECT_DIR$/encoding/movieEncoder.js" />
-        <option value="$PROJECT_DIR$/handlers/handlers.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/categorize.put.js" />
-        <option value="$PROJECT_DIR$/repositories/movieRepository.js" />
-        <option value="$PROJECT_DIR$/repositories/repository.js" />
-        <option value="$PROJECT_DIR$/setup.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/all.get.js" />
         <option value="$PROJECT_DIR$/handlers/movies/genre/.get.js" />
-        <option value="$PROJECT_DIR$/handlers/movies/recent.get.js" />
         <option value="$PROJECT_DIR$/handlers/movies/favorites.get.js" />
-        <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/service/stringifier.js" />
         <option value="$PROJECT_DIR$/repositories/userMovieRepository.js" />
+        <option value="$PROJECT_DIR$/setup.js" />
+        <option value="$PROJECT_DIR$/handlers/movies/recent.get.js" />
+        <option value="$PROJECT_DIR$/service.js" />
+        <option value="$PROJECT_DIR$/handlers/movies/all.get.js" />
+        <option value="$PROJECT_DIR$/handlers/router.js" />
+        <option value="$PROJECT_DIR$/watcher/movieWatcher.js" />
+        <option value="$PROJECT_DIR$/file/fileretriever.js" />
+        <option value="$PROJECT_DIR$/webserver.js" />
+        <option value="$PROJECT_DIR$/encoding/encoder.js" />
+        <option value="$PROJECT_DIR$/service/useragentanalyzer.js" />
+        <option value="$PROJECT_DIR$/service/requestAnalyzer.js" />
+        <option value="$PROJECT_DIR$/test.js" />
       </list>
     </option>
   </component>
@@ -156,47 +145,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="handlers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="showveoservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="showveoservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="handlers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="showveoservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="showveoservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="handlers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="genre" />
+              <option name="myItemId" value="service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -210,9 +159,9 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="preferences.sourceCode.General" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -281,16 +230,16 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283433" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934132" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17423442" sideWeight="0.33433133" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17423442" sideWeight="0.6636726" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17370644" sideWeight="0.6636726" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934132" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -327,116 +276,98 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/repositories/movieInfoRepository.js">
+    <entry file="file://$PROJECT_DIR$/repositories/userMovieRepository.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="42" selection-start="1309" selection-end="1309" vertical-scroll-proportion="0.2915811">
-          <folding />
-        </state>
+        <state line="86" column="28" selection-start="2665" selection-end="2665" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/handlers.js">
+    <entry file="file://$PROJECT_DIR$/service/stringifier.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="40" selection-start="2222" selection-end="2222" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="35" column="0" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/movies/categorize.put.js">
+    <entry file="file://$PROJECT_DIR$/handlers/movies/favorites.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="63" selection-start="2016" selection-end="2016" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="40" column="55" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.61601645" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/movieRepository.js">
+    <entry file="file://$PROJECT_DIR$/setup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="60" selection-start="1317" selection-end="1317" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="29" column="62" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.015641293" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/encoding/movieEncoder.js">
+    <entry file="file://$PROJECT_DIR$/handlers/movies/recent.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="2420" selection-end="2420" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="37" column="50" selection-start="1157" selection-end="1157" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/repository.js">
+    <entry file="file://$PROJECT_DIR$/service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="88" selection-start="2734" selection-end="2734" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/userRepository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="25" selection-start="1435" selection-end="1448" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="104" column="51" selection-start="3123" selection-end="3123" vertical-scroll-proportion="0.52258724" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/movies/all.get.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="49" selection-start="1276" selection-end="1276" vertical-scroll-proportion="0.0">
+        <state line="36" column="6" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.523614" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="49" selection-start="920" selection-end="920" vertical-scroll-proportion="0.015400411" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/fileretriever.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="44" selection-start="1618" selection-end="1618" vertical-scroll-proportion="0.77002054">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/movies/genres.get.js">
+    <entry file="file://$PROJECT_DIR$/watcher/movieWatcher.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="6" selection-start="1596" selection-end="1596" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/watcher/watcher.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/movies/genre/.get.js">
+    <entry file="file://$PROJECT_DIR$/encoding/movieEncoder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="51" selection-start="1310" selection-end="1310" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.5082136">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/movies/recent.get.js">
+    <entry file="file://$PROJECT_DIR$/webserver.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="52" selection-start="1105" selection-end="1105" vertical-scroll-proportion="0.0">
+        <state line="108" column="0" selection-start="3040" selection-end="3040" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/movies/favorites.get.js">
+    <entry file="file://$PROJECT_DIR$/encoding/encoder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="55" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.0">
+        <state line="73" column="0" selection-start="2169" selection-end="2169" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/requestAnalyzer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="36" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="42" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="52" selection-start="6140" selection-end="6140" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1298741423000" expanded="true" signature="6359:6363" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/stringifier.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repositories/userMovieRepository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="56" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.4147844">
+        <state line="1" column="30" selection-start="84" selection-end="84" vertical-scroll-proportion="0.015400411">
           <folding />
         </state>
       </provider>

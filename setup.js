@@ -24,10 +24,10 @@ uncategorizedMovieRepository.removeAll({
 });
 
 genreRepository.removeAll({
-	error: function() { console.log("An error has occurred while removing all genres."); },
+	error: function(error) { console.log("An error has occurred while removing all genres."); },
 	success: function() {
 		new Array("Action", "Adventure", "Comedy", "Crime", "Drama", "Fantasy", "Romance", "Science Fiction", "Thriller").forEach(function(name) {
-			genreRepository.insert({ name: name }, {
+			genreRepository.insert({ id: guid.create().value, name: name }, {
 				error: function() { console.log("An error has occurred while inserting the \"" + name + "\" genre."); },
 				success: function(genre) { genres[name] = genre; }
 			})

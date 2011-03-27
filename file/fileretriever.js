@@ -53,6 +53,7 @@ exports.getFile = function(path, success, error) {
 			case ".html" || ".htm": return "text/html";
 			case ".xml": return "text/xml";
 			case ".ogv": return "application/ogg";
+			case ".mp4": return "video/mp4";
 			default: return "text/plain";
 		}
 	}

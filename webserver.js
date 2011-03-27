@@ -63,7 +63,7 @@
 				else
 					handleStaticRequest(request, response);
 			});
-		}).listen(port, "127.0.0.1");
+		}).listen(port);
 
 		console.log("Web server listening on " + port + " with root " + _root + ".");
 	};
@@ -91,6 +91,7 @@
 	//
 	var handleStreamedFile = function (fileretriever, request, response) {
 		var path = _root + request.url;
+
 		fileretriever.getFile(path, function(file, type) {
 			var range = request.headers.range;
 			var total = file.length;
@@ -102,10 +103,11 @@
 			var start = parseInt(partialstart, 10);
 			var end = partialend ? parseInt(partialend, 10) : total-1;
 
-			var chunksize = (end-start)+1;
+			var chunk = file.slice(start, end+1);
+			var chunksize = chunk.length;
 
 			response.writeHead(206, { "Connection": "Close", "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": type });
-			response.end(file.slice(start, end), "binary");
+			response.end(chunk, "binary");
 		}, function(error) {
 			response.writeHead(404, { "Content-Type": "text/plain" });
 			response.end(error);

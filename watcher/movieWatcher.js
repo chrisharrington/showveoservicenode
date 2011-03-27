@@ -73,6 +73,8 @@
 //		if (!path.endsWith(".ogv") && !path.endsWith(".avi") && !path.endsWith(".mkv") && !path.endsWith(".mpg") && !path.endsWith(".mp4"))
 //			return;
 
+		console.log("Movie added:  " + path);
+
 		var parts = path.split("/");
 		var newFilename = _guidFactory.create().value.replace(/-/g, "") + ".raw";
 		_fs.rename(path, _movieLocation + newFilename, function() {
