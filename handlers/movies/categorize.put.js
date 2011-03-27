@@ -56,18 +56,20 @@
 
 		_userRepository.getByIdentity(request.identity, {
 			success: function(user) {
-				_movieInfoRepository.getByID(movieInfoID, {
-					success: function(movie) {
-						movie.id = _guidFactory.create().value;
-						_movieRepository.insert(movie, {
+				_uncategorizedMovieRepository.getByID(uncategorizedMovieID, {
+					success: function(uncategorizedMovie) {
+						_movieInfoRepository.getByID(movieInfoID, {
 							success: function(movie) {
-								_userMovieRepository.insert({ user: user, movie: movie }, {
-									success: function() {},
-									error: function() {}
-								});
+								movie.id = _guidFactory.create().value;
+								if (uncategorizedMovie.encoded)
+									movie.encoded = true;
+								_movieRepository.insert(movie, {
+									success: function(movie) {
+										_userMovieRepository.insert({ user: user, movie: movie }, {
+											success: function() {},
+											error: function() {}
+										});
 
-								_uncategorizedMovieRepository.getByID(uncategorizedMovieID, {
-									success: function(uncategorizedMovie) {
 										uncategorizedMovie.categorizedMovieID = movie.id;
 										_uncategorizedMovieRepository.update(uncategorizedMovie, {
 											success: function() {
@@ -80,17 +82,17 @@
 										});
 									},
 									error: function() {
-										writeError(response, "An error has occurred while retrieving the uncategorized movie information.");
+										writeError(response, "An error has occurred while inserting the newly categorized movie.");
 									}
 								});
 							},
 							error: function() {
-								writeError(response, "An error has occurred while inserting the newly categorized movie.");
+								writeError(response, "An error has occurred while retrieving the movie information.");
 							}
 						});
 					},
 					error: function() {
-						writeError(response, "An error has occurred while retrieving the movie information.");
+						writeError(response, "An error has occurred while retrieving the uncategorized movie information.");
 					}
 				});
 			}
