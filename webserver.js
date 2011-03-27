@@ -21,6 +21,9 @@
 	//	The included query string library.
 	var _querystring;
 
+	//	The user-agent analyzer used to determine if a request comes from a mobile or desktop browser.
+	var _useragentanalyzer;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -31,6 +34,7 @@
 	//	root:				The root path for all applications.
 	//	fileretriever:		The file retrieval library.
 	//	querystring:		The included query string library.
+	//	useragentanalyzer:	The user-agent analyzer.
 	//
 	exports.initialize = function(parameters) {
 		_router = parameters.router;
@@ -38,6 +42,7 @@
 		_root = parameters.root;
 		_fileretriever = parameters.fileretriever;
 		_querystring = parameters.querystring;
+		_useragentanalyzer = parameters.useragentanalyzer;
 	};
 
 	//
@@ -78,21 +83,18 @@
 	//
 	var handleStaticRequest = function(request, response) {
 		if (request.headers.range)
-			handleStreamedFile(_fileretriever, request, response);
+			handleStreamedFile(request, response);
 		else
-			handleStaticFile(_fileretriever, request.url, response);
+			handleStaticFile(request.url, response);
 	};
 
 	//
 	//	Handles a request for a streamed file.
-	//	fileretriever:			The file retriever application to invoke.
 	//	request:				The request object.
 	//	response:				The response object.
 	//
-	var handleStreamedFile = function (fileretriever, request, response) {
-		var path = _root + request.url;
-
-		fileretriever.getFile(path, function(file, type) {
+	var handleStreamedFile = function (request, response) {
+		getFile(request, function(file, type) {
 			var range = request.headers.range;
 			var total = file.length;
 
@@ -116,11 +118,10 @@
 
 	//
 	//	Handles a request for a static file.
-	//	fileretriever:			The file retriever application to invoke.
 	//	url:					The url of the request.
 	//	response:				The response object.
 	//
-	var handleStaticFile = function(fileretriever, url, response) {
+	var handleStaticFile = function(url, response) {
 		if (url == "/")
 			url = "/index.html";
 
@@ -129,7 +130,7 @@
 			url = url.substring(0, index);
 
 		var path = require("path").normalize(_root + url);
-		fileretriever.getFile(path, function(file, type) {
+		_fileretriever.getFile(path, function(file, type) {
 			response.writeHead(200, { "Content-Type": type, "Content-Length": file.length });
 			response.end(file, "binary");
 		}, function(error) {
@@ -137,4 +138,31 @@
 			response.end(error);
 		});
 	};
+
+	//
+	//	Gets a file by first checking the raw path and, if it's not found, then checks for the existence of mobile or
+	//	desktop versions of the file.
+	//	request:				The request object.
+	//	success:				The callback function to execute on successful file retrieval.
+	//	error:					The error callback.
+	//
+	var getFile = function(request, success, error) {
+		var path = _root + request.url;
+
+		_fileretriever.getFile(path, function(file, type) {
+			success(file, type);
+		}, function(error) {
+			var extension = path.substring(path.lastIndexOf("."));
+			path = path.substring(0, path.lastIndexOf(".")-1);
+
+			var useragent = request.headers["user-agent"];
+			path += (_useragentanalyzer.isDesktop() ? ".full" : ".mobile") + extension;
+			_fileretriever.getFile(path, function(file, type) {
+				success(file);
+			}, function() {
+				error();
+			});
+		});
+	};
+
 })();

@@ -108,7 +108,8 @@ var service = {
 				http: require("http"),
 				root: root,
 				fileretriever: require("./file/fileretriever"),
-				querystring: require("querystring")
+				querystring: require("querystring"),
+				useragentanalyzer: require("./service/useragentanalyzer")
 			});
 			webserver.run(port);
 		};

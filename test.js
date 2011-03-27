@@ -1,2 +1,2 @@
-var useragent = require("./service/requestAnalyzer");
+var useragent = require("./service/userAgentAnalyzer");
 console.log(useragent.isMobile("Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.151 Safari/534.16,gzip(gfe)"));

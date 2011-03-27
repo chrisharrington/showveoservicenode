@@ -1,40 +1,49 @@
 //
-//	Retrieves files on request.
-//	path:					The path of the file to retrieve.
-//	success:				The callback function to call with the file data.
-//	error:					The callback function to fire when an error occurs.
+//	A class used to retrieve a file for reading.
 //
-exports.getFile = function(path, success, error) {
+(function() {
 
 	//------------------------------------------------------------------------------------------------------------------
-	/* Data Members */
+	/* Public Methods */
 
-	//	The included path library.
-	var _path;
+	//
+	//	Retrieves files on request.
+	//	path:					The path of the file to retrieve.
+	//	success:				The callback function to call with the file data.
+	//	error:					The callback function to fire when an error occurs.
+	//
+	exports.getFile = function(path, success, error) {
 
-	//	The included file system library.
-	var _fs;
+		//------------------------------------------------------------------------------------------------------------------
+		/* Data Members */
 
-	//------------------------------------------------------------------------------------------------------------------
-	
-	_path = require("path");
-	_fs = require("fs");
+		//	The included path library.
+		var _path;
 
-	_path.exists(path, function(exists) {
-		if(!exists) {
-			error("The file could not be found.");;
-			return;
-		}
+		//	The included file system library.
+		var _fs;
 
-		_fs.readFile(path, "binary", function(err, file) {
-			if(err) {
-				error(err);
+		//------------------------------------------------------------------------------------------------------------------
+
+		_path = require("path");
+		_fs = require("fs");
+
+		_path.exists(path, function(exists) {
+			if(!exists) {
+				error("The file could not be found.");
 				return;
 			}
 
-			success(file, deriveMimeType(path));
+			_fs.readFile(path, "binary", function(err, file) {
+				if(err) {
+					error(err);
+					return;
+				}
+
+				success(file, deriveMimeType(path));
+			});
 		});
-	});
+	};
 
 	//------------------------------------------------------------------------------------------------------------------
 	/* Private Methods */
@@ -57,4 +66,5 @@ exports.getFile = function(path, success, error) {
 			default: return "text/plain";
 		}
 	}
-};
+
+})();
