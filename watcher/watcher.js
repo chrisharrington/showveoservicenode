@@ -36,11 +36,11 @@
 
 		_notify.addWatch({
 			path: folder,
-			watch_for: _events.IN_CREATE | _events.IN_DELETE,
+			watch_for: _events.IN_CREATE | _events.IN_DELETE | _events.IN_MOVED_TO,
 			callback: function(event) {
 				var mask = event.mask;
 				var name = event.name;
-				if (mask & _events.IN_CREATE)
+				if ((mask & _events.IN_CREATE) || (mask & _events.IN_MOVED_TO))
 					onFileAdded(folder + name);
 				else if (mask & _events.IN_DELETE)
 					onFileRemoved(folder + name);

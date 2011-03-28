@@ -18,9 +18,6 @@
 	//	The underlying watcher.
 	var _watcher;
 
-	//	A container for uncategorized movie information.
-	var _uncategorizedMovieRepository;
-
 	//	Generates unique identifiers.
 	var _guidFactory;
 
@@ -29,11 +26,10 @@
 
 	//
 	//	Initializes the movie watcher.
-	//	movieLocation:	The location in which to store movies.
-	//	fs:				The included file system library.
+	//	movieLocation:		The location in which to store movies.
+	//	fs:					The included file system library.
 	//	encoder:			Encodes movie files.
 	//	watcher:			The underlying watcher.
-	//	repository:		A container for uncategorized movie information.
 	//	guidFactory:		Generates unique identifiers.
 	//
 	exports.initialize = function(parameters) {
@@ -41,8 +37,10 @@
 		_fs = parameters.fs;
 		_encoder = parameters.encoder;
 		_watcher = parameters.watcher;
-		_uncategorizedMovieRepository = parameters.repository;
 		_guidFactory = parameters.guidFactory;
+
+		if (!_movieLocation.endsWith("/"))
+			_movieLocation += "/";
 	};
 
 	//

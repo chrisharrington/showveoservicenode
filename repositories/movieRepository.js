@@ -62,4 +62,14 @@
 		_db.findOne("movies", { id: id }, handlers);
 	};
 
+	//
+	//	Retrieves a movie by title and year.
+	//	title:				The title of the movie.
+	//	year:				The year of the movie.
+	//	handlers:			The function handlers.
+	//
+	exports.getByTitleAndYear = function(title, year, handlers) {
+		_db.findOne("movies", { name: title, year: year }, handlers);
+	};
+
 })();

@@ -1,2 +1,9 @@
-var useragent = require("./service/userAgentAnalyzer");
-console.log(useragent.isMobile("Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.151 Safari/534.16,gzip(gfe)"));
+require("./extensions/string").initialize();
+
+var watcher = require("./watcher/watcher");
+watcher.initialize();
+watcher.watch("/home/chris/Test", function(name) {
+	console.log("File added:  " + name);
+}, function(name) {
+	console.log("File removed: " + name);
+});

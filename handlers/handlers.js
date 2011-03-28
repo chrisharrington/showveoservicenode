@@ -72,6 +72,7 @@ var handlers = function(parameters) {
 		require("./movies/uncategorized.get").initialize(container);
 		require("./movies/search/.get").initialize(container);
 		require("./movies/categorize.put").initialize(container);
+		require("./movie/.get").initialize(container);
 	};
 
 }();

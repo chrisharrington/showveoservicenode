@@ -15,6 +15,9 @@
 	//	The root path for all applications.
 	var _root;
 
+	//	The movie root location.
+	var _movieRoot;
+
 	//	Retrieves files to be written.
 	var _fileretriever;
 
@@ -32,6 +35,7 @@
 	//	router:			Routes incoming requests to the appropriate handler.
 	//	http:				The included http library.
 	//	root:				The root path for all applications.
+	//	movieRoot:			The movie root location.
 	//	fileretriever:		The file retrieval library.
 	//	querystring:		The included query string library.
 	//	useragentanalyzer:	The user-agent analyzer.
@@ -40,6 +44,7 @@
 		_router = parameters.router;
 		_http = parameters.http;
 		_root = parameters.root;
+		_movieRoot = parameters.movieRoot;
 		_fileretriever = parameters.fileretriever;
 		_querystring = parameters.querystring;
 		_useragentanalyzer = parameters.useragentanalyzer;
@@ -65,12 +70,16 @@
 
 				if (url.endsWith(".data"))
 					_router.route(request, response);
-				else
+				else {
+					request.root = _root;
 					handleStaticRequest(request, response);
+				}
 			});
 		}).listen(port);
 
-		console.log("Web server listening on " + port + " with root " + _root + ".");
+		console.log("Web server listening on " + port + ".");
+		console.log("Web server root location set to " + _root + ".");
+		console.log("Web server movie root location set to " + _movieRoot + ".");
 	};
 
 	//------------------------------------------------------------------------------------------------------------------
@@ -82,10 +91,23 @@
 	//	response:				The response object.
 	//
 	var handleStaticRequest = function(request, response) {
-		if (request.headers.range)
+		if (request.url.endsWith(".movie"))
+			handleMovieRequest(request, response);
+		else if (request.headers.range)
 			handleStreamedFile(request, response);
 		else
-			handleStaticFile(request.url, response);
+			handleStaticFile(request, response);
+	};
+
+	//
+	//	Handles a movie request.
+	//	request:				The request object.
+	//	response:				The response object.
+	//
+	var handleMovieRequest = function (request, response) {
+		request.root = _movieRoot;
+		request.url = request.url.replace(".movie", (_useragentanalyzer.isDesktop(request.headers["user-agent"]) ? ".full" : ".mobile"));
+		handleStaticRequest(request, response);
 	};
 
 	//
@@ -108,7 +130,7 @@
 			var chunk = file.slice(start, end+1);
 			var chunksize = chunk.length;
 
-			response.writeHead(206, { "Connection": "Close", "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": type });
+			response.writeHead(206, { "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": type });
 			response.end(chunk, "binary");
 		}, function(error) {
 			response.writeHead(404, { "Content-Type": "text/plain" });
@@ -118,10 +140,11 @@
 
 	//
 	//	Handles a request for a static file.
-	//	url:					The url of the request.
+	//	request:				The request object.
 	//	response:				The response object.
 	//
-	var handleStaticFile = function(url, response) {
+	var handleStaticFile = function(request, response) {
+		var url = request.url;
 		if (url == "/")
 			url = "/index.html";
 
@@ -129,8 +152,8 @@
 		if (index > -1)
 			url = url.substring(0, index);
 
-		var path = require("path").normalize(_root + url);
-		_fileretriever.getFile(path, function(file, type) {
+		request.url = url;
+		getFile(request, function(file, type) {
 			response.writeHead(200, { "Content-Type": type, "Content-Length": file.length });
 			response.end(file, "binary");
 		}, function(error) {
@@ -144,24 +167,15 @@
 	//	desktop versions of the file.
 	//	request:				The request object.
 	//	success:				The callback function to execute on successful file retrieval.
-	//	error:					The error callback.
+	//	fail:					The error callback.
 	//
-	var getFile = function(request, success, error) {
-		var path = _root + request.url;
-
+	var getFile = function(request, success, fail) {
+		var path = request.root + request.url;
+		
 		_fileretriever.getFile(path, function(file, type) {
 			success(file, type);
-		}, function(error) {
-			var extension = path.substring(path.lastIndexOf("."));
-			path = path.substring(0, path.lastIndexOf(".")-1);
-
-			var useragent = request.headers["user-agent"];
-			path += (_useragentanalyzer.isDesktop() ? ".full" : ".mobile") + extension;
-			_fileretriever.getFile(path, function(file, type) {
-				success(file);
-			}, function() {
-				error();
-			});
+		}, function() {
+			fail();
 		});
 	};
 

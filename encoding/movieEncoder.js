@@ -53,14 +53,17 @@
 			id: _guidFactory.create().value,
 			filename: original,
 			createdDate: new Date(),
-			encoded: false
+			encoded: false,
+			url: ""
 		};
 
 		_uncategorizedMovieRepository.insert(movie, {
 			success: function(insertedMovie) {
-				var output = path.replace(".raw", ".mp4");
+				var output = path.replace(".raw", "");
 				console.log(new Date() + " - encoding begun.");
 				_encoder.encode(path, output, function() {
+					output = output.substring(output.lastIndexOf("/")+1) + ".movie";
+
 					_fs.unlink(path);
 
 					console.log(new Date() + " - encoding finished.");
@@ -73,11 +76,9 @@
 									success: function(categorized) {
 										if (categorized) {
 											categorized.encoded = true;
-											categorized.url = output.substring(output.lastIndexOf("/")+1);
+											categorized.url = output;
 											_movieRepository.update(categorized, {
-												success: function() {
-													console.log("Completed.");
-												}
+												success: function() {}
 											});
 										}
 									}
@@ -85,6 +86,7 @@
 							}
 
 							retrievedMovie.encoded = true;
+							retrievedMovie.url = output;
 							_uncategorizedMovieRepository.update(retrievedMovie);
 						}
 					});

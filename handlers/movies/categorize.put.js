@@ -63,9 +63,10 @@
 								movie.id = _guidFactory.create().value;
 								if (uncategorizedMovie.encoded)
 									movie.encoded = true;
+								movie.url = uncategorizedMovie.url;
 								_movieRepository.insert(movie, {
 									success: function(movie) {
-										_userMovieRepository.insert({ user: user, movie: movie }, {
+										_userMovieRepository.insert({ user: user, movie: movie, isFavorite: false }, {
 											success: function() {},
 											error: function() {}
 										});

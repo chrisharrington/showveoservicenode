@@ -62,6 +62,8 @@
 			case ".html" || ".htm": return "text/html";
 			case ".xml": return "text/xml";
 			case ".ogv": return "application/ogg";
+			case ".full": return "video/mp4";
+			case ".mobile": return "video/mp4";
 			case ".mp4": return "video/mp4";
 			default: return "text/plain";
 		}

@@ -9,15 +9,20 @@
 	//	The included child process library.
 	var _cp;
 
+	//	The file extension used for encoding files.
+	var _extension;
+
 	//------------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
 	//
 	//	Initializes the encoder.
 	//	cp:				The included child process library.
+	//	extension:		The file extension used for encoding files.
 	//
-	exports.initialize = function(cp) {
+	exports.initialize = function(cp, extension) {
 		_cp = cp;
+		_extension = extension;
 	};
 
 	//
@@ -28,10 +33,9 @@
 	//	error:			The error callback.
 	//
 	exports.encode = function(input, output, success, error) {
-		var name = output.replace(".mp4", "");
-		var status = { full: false, mobile: false };
-		execute(_cp.spawn("ffmpeg", ["-i", input, "-s", "720x480", "-b", "3000k", "-ab", "192k", "-r", "30", "-ac", "2", name + ".full.mp4"]), function() { status.full = true; done(status, success); }, error);
-		execute(_cp.spawn("ffmpeg", ["-i", input, "-s", "480x320", "-b", "500k", "-ab", "128k", "-r", "30", "-ac", "2", name + ".mobile.mp4"]), function() { status.mobile = true; done(status, success); }, error);
+		var status = { full: true, mobile: false };
+		//execute(["-i", input, "-s", "720x480", "-b", "3000k", "-ab", "192k", "-r", "30", "-ac", "2", "-f", _extension, output + ".full"], function() { status.full = true; done(status, success); }, error);
+		execute(["-i", input, "-s", "480x320", "-b", "500k", "-ab", "128k", "-r", "30", "-ac", "2", "-f", _extension, output + ".mobile"], function() { status.mobile = true; done(status, success); }, error);
 	};
 
 	//------------------------------------------------------------------------------------------------------------------
@@ -39,11 +43,18 @@
 
 	//
 	//	Executes a spawned ffmpeg process.
-	//	ffmpeg:			The spawned ffmpeg process.
+	//	params:			The ffmpeg parameters.
 	//	success:		The success callback.
 	//	error:			The error callback.
 	//
-	var execute = function(ffmpeg, success, error) {
+	var execute = function(params, success, error) {
+		var ffmpeg = _cp.spawn("ffmpeg", params);
+		ffmpeg.stdout.on("data", function(data) {
+			console.log(data.toString("utf8"));;
+		});
+		ffmpeg.stderr.on("data", function(data) {
+			console.log(data.toString("utf8"));;
+		});
 		ffmpeg.on("exit", function(code) {
 			if (code == 1)
 				error();

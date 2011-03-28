@@ -69,7 +69,7 @@ var service = {
 		//
 		var loadEncoders = function() {
 			var encoder = require("./encoding/encoder");
-			encoder.initialize(require("child_process"));
+			encoder.initialize(require("child_process"), "mp4");
 
 			var movieEncoder = require("./encoding/movieEncoder");
 			movieEncoder.initialize(encoder, require("fs"), require("./repositories/uncategorizedMovieRepository"), require("./repositories/movieRepository"), require("guid"));
@@ -87,7 +87,6 @@ var service = {
 			var movieWatcher = require("./watcher/movieWatcher");
 			movieWatcher.initialize({
 				watcher: watcher,
-				repository: require("./repositories/uncategorizedMovieRepository"),
 				guidFactory: require("guid"),
 				movieLocation: movieDestinationDirectory,
 				fs: require("fs"),
@@ -99,14 +98,16 @@ var service = {
 		//
 		//	Loads the webserver.
 		//	root:							The root directory for retrieving static files.
+		//	movieRoot:						The movie root location.
 		//	port:							The port on which the webserver should listen.
 		//
-		var loadWebserver = function(root, port) {
+		var loadWebserver = function(root, movieRoot, port) {
 			var webserver = require("./webserver");
 			webserver.initialize({
 				router: require("./handlers/router"),
 				http: require("http"),
 				root: root,
+				movieRoot: movieRoot,
 				fileretriever: require("./file/fileretriever"),
 				querystring: require("querystring"),
 				useragentanalyzer: require("./service/useragentanalyzer")
@@ -121,10 +122,12 @@ var service = {
 		loadMovieService();
 		loadHandlers(parameters.root);
 		loadEncoders();
-		loadWatchers("/home/chris/Test", "/home/chris/Videos/showveo/");
-		loadWebserver(parameters.root, parameters.port);
+		loadWatchers(parameters.movieWatch, parameters.movieRoot);
+		loadWebserver(parameters.root, parameters.movieRoot, parameters.port);
 	}
 }.initialize({
 	port: 3000,
-	root: __dirname.replace(/showveoservice/g, "") + "showveo"
+	root: "/home/chris/Code/showveo",
+	movieRoot: "/home/chris/Videos/showveo",
+	movieWatch: "/home/chris/Videos/showveo/temp"
 });

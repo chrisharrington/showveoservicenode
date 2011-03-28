@@ -46,7 +46,7 @@
 	//	Returns:		The desktop browser flag.
 	//
 	var isDesktop = function(useragent) {
-		return !_isMobile.test(useragent) && (_isDesktop.test(useragent) || _isBot.test(useragent)); 
+		return !_isMobile.test(useragent) || _isDesktop.test(useragent) || _isBot.test(useragent); 
 	};
 
 })();
