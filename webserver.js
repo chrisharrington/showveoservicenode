@@ -116,22 +116,19 @@
 	//	response:				The response object.
 	//
 	var handleStreamedFile = function (request, response) {
-		getFile(request, function(file, type) {
-			var range = request.headers.range;
-			var total = file.length;
+		var range = request.headers.range;
 
-			var parts = range.replace(/bytes=/, "").split("-");
-			var partialstart = parts[0];
-			var partialend = parts[1];
+		var parts = range.replace(/bytes=/, "").split("-");
+		var partialstart = parts[0];
+		var partialend = parts[1];
 
-			var start = parseInt(partialstart, 10);
-			var end = partialend ? parseInt(partialend, 10) : total-1;
+		var start = parseInt(partialstart, 10);
+		var end = partialend ? parseInt(partialend, 10) : 0;
 
-			var chunk = file.slice(start, end+1);
-			var chunksize = chunk.length;
-
-			response.writeHead(206, { "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": type });
-			response.end(chunk, "binary");
+		var path = request.root + request.url;
+		_fileretriever.getPortionOfFile(path, { start: start, end: end }, function(file, totalsize, type) {
+			response.writeHead(206, { "Content-Range": "bytes " + start + "-" + end + "/" + totalsize, "Accept-Ranges": "bytes", "Content-Length": file.length, "Content-Type": type });
+			response.end(file);
 		}, function(error) {
 			response.writeHead(404, { "Content-Type": "text/plain" });
 			response.end(error);
@@ -153,29 +150,12 @@
 			url = url.substring(0, index);
 
 		request.url = url;
-		getFile(request, function(file, type) {
+		_fileretriever.getPortionOfFile(request.root + request.url, {}, function(file, totalsize, type) {
 			response.writeHead(200, { "Content-Type": type, "Content-Length": file.length });
-			response.end(file, "binary");
+			response.end(file);
 		}, function(error) {
 			response.writeHead(404, { "Content-Type": "text/plain" });
 			response.end(error);
-		});
-	};
-
-	//
-	//	Gets a file by first checking the raw path and, if it's not found, then checks for the existence of mobile or
-	//	desktop versions of the file.
-	//	request:				The request object.
-	//	success:				The callback function to execute on successful file retrieval.
-	//	fail:					The error callback.
-	//
-	var getFile = function(request, success, fail) {
-		var path = request.root + request.url;
-		
-		_fileretriever.getFile(path, function(file, type) {
-			success(file, type);
-		}, function() {
-			fail();
 		});
 	};
 

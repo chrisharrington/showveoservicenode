@@ -1,9 +1,6 @@
-require("./extensions/string").initialize();
-
-var watcher = require("./watcher/watcher");
-watcher.initialize();
-watcher.watch("/home/chris/Test", function(name) {
-	console.log("File added:  " + name);
-}, function(name) {
-	console.log("File removed: " + name);
+var fileretriever = require("./file/fileretriever");
+fileretriever.getPortionOfFile("/home/chris/Code/showveo/test.ogv", {}, function(file) {
+	console.log("success! " + file.length);
+}, function(err) {
+	console.log("error - " + err);
 });
