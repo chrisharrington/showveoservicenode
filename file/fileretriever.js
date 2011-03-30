@@ -7,45 +7,6 @@
 	/* Public Methods */
 
 	//
-	//	Retrieves files on request.
-	//	path:					The path of the file to retrieve.
-	//	success:				The callback function to call with the file data.
-	//	error:					The callback function to fire when an error occurs.
-	//
-	exports.getFile = function(path, success, error) {
-
-		//------------------------------------------------------------------------------------------------------------------
-		/* Data Members */
-
-		//	The included path library.
-		var _path;
-
-		//	The included file system library.
-		var _fs;
-
-		//------------------------------------------------------------------------------------------------------------------
-
-		_path = require("path");
-		_fs = require("fs");
-
-		_path.exists(path, function(exists) {
-			if(!exists) {
-				error("The file could not be found.");
-				return;
-			}
-
-			_fs.readFile(path, "binary", function(err, file) {
-				if(err) {
-					error(err);
-					return;
-				}
-
-				success(file, deriveMimeType(path));
-			});
-		});
-	};
-
-	//
 	//	Retrieves a portion of a file.
 	//	path:					The path of the file.
 	//	bounds:					Contains "start" and "end", referring to the lower and upper bounds of the portion.
@@ -75,8 +36,13 @@
 
 				var start = bounds.start;
 				var end = bounds.end;
-				if (end == 0 || end < start)
+
+				if (start > stats.size)
+					start = stats.size;
+				if (end == 0 || end < start || end > stats.size)
 					end = stats.size;
+				if (start < 0)
+					start = 0;
 
 				var buffer = new Buffer(end - start);
 				var count = 0;

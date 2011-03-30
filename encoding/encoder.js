@@ -36,6 +36,7 @@
 		var status = { full: true, mobile: false };
 		//execute(["-i", input, "-s", "720x480", "-b", "3000k", "-ab", "192k", "-r", "30", "-ac", "2", "-f", _extension, output + ".full"], function() { status.full = true; done(status, success); }, error);
 		execute(["-i", input, "-s", "480x320", "-b", "500k", "-ab", "128k", "-r", "30", "-ac", "2", "-f", _extension, output + ".mobile"], function() { status.mobile = true; done(status, success); }, error);
+		//execute(["-i", input, "-s", "480x320", "-b", "500k", "-ab", "128k", "-ac", "2", "-vcodec", "libx264", "-threads", "0", "-vpre", "superfast", "-f", _extension, output + ".mobile"], function() { status.mobile = true; done(status, success); }, error);
 	};
 
 	//------------------------------------------------------------------------------------------------------------------
@@ -50,10 +51,10 @@
 	var execute = function(params, success, error) {
 		var ffmpeg = _cp.spawn("ffmpeg", params);
 		ffmpeg.stdout.on("data", function(data) {
-			console.log(data.toString("utf8"));;
+			console.log(data.toString("utf8"));
 		});
 		ffmpeg.stderr.on("data", function(data) {
-			console.log(data.toString("utf8"));;
+			console.log(data.toString("utf8"));
 		});
 		ffmpeg.on("exit", function(code) {
 			if (code == 1)
