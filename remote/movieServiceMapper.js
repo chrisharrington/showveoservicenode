@@ -30,13 +30,17 @@
 			name: data.name,
 			year: data.released.substring(0, 4),
 			synopsis: data.overview,
+            tagline: data.tagline,
+            certification: data.certification,
+            runtime: data.runtime,
+            rating: data.rating,
+            released: data.released,
 			uploadDate: new Date(),
 			lastWatched: null,
 			lastWatchedDate: null,
 			poster: derivePoster(data.posters),
 			director: deriveDirector(data.cast),
 			actors: deriveActors(data.cast, 5),
-			isFavorite: false,
 			url: "",
 			encoded: false
 		};
